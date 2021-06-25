@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use jeremykenedy\LaravelRoles\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -53,6 +54,9 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'lastname' => ['string', 'max:255'],
+            'phone' => ['min:11', 'numeric'],
+            'country' => ['string']
         ]);
     }
 
@@ -64,10 +68,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $role = Role::where('slug', '=', 'unverified')->first();
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'lastname' => $data['lastname'],
+            'phone' => $data['phone'],
+            'country' => $data['country']
         ]);
+
+        $user->attachRole($role);
+
+        return $user;
     }
 }

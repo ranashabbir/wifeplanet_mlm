@@ -54,8 +54,17 @@
                                 @csrf
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control form-input-bg @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                    <label for="name">{{ __('Name') }}</label>
+                                    <label for="name">{{ __('First Name') }}</label>
                                     @error('name')
+                                        <div class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control form-input-bg @error('lastname') is-invalid @enderror" id="lastname" name="lastname" value="{{ old('lastname') }}" required >
+                                    <label for="lastname">{{ __('Last Name') }}</label>
+                                    @error('lastname')
                                         <div class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </div>
@@ -82,6 +91,24 @@
                                 <div class="form-floating mb-3">
                                     <input type="password" class="form-control form-input-bg" id="password-confirm" placeholder="*****" name="password_confirmation" min="8" required autocomplete="new-password">
                                     <label for="password-confirm">{{ __('Confirm Password') }}</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control form-input-bg @error('phone') is-invalid @enderror" id="phone" min="11" placeholder="18552262538" name="phone" value="{{ old('phone') }}">
+                                    <label for="phone">{{ __('Phone Number') }}</label>
+                                    @error('phone')
+                                        <div class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control form-input-bg @error('country') is-invalid @enderror" id="country" min="11" placeholder="United States" name="country" value="{{ old('country') }}">
+                                    <label for="country">{{ __('Country') }}</label>
+                                    @error('country')
+                                        <div class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
                                 </div>
                             <!--
                                 <div class="checkbox checkbox-primary mb-3">

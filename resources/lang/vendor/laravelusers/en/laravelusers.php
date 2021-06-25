@@ -19,8 +19,11 @@ return [
     'users-table' => [
         'caption'   => '{1} :userscount user total|[2,*] :userscount total users',
         'id'        => 'ID',
-        'name'      => 'Name',
+        'name'      => 'First Name',
+        'lastname'  => 'Last Name',
         'email'     => 'Email',
+        'phone'     => 'Phone',
+        'country'   => 'Country',
         'role'      => 'Role',
         'created'   => 'Created',
         'updated'   => 'Updated',
