@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnsToUsersTable extends Migration
+class AddDeletedAtInUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AddColumnsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('lastname')->after('name')->nullable();
-            $table->string('phone')->after('email_verified_at')->nullable();
-            $table->string('country')->after('phone')->nullable();
+            $table->softDeletes();
         });
     }
 
@@ -28,9 +26,7 @@ class AddColumnsToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('lastname');
-            $table->dropColumn('phone');
-            $table->dropColumn('country');
+            $table->dropSoftDeletes();
         });
     }
 }

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use jeremykenedy\LaravelRoles\Models\Role;
 
+use Newsletter;
+
 class RegisterController extends Controller
 {
     /*
@@ -79,6 +81,11 @@ class RegisterController extends Controller
         ]);
 
         $user->attachRole($role);
+        Newsletter::subscribe($data['email'], [
+            'FNAME' => $data['name'],
+            'LNAME' => $data['lastname'],
+            'PHONE' => $data['phone']
+        ]);
 
         return $user;
     }
