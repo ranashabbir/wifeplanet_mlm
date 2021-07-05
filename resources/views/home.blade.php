@@ -1,5 +1,7 @@
 @extends('layouts.index')
-
+@section('title')
+    {{ __('Dashboard') }}
+@endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('assets/libs/apexcharts/dist/apexcharts.css') }}">
     <link href="{{ asset('assets/extra-libs/css-chart/css-chart.css') }}" rel="stylesheet">
@@ -10,11 +12,11 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-md-5 align-self-center">
-                <h3 class="page-title">Dashboard</h3>
+                <h3 class="page-title">{{ __('Dashboard') }}</h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ __('Dashboard') }}</li>
                         </ol>
                     </nav>
                 </div>
