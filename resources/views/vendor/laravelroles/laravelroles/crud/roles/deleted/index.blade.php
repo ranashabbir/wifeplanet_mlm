@@ -33,32 +33,32 @@
 @endsection
 
 @section('content')
+    <div class="page-wrapper">
+        @include('laravelroles::laravelroles.partials.flash-messages')
 
-    @include('laravelroles::laravelroles.partials.flash-messages')
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                @include('laravelroles::laravelroles.tables.roles-table',['isDeletedRoles' => true])
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    @include('laravelroles::laravelroles.tables.roles-table',['isDeletedRoles' => true])
+                </div>
             </div>
+
+            <div class="clearfix mb-4"></div>
+
         </div>
 
-        <div class="clearfix mb-4"></div>
+        @include('laravelroles::laravelroles.modals.confirm-modal',[
+            'formTrigger' => 'confirmDestroyRoles',
+            'modalClass' => 'danger',
+            'actionBtnIcon' => 'fa-trash-o'
+        ])
 
+        @include('laravelroles::laravelroles.modals.confirm-modal',[
+            'formTrigger' => 'confirmRestoreRoles',
+            'modalClass' => 'success',
+            'actionBtnIcon' => 'fa-check'
+        ])
     </div>
-
-    @include('laravelroles::laravelroles.modals.confirm-modal',[
-        'formTrigger' => 'confirmDestroyRoles',
-        'modalClass' => 'danger',
-        'actionBtnIcon' => 'fa-trash-o'
-    ])
-
-    @include('laravelroles::laravelroles.modals.confirm-modal',[
-        'formTrigger' => 'confirmRestoreRoles',
-        'modalClass' => 'success',
-        'actionBtnIcon' => 'fa-check'
-    ])
-
 @endsection
 
 @section(config('roles.bladePlacementJs'))

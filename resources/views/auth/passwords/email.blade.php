@@ -49,9 +49,9 @@
                         <div class="col-md-7 col-lg-12 col-xl-9">
                             <div>
                                 <span class="db"><img src="{{ asset('assets/images/logo-light-icon.png') }}" alt="logo" /></span>
-                                <span class="db"><img src="{{ asset('assets/images/logo-light-text.png') }}" alt="logo" /></span>
+                                {{-- <span class="db"><img src="{{ asset('assets/images/logo-light-text.png') }}" alt="logo" /></span> --}}
                             </div>
-                            <h2 class="text-white mt-4 fw-light">Build <span class="font-weight-medium">Fast & Responsive</span> Web Apps with Bootstrap 5</h2>
+                            <h2 class="text-white mt-4 fw-light">{{ config('app.name', 'Laravel') }} <span class="font-weight-medium">Admin</span> Dating Site</h2>
                             <p class="op-5 text-white fs-4 mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
                         </div>
                     </div>

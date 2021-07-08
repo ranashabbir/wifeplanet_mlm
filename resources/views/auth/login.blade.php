@@ -10,13 +10,11 @@
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, monster admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, ">
-    <meta name="description"
-        content="monster is powerful and clean admin dashboard template">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
     <meta name="robots" content="noindex,nofollow">
     <title>{{ config('app.name', 'Laravel') }} - {{ __('Login') }}</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/monsteradmin/" />
+    {{-- <link rel="canonical" href="https://www.wrappixel.com/templates/monsteradmin/" /> --}}
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
     <!-- Custom CSS -->
@@ -48,9 +46,9 @@
                         <div class="col-md-7 col-lg-12 col-xl-9">
                             <div>
                                 <span class="db"><img src="{{ asset('assets/images/logo-light-icon.png') }}" alt="logo" /></span>
-                                <span class="db"><img src="{{ asset('assets/images/logo-light-text.png') }}" alt="logo" /></span>
+                                {{-- <span class="db"><img src="{{ asset('assets/images/logo-light-text.png') }}" alt="logo" /></span> --}}
                             </div>
-                            <h2 class="text-white mt-4 fw-light">Build <span class="font-weight-medium">Fast & Responsive</span> Web Apps with Bootstrap 5</h2>
+                            <h2 class="text-white mt-4 fw-light">{{ config('app.name', 'Laravel') }} <span class="font-weight-medium">Admin</span> Dating Site</h2>
                             <p class="op-5 text-white fs-4 mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
                         </div>
                     </div>

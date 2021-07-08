@@ -17,30 +17,20 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
 
     <!-- Custom CSS -->
-    @stack('css')
-    <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
 
     <!-- Styles -->
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/coreui.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/icheck/skins/all.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datetime-picker.css') }}"/>
+    <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
 
-    <link rel="stylesheet" href="{{ asset('assets/css/jquery.toast.min.css') }}">
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
     @if(Auth::user()->is_subscribed)
         @include('layouts1.one_signal')
     @endif
 
     @livewireStyles
-    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/emojionearea.min.css') }}">
     @yield('page_css')
-    {{-- <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"> --}}
     @yield('css')
 </head>
 <body>

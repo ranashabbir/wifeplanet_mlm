@@ -3,6 +3,15 @@
     {{ __('messages.conversations') }}
 @endsection
 @section('page_css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/coreui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/icheck/skins/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datetime-picker.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.toast.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/emojionearea.min.css') }}">
+
+
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}">
     <link rel="stylesheet" href="{{ asset('css/ekko-lightbox.css') }}">

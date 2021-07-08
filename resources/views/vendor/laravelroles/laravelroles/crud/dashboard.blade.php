@@ -1,7 +1,7 @@
 @extends(config('roles.bladeExtended'))
 
 @section(config('roles.titleExtended'))
-    {!! trans('laravelroles::laravelroles.titles.dashboard') !!}
+    {!! __('laravelroles::laravelroles.titles.dashboard') !!}
 @endsection
 
 @php
@@ -48,38 +48,38 @@
 @endsection
 
 @section('content')
+    <div class="page-wrapper">
+        @include('laravelroles::laravelroles.partials.flash-messages')
 
-    @include('laravelroles::laravelroles.partials.flash-messages')
-
-    <div class="container-fluid">
-        <div class="row">
-            @include('laravelroles::laravelroles.cards.roles-card', ['items' => $sortedRolesWithPermissionsAndUsers])
-            @include('laravelroles::laravelroles.cards.permissions-card', ['items' => $sortedPermissionsRolesUsers])
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                @include('laravelroles::laravelroles.tables.roles-table')
+        <div class="container-fluid">
+            <div class="row">
+                @include('laravelroles::laravelroles.cards.roles-card', ['items' => $sortedRolesWithPermissionsAndUsers])
+                @include('laravelroles::laravelroles.cards.permissions-card', ['items' => $sortedPermissionsRolesUsers])
             </div>
-        </div>
-
-        <div class="clearfix mb-4"></div>
-
-        <div class="row">
-            <div class="col-sm-12">
-                @include('laravelroles::laravelroles.tables.permissions-table')
+            <div class="row">
+                <div class="col-sm-12">
+                    @include('laravelroles::laravelroles.tables.roles-table')
+                </div>
             </div>
+    
+            <div class="clearfix mb-4"></div>
+    
+            <div class="row">
+                <div class="col-sm-12">
+                    @include('laravelroles::laravelroles.tables.permissions-table')
+                </div>
+            </div>
+    
+            <div class="clearfix mb-4"></div>
+    
+            @include('laravelroles::laravelroles.modals.confirm-modal',[
+                'formTrigger' => 'confirmDelete',
+                'modalClass' => 'danger',
+                'actionBtnIcon' => 'fa-trash-o'
+            ])
+    
         </div>
-
-        <div class="clearfix mb-4"></div>
-
-        @include('laravelroles::laravelroles.modals.confirm-modal',[
-            'formTrigger' => 'confirmDelete',
-            'modalClass' => 'danger',
-            'actionBtnIcon' => 'fa-trash-o'
-        ])
-
     </div>
-
 @endsection
 
 @section(config('roles.bladePlacementJs'))
@@ -88,7 +88,7 @@
     @endif
     @include('laravelroles::laravelroles.scripts.confirm-modal', ['formTrigger' => '#confirmDelete'])
     @if (config('roles.enabledDatatablesJs'))
-        @include('laravelroles::laravelroles.scripts.datatables')
+        {{-- @include('laravelroles::laravelroles.scripts.datatables') --}}
     @endif
     @if(config('roles.tooltipsEnabled'))
         @include('laravelroles::laravelroles.scripts.tooltips')

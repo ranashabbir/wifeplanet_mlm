@@ -33,35 +33,35 @@
 @endsection
 
 @section('content')
+    <div class="page-wrapper">
+        @include('laravelroles::laravelroles.partials.flash-messages')
 
-    @include('laravelroles::laravelroles.partials.flash-messages')
-
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-post" id="post_card">
-                    <div class="card-header">
-
-
-                        {!! trans('laravelroles::laravelroles.titles.edit-permission', ['name' => $name]) !!}
+        <div class="container container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-post" id="post_card">
+                        <div class="card-header">
 
 
-                        <div class="pull-right">
-                            <a href="{{ route('laravelroles::roles.index') }}" class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('laravelroles::laravelroles.tooltips.back-roles') }}">
-                                <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
-                                {!! trans('laravelroles::laravelroles.buttons.back-to-permissions') !!}
-                            </a>
+                            {!! trans('laravelroles::laravelroles.titles.edit-permission', ['name' => $name]) !!}
+
+
+                            <div class="pull-right">
+                                <a href="{{ route('laravelroles::roles.index') }}" class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('laravelroles::laravelroles.tooltips.back-roles') }}">
+                                    <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
+                                    {!! trans('laravelroles::laravelroles.buttons.back-to-permissions') !!}
+                                </a>
+                            </div>
                         </div>
+                        {{ method_field('PUT') }}
+
+                        @include('laravelroles::laravelroles.forms.edit-permission-form')
+
                     </div>
-                    {{ method_field('PUT') }}
-
-                    @include('laravelroles::laravelroles.forms.edit-permission-form')
-
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 
 

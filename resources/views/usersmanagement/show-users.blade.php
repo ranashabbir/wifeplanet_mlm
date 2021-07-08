@@ -1,12 +1,12 @@
 @extends(config('laravelusers.laravelUsersBladeExtended'))
 
-@section('template_title')
-    {!! trans('laravelusers::laravelusers.showing-all-users') !!}
+@section('title')
+    {!! __('laravelusers::laravelusers.showing-all-users') !!}
 @endsection
 
-@push('css')
+@section('css')
     <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
-@endpush
+@endsection
 
 @section('content')
     <div class="page-wrapper">
@@ -47,15 +47,15 @@
 
                                     <thead class="thead">
                                         <tr>
-                                            <th>{!! trans('laravelusers::laravelusers.users-table.id') !!}</th>
-                                            <th>{!! trans('laravelusers::laravelusers.users-table.name') !!}</th>
-                                            <th class="hidden-xs">{!! trans('laravelusers::laravelusers.users-table.email') !!}</th>
+                                            <th>{!! __('laravelusers::laravelusers.users-table.id') !!}</th>
+                                            <th>{!! __('laravelusers::laravelusers.users-table.name') !!}</th>
+                                            <th class="hidden-xs">{!! __('laravelusers::laravelusers.users-table.email') !!}</th>
                                             @if(config('laravelusers.rolesEnabled'))
-                                                <th class="hidden-sm hidden-xs">{!! trans('laravelusers::laravelusers.users-table.role') !!}</th>
+                                                <th class="hidden-sm hidden-xs">{!! __('laravelusers::laravelusers.users-table.role') !!}</th>
                                             @endif
-                                            <th class="hidden-sm hidden-xs hidden-md">{!! trans('laravelusers::laravelusers.users-table.created') !!}</th>
-                                            <th class="hidden-sm hidden-xs hidden-md">{!! trans('laravelusers::laravelusers.users-table.updated') !!}</th>
-                                            <th width="90px;" class="no-search no-sort hidden-sm hidden-xs hidden-md">{!! trans('laravelusers::laravelusers.users-table.actions') !!}</th>
+                                            <th class="hidden-sm hidden-xs hidden-md">{!! __('laravelusers::laravelusers.users-table.created') !!}</th>
+                                            <th class="hidden-sm hidden-xs hidden-md">{!! __('laravelusers::laravelusers.users-table.updated') !!}</th>
+                                            <th width="90px;" class="no-search no-sort hidden-sm hidden-xs hidden-md">{!! __('laravelusers::laravelusers.users-table.actions') !!}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="users_table">
@@ -83,15 +83,15 @@
                                                 <td class="hidden-sm hidden-xs hidden-md">{{$user->created_at}}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">{{$user->updated_at}}</td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-success btn-block" href="{{ URL::to('users/' . $user->id) }}" data-toggle="tooltip" title="{!! trans('laravelusers::laravelusers.tooltips.show') !!}">
-                                                        {!! trans('laravelusers::laravelusers.buttons.show') !!}
-                                                    </a> |
-                                                    <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('users/' . $user->id . '/edit') }}" data-toggle="tooltip" title="{!! trans('laravelusers::laravelusers.tooltips.edit') !!}">
-                                                        {!! trans('laravelusers::laravelusers.buttons.edit') !!}
-                                                    </a> |
-                                                    {!! Form::open(array('url' => 'users/' . $user->id, 'class' => '', 'style' => 'display:inline-block;', 'data-bs-toggle' => 'tooltip', 'title' => trans('laravelusers::laravelusers.tooltips.delete'))) !!}
+                                                    <a class="btn btn-sm btn-success" href="{{ URL::to('users/' . $user->id) }}" data-toggle="tooltip" title="{!! __('laravelusers::laravelusers.tooltips.show') !!}">
+                                                        {!! __('laravelusers::laravelusers.buttons.show') !!}
+                                                    </a> 
+                                                    <a class="btn btn-sm btn-info" href="{{ URL::to('users/' . $user->id . '/edit') }}" data-toggle="tooltip" title="{!! __('laravelusers::laravelusers.tooltips.edit') !!}">
+                                                        {!! __('laravelusers::laravelusers.buttons.edit') !!}
+                                                    </a> 
+                                                    {!! Form::open(array('url' => 'users/' . $user->id, 'class' => '', 'style' => 'display:inline-block;', 'data-bs-toggle' => 'tooltip', 'title' => __('laravelusers::laravelusers.tooltips.delete'))) !!}
                                                         {!! Form::hidden('_method', 'DELETE') !!}
-                                                        {!! Form::button(trans('laravelusers::laravelusers.buttons.delete'), array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button' ,'data-bs-toggle' => 'modal', 'data-bs-target' => '#al-danger-alert', 'data-bs-id' => $user->id, 'data-bs-title' => trans('laravelusers::modals.delete_user_title'), 'data-bs-message' => trans('laravelusers::modals.delete_user_message', ['user' => $user->name]))) !!}
+                                                        {!! Form::button(__('laravelusers::laravelusers.buttons.delete'), array('class' => 'btn btn-danger btn-sm','type' => 'button' ,'data-bs-toggle' => 'modal', 'data-bs-target' => '#al-danger-alert', 'data-bs-id' => $user->id, 'data-bs-title' => __('laravelusers::modals.delete_user_title'), 'data-bs-message' => __('laravelusers::modals.delete_user_message', ['user' => $user->name]))) !!}
                                                     {!! Form::close() !!}
                                                 </td>
                                             </tr>

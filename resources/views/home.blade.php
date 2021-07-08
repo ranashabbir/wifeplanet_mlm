@@ -2,10 +2,10 @@
 @section('title')
     {{ __('Dashboard') }}
 @endsection
-@push('css')
+@section('css')
     <link rel="stylesheet" href="{{ asset('assets/libs/apexcharts/dist/apexcharts.css') }}">
     <link href="{{ asset('assets/extra-libs/css-chart/css-chart.css') }}" rel="stylesheet">
-@endpush
+@endsection
 
 @section('content')
 <div class="page-wrapper">
