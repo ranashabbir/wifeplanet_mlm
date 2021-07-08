@@ -28,13 +28,13 @@
                     {!! csrf_field() !!}
         
                     <div class="form-group has-feedback row {{ $errors->has('name') ? ' has-error ' : '' }}">
-                        {!! Form::label('name', __('forms.create_user_label_username'), array('class' => 'col-md-3 control-label')); !!}
+                        {!! Form::label('name', __('forms.create_user_label_firstname'), array('class' => 'col-md-3 control-label')); !!}
                         <div class="col-md-9">
                             <div class="input-group">
-                                {!! Form::text('name', $user->name, array('id' => 'name', 'class' => 'form-control', 'placeholder' => __('forms.create_user_ph_username'))) !!}
+                                {!! Form::text('name', $user->name, array('id' => 'name', 'class' => 'form-control', 'placeholder' => __('forms.create_user_ph_firstname'))) !!}
                                 <div class="input-group-append">
                                     <label class="input-group-text" for="name">
-                                        <i class="fa fa-fw {{ __('forms.create_user_icon_username') }}" aria-hidden="true"></i>
+                                        <i class="fa fa-fw {{ __('forms.create_user_icon_firstname') }}" aria-hidden="true"></i>
                                     </label>
                                 </div>
                             </div>
