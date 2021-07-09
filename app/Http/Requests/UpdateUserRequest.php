@@ -47,7 +47,7 @@ class UpdateUserRequest extends FormRequest
         $input = $this->all();
 
         $input['name'] = htmlspecialchars($input['name']);
-        $input['about'] = htmlspecialchars($input['about']);
+        // $input['about'] = htmlspecialchars($input['about']);
 
         $this->replace($input);
     }

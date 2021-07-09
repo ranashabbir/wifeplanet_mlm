@@ -20,8 +20,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
@@ -32,6 +30,9 @@
     @livewireStyles
     @yield('page_css')
     @yield('css')
+
+    <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
 </head>
 <body>
     <!-- Preloader - style you can find in spinners.css -->

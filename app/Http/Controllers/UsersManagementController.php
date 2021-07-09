@@ -112,14 +112,11 @@ class UsersManagementController extends Controller
 
         $user = User::create([
             'name'             => $request->input('name'),
-            'first_name'       => $request->input('first_name'),
-            'last_name'        => $request->input('last_name'),
+            'lastname'        => $request->input('lastname'),
             'email'            => $request->input('email'),
             'password'         => bcrypt($request->input('password')),
             'token'            => str_random(64),
-            'admin_ip_address' => $ipAddress->getClientIp(),
-            'activated'        => 1,
-            'verify_code'      => $request->input('verify_code'),
+            'is_activate'        => 1,
         ]);
 
         $user->profile()->save($profile);

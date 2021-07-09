@@ -140,7 +140,7 @@
 
 @endsection
 
-@section('template_scripts')
+@section('scripts')
     {{-- @if ((count($users) > config('laravelusers.datatablesJsStartCount')) && config('laravelusers.enabledDatatablesJs'))
         @include('laravelusers::scripts.datatables')
     @endif --}}
@@ -152,9 +152,7 @@
     @if(config('laravelusers.enableSearchUsers'))
         @include('laravelusers::scripts.search-users')
     @endif
-@endsection
 
-@push('script')
     <script src="{{ asset('assets/libs/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/datatable/custom-datatable.js') }}"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
@@ -184,4 +182,4 @@
         // });
       
     </script>
-@endpush
+@endsection
