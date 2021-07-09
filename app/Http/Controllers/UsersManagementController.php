@@ -81,18 +81,15 @@ class UsersManagementController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'name'                  => 'required|max:255|unique:users',
-                'first_name'            => '',
                 'last_name'             => '',
                 'email'                 => 'required|email|max:255|unique:users',
                 'password'              => 'required|min:6|max:20|confirmed',
                 'password_confirmation' => 'required|same:password',
                 'role'                  => 'required',
-                'verify_code'            => '',
             ],
             [
                 'name.unique'         => trans('auth.userNameTaken'),
                 'name.required'       => trans('auth.userNameRequired'),
-                'first_name.required' => trans('auth.fNameRequired'),
                 'last_name.required'  => trans('auth.lNameRequired'),
                 'email.required'      => trans('auth.emailRequired'),
                 'email.email'         => trans('auth.emailInvalid'),
@@ -107,19 +104,14 @@ class UsersManagementController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $ipAddress = new CaptureIpTrait();
-        $profile = new Profile();
-
         $user = User::create([
             'name'             => $request->input('name'),
             'lastname'        => $request->input('lastname'),
             'email'            => $request->input('email'),
             'password'         => bcrypt($request->input('password')),
-            'token'            => str_random(64),
             'is_activate'        => 1,
         ]);
 
-        $user->profile()->save($profile);
         $user->attachRole($request->input('role'));
         $user->save();
 
@@ -188,17 +180,16 @@ class UsersManagementController extends Controller
         $currentUser = Auth::user();
         $user = User::find($id);
         $emailCheck = ($request->input('email') != '') && ($request->input('email') != $user->email);
-        $ipAddress = new CaptureIpTrait();
 
         if ($emailCheck) {
             $validator = Validator::make($request->all(), [
-                'name'     => 'required|max:255|unique:users',
+                'name'     => 'required|max:255',
                 'email'    => 'email|max:255|unique:users',
                 'password' => 'present|confirmed|min:6',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
-                'name'     => 'required|max:255|unique:users,name,'.$id,
+                'email'     => 'required|max:255|email|unique:users,email,'.$id,
                 'password' => 'nullable|confirmed|min:6',
             ]);
         }
@@ -208,9 +199,7 @@ class UsersManagementController extends Controller
         }
 
         $user->name = $request->input('name');
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
-        $user->verify_code = $request->input('verify_code');
+        $user->lastname = $request->input('lastname');
 
         if ($emailCheck) {
             $user->email = $request->input('email');
@@ -226,21 +215,9 @@ class UsersManagementController extends Controller
             $user->attachRole($userRole);
         }
 
-        $user->updated_ip_address = $ipAddress->getClientIp();
-
-        switch ($userRole) {
-            case 3:
-                $user->activated = 0;
-                break;
-
-            default:
-                $user->activated = 1;
-                break;
-        }
-
         $user->save();
 
-        return back()->with('success', trans('usersmanagement.updateSuccess'));
+        return redirect('users')->with('success', trans('usersmanagement.updateSuccess'));
     }
 
     /**

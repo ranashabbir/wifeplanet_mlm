@@ -41,26 +41,26 @@
                             <h4 class="card-title mb-0">Plans</h4>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive plans-table">
-                                <table id="file_export" class="table table-striped table-bordered display">
+                            <div class="table-responsive users-table">
+                                <table id="zero_config" class="table table-striped table-bordered">
                                     <thead class="thead">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Title</th>
+                                            <th class="hidden-sm hidden-xs hidden-md">Title</th>
                                             <th>Price</th>
                                             <th>Type</th>
-                                            <th>Description</th>
-                                            <th colspan="3">Action</th>
+                                            {{-- <th class="hidden-sm hidden-xs hidden-md">Description</th> --}}
+                                            <th colspan="3" class="no-search no-sort hidden-sm hidden-xs hidden-md">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="plans_table">
+                                    <tbody id="users_table">
                                         @foreach($plans as $plan)
                                             <tr>
                                                 <td>{{ $plan->id }}</td>
                                                 <td>{{ $plan->title }}</td>
                                                 <td>{{ $plan->price }}</td>
-                                                <td>{{ $plan->type }}</td>
-                                                <td>{!! $plan->description !!}</td>
+                                                <td>{{ ucfirst($plan->type) }}</td>
+                                                {{-- <td>{!! $plan->description !!}</td> --}}
                                                 <td>
                                                     <a class="btn btn-sm btn-success" href="{{ route('plans.show', [$plan->id]) }}" data-toggle="tooltip" title="{!! __('laravelusers::laravelusers.tooltips.show') !!}">
                                                         {!! __('laravelusers::laravelusers.buttons.show') !!}
@@ -116,14 +116,7 @@
 @section('scripts')
     <script src="{{ asset('assets/libs/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/datatable/custom-datatable.js') }}"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
-    <script src="{{ asset('dist/js/pages/datatable/datatable-advanced.init.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
     <script type="text/javascript">
         $('#al-danger-alert').on('show.bs.modal', function (e) {
             var message = $(e.relatedTarget).attr('data-bs-message');
