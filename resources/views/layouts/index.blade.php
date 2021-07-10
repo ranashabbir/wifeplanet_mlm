@@ -72,6 +72,8 @@
     <script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('dist/js/feather.min.js') }}"></script>
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
+    
+    @stack('script')
 
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
