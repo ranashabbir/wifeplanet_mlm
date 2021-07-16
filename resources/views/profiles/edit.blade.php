@@ -4,6 +4,10 @@
     {{ __('Edit Profile') }}
 @endsection
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/select2/dist/css/select2.min.css') }}">
+@endsection
+
 @section('content')
     <div class="page-wrapper">
         <div class="container-fluid">
@@ -14,7 +18,7 @@
                             @if ($user->profile)
                                 @if (Auth::user()->id == $user->id || Auth::user()->hasRole('admin'))
                                 <div class="container">
-                                    <div class="row">
+                                    <div class="row mt-4">
                                         <div class="col-12 col-sm-4 col-md-3 profile-sidebar text-white rounded-left-sm-up">
                                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                                 <a class="nav-link active" data-toggle="pill" href=".edit-profile-tab" role="tab" aria-controls="edit-profile-tab" aria-selected="true">
@@ -282,38 +286,38 @@
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group has-feedback {{ $errors->has('city') ? ' has-error ' : '' }}">
-                                                            {!! Form::label('city', __('City') , array('class' => 'col-12 control-label')); !!}
+                                                        <div class="form-group has-feedback {{ $errors->has('country_id') ? ' has-error ' : '' }}">
+                                                            {!! Form::label('country_id', __('Country') , array('class' => 'col-12 control-label')); !!}
                                                             <div class="col-12">
-                                                                {!! Form::text('city', old('city'), array('id' => 'city', 'class' => 'form-control', 'placeholder' => __('City'))) !!}
-                                                                <span class="glyphicon {{ $errors->has('city') ? ' glyphicon-asterisk ' : ' glyphicon-pencil ' }} form-control-feedback" aria-hidden="true"></span>
-                                                                @if ($errors->has('city'))
+                                                                {!! Form::select('country_id', $countries, old('country_id'), array('id' => 'country_id', 'class' => 'form-control')) !!}
+                                                                <span class="glyphicon {{ $errors->has('country_id') ? ' glyphicon-asterisk ' : ' glyphicon-pencil ' }} form-control-feedback" aria-hidden="true"></span>
+                                                                @if ($errors->has('country_id'))
                                                                     <span class="help-block">
-                                                                        <strong>{{ $errors->first('city') }}</strong>
+                                                                        <strong>{{ $errors->first('country_id') }}</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group has-feedback {{ $errors->has('state') ? ' has-error ' : '' }}">
-                                                            {!! Form::label('state', __('State') , array('class' => 'col-12 control-label')); !!}
+                                                        <div class="form-group has-feedback {{ $errors->has('state_id') ? ' has-error ' : '' }}">
+                                                            {!! Form::label('state_id', __('State') , array('class' => 'col-12 control-label')); !!}
                                                             <div class="col-12">
-                                                                {!! Form::text('state', old('state'), array('id' => 'state', 'class' => 'form-control', 'placeholder' => __('State'))) !!}
-                                                                <span class="glyphicon {{ $errors->has('state') ? ' glyphicon-asterisk ' : ' glyphicon-pencil ' }} form-control-feedback" aria-hidden="true"></span>
-                                                                @if ($errors->has('state'))
+                                                                {!! Form::select('state_id', $states, old('state'), array('id' => 'state_id', 'class' => 'form-control')) !!}
+                                                                <span class="glyphicon {{ $errors->has('state_id') ? ' glyphicon-asterisk ' : ' glyphicon-pencil ' }} form-control-feedback" aria-hidden="true"></span>
+                                                                @if ($errors->has('state_id'))
                                                                     <span class="help-block">
-                                                                        <strong>{{ $errors->first('state') }}</strong>
+                                                                        <strong>{{ $errors->first('state_id') }}</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                        <div class="form-group has-feedback {{ $errors->has('country') ? ' has-error ' : '' }}">
-                                                            {!! Form::label('country', __('Country') , array('class' => 'col-12 control-label')); !!}
+                                                        <div class="form-group has-feedback {{ $errors->has('city_id') ? ' has-error ' : '' }}">
+                                                            {!! Form::label('city_id', __('City') , array('class' => 'col-12 control-label')); !!}
                                                             <div class="col-12">
-                                                                {!! Form::text('country', old('country'), array('id' => 'country', 'class' => 'form-control', 'placeholder' => __('Country'))) !!}
-                                                                <span class="glyphicon {{ $errors->has('country') ? ' glyphicon-asterisk ' : ' glyphicon-pencil ' }} form-control-feedback" aria-hidden="true"></span>
-                                                                @if ($errors->has('country'))
+                                                                {!! Form::select('city_id', $cities, old('city_id'), array('id' => 'city_id', 'class' => 'form-control')) !!}
+                                                                <span class="glyphicon {{ $errors->has('city_id') ? ' glyphicon-asterisk ' : ' glyphicon-pencil ' }} form-control-feedback" aria-hidden="true"></span>
+                                                                @if ($errors->has('city_id'))
                                                                     <span class="help-block">
-                                                                        <strong>{{ $errors->first('country') }}</strong>
+                                                                        <strong>{{ $errors->first('city_id') }}</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
@@ -440,5 +444,99 @@
 @endsection
 
 @section('scripts')
+    <script>
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $(document).ready(function() {
+            $('#country_id').select2();
+            $('#state_id').select2();
+            $('#city_id').select2();
+            $('#country_id').on('change', function() {
+                var country_id = $(this).val();
+                $('#state_id').select2({
+                    ajax: { 
+                        url: "{{ route('getStates') }}",
+                        type: "post",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                _token: CSRF_TOKEN,
+                                country_id: country_id
+                            };
+                        },
+                        processResults: function (response) {
+                            return {
+                                results: response
+                            };
+                        },
+                        cache: true
+                    }
+                });
+            });
+            $('#state_id').on('change', function() {
+                var state_id = $(this).val();
+                $('#city_id').select2({
+                    ajax: { 
+                        url: "{{ route('getCities') }}",
+                        type: "post",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                _token: CSRF_TOKEN,
+                                state_id: state_id
+                            };
+                        },
+                        processResults: function (response) {
+                            return {
+                                results: response
+                            };
+                        },
+                        cache: true
+                    }
+                });
+            });
 
+            // $("#state_id").select2({
+            //     ajax: { 
+            //         url: "{{ route('getStates') }}",
+            //         type: "post",
+            //         dataType: 'json',
+            //         delay: 250,
+            //         data: function (params) {
+            //             return {
+            //                 _token: CSRF_TOKEN,
+            //                 country_id: $("#country_id").val()
+            //             };
+            //         },
+            //         processResults: function (response) {
+            //             return {
+            //                 results: response
+            //             };
+            //         },
+            //         cache: true
+            //     }
+            // });
+            // $("#city_id").select2({
+            //     ajax: { 
+            //         url: "{{ route('getCities') }}",
+            //         type: "post",
+            //         dataType: 'json',
+            //         delay: 250,
+            //         data: function (params) {
+            //             return {
+            //                 _token: CSRF_TOKEN,
+            //                 state_id: $("#state_id").val()
+            //             };
+            //         },
+            //         processResults: function (response) {
+            //             return {
+            //                 results: response
+            //             };
+            //         },
+            //         cache: true
+            //     }
+            // });
+        });
+    </script>
 @endsection

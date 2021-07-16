@@ -1,14 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.index')
+
+@section('title')
+    {{ __('Create Country') }}
+@endsection
 
 @section('content')
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-         <a href="{!! route('countries.index') !!}">Country</a>
-      </li>
-      <li class="breadcrumb-item active">Create</li>
-    </ol>
-     <div class="container-fluid">
-          <div class="animated fadeIn">
+    <div class="page-wrapper">
+        <div class="container-fluid">
+            <div class="animated fadeIn">
                 @include('coreui-templates::common.errors')
                 <div class="row">
                     <div class="col-lg-12">
@@ -27,6 +26,7 @@
                         </div>
                     </div>
                 </div>
-           </div>
+            </div>
+        </div>
     </div>
 @endsection

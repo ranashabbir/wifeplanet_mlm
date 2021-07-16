@@ -3,28 +3,31 @@
         <thead>
             <tr>
                 <th>Name</th>
-        <th>Short Code</th>
-        <th>Country Id</th>
+                <th>Short Code</th>
+                <th>state</th>
                 <th colspan="3">Action</th>
             </tr>
         </thead>
         <tbody>
-        @foreach($states as $state)
-            <tr>
-                <td>{{ $state->name }}</td>
-            <td>{{ $state->short_code }}</td>
-            <td>{{ $state->country_id }}</td>
-                <td>
-                    {!! Form::open(['route' => ['states.destroy', $state->id], 'method' => 'delete']) !!}
-                    <div class='btn-group'>
-                        <a href="{{ route('states.show', [$state->id]) }}" class='btn btn-ghost-success'><i class="fa fa-eye"></i></a>
-                        <a href="{{ route('states.edit', [$state->id]) }}" class='btn btn-ghost-info'><i class="fa fa-edit"></i></a>
-                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-ghost-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                    </div>
-                    {!! Form::close() !!}
-                </td>
-            </tr>
-        @endforeach
+            @foreach($states as $state)
+                <tr>
+                    <td>{{ $state->name }}</td>
+                    <td>{{ $state->short_code }}</td>
+                    <td>{{ $state->country->name }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-success" href="{{ route('states.show', [$state->id]) }}" data-toggle="tooltip" title="{!! __('laravelusers::laravelusers.tooltips.show') !!}">
+                            {!! __('laravelusers::laravelusers.buttons.show') !!}
+                        </a> 
+                        <a class="btn btn-sm btn-info" href="{{ route('states.edit', [$state->id]) }}" data-toggle="tooltip" title="{!! __('laravelusers::laravelusers.tooltips.edit') !!}">
+                            {!! __('laravelusers::laravelusers.buttons.edit') !!}
+                        </a> 
+                        {!! Form::open(array('route' => ['states.destroy', $state->id], 'class' => '', 'style' => 'display:inline-block;', 'data-bs-toggle' => 'tooltip', 'title' => __('laravelusers::laravelusers.tooltips.delete'))) !!}
+                            {!! Form::hidden('_method', 'DELETE') !!}
+                            {!! Form::button(__('laravelusers::laravelusers.buttons.delete'), array('class' => 'btn btn-danger btn-sm','type' => 'button' ,'data-bs-toggle' => 'modal', 'data-bs-target' => '#al-danger-alert', 'data-bs-id' => $state->id, 'data-bs-title' => __('Delete State'), 'data-bs-message' => __('laravelusers::modals.delete_user_message', ['user' => $state->name]))) !!}
+                        {!! Form::close() !!}
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

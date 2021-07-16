@@ -1,6 +1,6 @@
 <!-- Name Field -->
 <div class="form-group">
-    {!! Form::label('name', 'Name:') !!}
+    {!! Form::label('name', 'State Name:') !!}
     <p>{{ $state->name }}</p>
 </div>
 

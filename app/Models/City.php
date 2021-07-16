@@ -18,15 +18,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class City extends Model
 {
     use SoftDeletes;
-
     use HasFactory;
 
     public $table = 'cities';
-    
 
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'name',
@@ -55,5 +51,13 @@ class City extends Model
         'country_id' => 'required'
     ];
 
-    
+    /**
+     * A City belongs to a state.
+     *
+     * @return mixed
+     */
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
 }

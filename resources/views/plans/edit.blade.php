@@ -56,4 +56,21 @@
             height: 150
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            @if ($plan->site == 'dating')
+                $('.dating_input-wrap').removeClass('hide');
+            @else
+                $('.dating_input-wrap').addClass('hide');
+            @endif
+
+            $("input[name=site]").on("change", function() {
+                if ( $(this).val() == 'mlm' ) {
+                    $('.dating_input-wrap').addClass('hide');
+                } else {
+                    $('.dating_input-wrap').removeClass('hide');
+                }
+            });
+        });
+    </script>
 @endsection

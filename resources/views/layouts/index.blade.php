@@ -31,6 +31,7 @@
     @yield('page_css')
     @yield('css')
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css"></script>
     <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
 </head>

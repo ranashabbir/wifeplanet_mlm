@@ -40,9 +40,9 @@ class UpdateUserProfile extends FormRequest
             'nationality'       => '',
             'religion'          => '',
             'smoking'           => '',
-            'city'              => '',
-            'state'             => '',
-            'country'           => '',
+            'city_id'           => '',
+            'state_id'          => '',
+            'country_id'        => '',
             'interests'         => '',
         ];
     }

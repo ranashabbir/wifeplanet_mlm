@@ -46,8 +46,10 @@ Route::group(['middleware' => ['role:admin', 'web', 'auth', 'user.activated']], 
     Route::resource('countries', 'CountryController');
 
     Route::resource('states', 'StateController');
+    Route::post('/getStates', 'StateController@getStates')->name('getStates');
 
     Route::resource('cities', 'CityController');
+    Route::post('/getCities', 'CityController@getCities')->name('getCities');
     
     Route::get('settings', 'SettingsController@index')->name('settings.index');
     Route::post('settings', 'SettingsController@update')->name('settings.update');

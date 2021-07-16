@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 
+use DB;
+
 class StateController extends AppBaseController
 {
     /** @var  StateRepository */
@@ -42,7 +44,12 @@ class StateController extends AppBaseController
      */
     public function create()
     {
-        return view('states.create');
+        $countries = DB::table('countries')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
+        $countries[0] = 'Select Country';
+        ksort($countries);
+
+        return view('states.create')
+            ->with('countries', $countries);
     }
 
     /**
@@ -93,6 +100,9 @@ class StateController extends AppBaseController
     public function edit($id)
     {
         $state = $this->stateRepository->find($id);
+        $countries = DB::table('countries')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
+        $countries[0] = 'Select Country';
+        ksort($countries);
 
         if (empty($state)) {
             Flash::error('State not found');
@@ -100,7 +110,7 @@ class StateController extends AppBaseController
             return redirect(route('states.index'));
         }
 
-        return view('states.edit')->with('state', $state);
+        return view('states.edit')->with('state', $state)->with('countries', $countries);
     }
 
     /**
@@ -152,5 +162,21 @@ class StateController extends AppBaseController
         Flash::success('State deleted successfully.');
 
         return redirect(route('states.index'));
+    }
+
+    // Fetch records
+    public function getStates(Request $request){
+        $country_id = $request->country_id;
+
+        $states = DB::table('states')->whereNull('deleted_at')->orderby('name','asc')->select('id','name')->where('country_id', $country_id)->get();
+
+        $response = array();
+        foreach($states as $state){
+            $response[] = array(
+                "id" => $state->id,
+                "text" => $state->name
+            );
+        }
+        return response()->json($response); 
     }
 }

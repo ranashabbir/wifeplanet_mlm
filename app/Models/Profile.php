@@ -47,9 +47,9 @@ class Profile extends Model
         'nationality',
         'religion',
         'smoking',
-        'city',
-        'state',
-        'country',
+        'city_id',
+        'state_id',
+        'country_id',
         'avatar',
     ];
 

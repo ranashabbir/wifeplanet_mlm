@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 
+use DB;
+
 class CityController extends AppBaseController
 {
     /** @var  CityRepository */
@@ -42,7 +44,15 @@ class CityController extends AppBaseController
      */
     public function create()
     {
-        return view('cities.create');
+        $countries = DB::table('countries')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
+        $countries[0] = 'Select Country';
+        ksort($countries);
+
+        $states = DB::table('states')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
+        $states[0] = 'Select State';
+        ksort($states);
+
+        return view('cities.create')->with('states', $states)->with('countries', $countries);
     }
 
     /**
@@ -94,13 +104,21 @@ class CityController extends AppBaseController
     {
         $city = $this->cityRepository->find($id);
 
+        $countries = DB::table('countries')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
+        $countries[0] = 'Select Country';
+        ksort($countries);
+
+        $states = DB::table('states')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
+        $states[0] = 'Select State';
+        ksort($states);
+
         if (empty($city)) {
             Flash::error('City not found');
 
             return redirect(route('cities.index'));
         }
 
-        return view('cities.edit')->with('city', $city);
+        return view('cities.edit')->with('city', $city)->with('states', $states)->with('countries', $countries);
     }
 
     /**
@@ -152,5 +170,21 @@ class CityController extends AppBaseController
         Flash::success('City deleted successfully.');
 
         return redirect(route('cities.index'));
+    }
+
+    // Fetch records
+    public function getCities(Request $request){
+        $state_id = $request->state_id;
+
+        $cities = DB::table('cities')->whereNull('deleted_at')->orderby('name','asc')->select('id','name')->where('state_id', $state_id)->get();
+
+        $response = array();
+        foreach($cities as $city){
+            $response[] = array(
+                "id" => $city->id,
+                "text" => $city->name
+            );
+        }
+        return response()->json($response); 
     }
 }

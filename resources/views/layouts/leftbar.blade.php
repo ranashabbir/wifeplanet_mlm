@@ -68,6 +68,24 @@
                             <li class="sidebar-item"><a href="{{ url('/roles/create') }}" class="sidebar-link {{ request()->is('roles/create') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Create New </span></a></li>
                         </ul>
                     </li>
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="navigation" class="feather-icon"></i><span class="hide-menu">Countries </span></a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item"><a href="{{ url('/countries') }}" class="sidebar-link {{ request()->is('countries') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>
+                            <li class="sidebar-item"><a href="{{ url('/countries/create') }}" class="sidebar-link {{ request()->is('countries/create') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Add New </span></a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="navigation-2" class="feather-icon"></i><span class="hide-menu">States </span></a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item"><a href="{{ url('/states') }}" class="sidebar-link {{ request()->is('states') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>
+                            <li class="sidebar-item"><a href="{{ url('/states/create') }}" class="sidebar-link {{ request()->is('states/create') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Add New </span></a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="map-pin" class="feather-icon"></i><span class="hide-menu">Cities </span></a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item"><a href="{{ url('/cities') }}" class="sidebar-link {{ request()->is('cities') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>
+                            <li class="sidebar-item"><a href="{{ url('/cities/create') }}" class="sidebar-link {{ request()->is('cities/create') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Add New </span></a></li>
+                        </ul>
+                    </li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="package" class="feather-icon"></i><span class="hide-menu">Plans Management </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="{{ url('/plans') }}" class="sidebar-link {{ request()->is('plans') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>

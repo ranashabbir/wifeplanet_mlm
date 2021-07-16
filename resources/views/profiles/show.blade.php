@@ -72,6 +72,8 @@
 								@endif
 							@endif
 						</dl>
+
+						<a href="{{ route('profile.edit', [$user->profile->id]) }}" class="btn btn-sm btn-primary">Edit Profile</a>
 					</div>
 				</div>
 			</div>

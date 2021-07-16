@@ -11,6 +11,8 @@ use App\Http\Requests\UpdateUserProfile;
 use File;
 use Image;
 
+use DB;
+
 class ProfileController extends Controller
 {
     protected $idMultiKey = '618423'; //int
@@ -78,8 +80,23 @@ class ProfileController extends Controller
                 ->with('error_title', trans('profile.notYourProfileTitle'));
         }
 
+        $countries = DB::table('countries')->pluck('name', 'id')->toArray();
+        $countries[0] = 'Select Country';
+        ksort($countries);
+
+        $states = DB::table('states')->where('country_id', $user->profile->country_id)->pluck('name', 'id')->toArray();
+        $states[0] = 'Select State';
+        ksort($states);
+
+        $cities = DB::table('cities')->where('state_id', $user->profile->state_id)->pluck('name', 'id')->toArray();
+        $cities[0] = 'Select City';
+        ksort($cities);
+
         $data = [
             'user' => $user,
+            'countries' => $countries,
+            'states' => $states,
+            'cities' => $cities,
         ];
 
         return view('profiles.edit')->with($data);

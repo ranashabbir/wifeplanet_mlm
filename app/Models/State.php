@@ -18,15 +18,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class State extends Model
 {
     use SoftDeletes;
-
     use HasFactory;
 
     public $table = 'states';
-    
 
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'name',
@@ -51,10 +47,26 @@ class State extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|max:120|unique:states',
+        'name' => 'required|max:120|unique:states,id',
         'short_code' => 'max:16',
         'country_id' => 'required'
     ];
 
-    
+    /**
+     * A State belongs to a country.
+     *
+     * @return mixed
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
 }

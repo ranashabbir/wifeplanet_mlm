@@ -19,15 +19,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Country extends Model
 {
     use SoftDeletes;
-
     use HasFactory;
 
     public $table = 'countries';
-    
 
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'name',
@@ -54,11 +50,25 @@ class Country extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|max:120|unique:country',
+        'name' => 'required|max:120|unique:countries',
         'code' => 'max:60',
         'short_code' => 'max:30',
         'time_zone' => 'max:30'
     ];
 
-    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function states()
+    {
+        return $this->hasMany(State::class);
+    }
+
+    /**
+     * Get the state's country.
+     */
+    public function stateCity()
+    {
+        return $this->hasOneThrough(City::class, State::class);
+    }
 }
