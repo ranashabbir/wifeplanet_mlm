@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 
+use Image;
+use Illuminate\Support\Facades\Storage;
+
 class PlanController extends AppBaseController
 {
     /** @var  PlanRepository */
@@ -57,6 +60,27 @@ class PlanController extends AppBaseController
         $input = $request->all();
 
         $plan = $this->planRepository->create($input);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $file_name = explode('.',$image->getClientOriginalName());
+            $file_name = $file_name[0].'_'.time().rand(4,9999);
+            $file_type = $image->getClientOriginalExtension();
+            $file_title = $image->getClientOriginalName();
+
+            $img = Image::make($image->getRealPath());
+            $img->resize(400, 400, function ($constraint) {
+                $constraint->aspectRatio();                 
+            });
+
+            $img->stream(); // <-- Key point
+
+            $fileName = $file_name.'.'.$file_type;
+            Storage::disk('local')->put('public/plans/' . $plan->id . '/'.  $fileName, $img, 'public');
+
+			$plan->image = $file_name.'.'.$file_type;
+            $plan->save();
+        }
 
         Flash::success('Plan saved successfully.');
 
@@ -122,6 +146,29 @@ class PlanController extends AppBaseController
         }
 
         $plan = $this->planRepository->update($request->all(), $id);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $file_name = explode('.',$image->getClientOriginalName());
+            $file_name = $file_name[0].'_'.time().rand(4,9999);
+            $file_type = $image->getClientOriginalExtension();
+            $file_title = $image->getClientOriginalName();
+
+            // $request->file('image')->storeAs('public/plans/' . $plan->id, $file_name.'.'.$file_type);
+
+            $img = Image::make($image->getRealPath());
+            $img->resize(400, 400, function ($constraint) {
+                $constraint->aspectRatio();                 
+            });
+
+            $img->stream(); // <-- Key point
+
+            $fileName = $file_name.'.'.$file_type;
+            Storage::disk('local')->put('public/plans/' . $plan->id . '/'.  $fileName, $img, 'public');
+
+			$plan->image = $fileName;
+            $plan->save();
+        }
 
         Flash::success('Plan updated successfully.');
 

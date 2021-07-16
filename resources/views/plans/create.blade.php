@@ -36,6 +36,8 @@
                 </div>
             </div>
         </div>
+
+        @include('layouts/footer')
     </div>
 @endsection
 
@@ -44,6 +46,17 @@
     <script data-sample="1">
         CKEDITOR.replace('description', {
             height: 150
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("input[name=site]").on("change", function() {
+                if ( $(this).val() == 'mlm' ) {
+                    $('.dating_input-wrap').addClass('hide');
+                } else {
+                    $('.dating_input-wrap').removeClass('hide');
+                }
+            });
         });
     </script>
 @endsection

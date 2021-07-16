@@ -37,9 +37,7 @@
             </div>
         </div>
 
-        <footer class="footer">
-            All right reserved by {{ config('app.name', 'Laravel') }} {{ date('Y') }}
-        </footer>
+        @include('layouts/footer')
     </div>
 @endsection
 @section('page_js')

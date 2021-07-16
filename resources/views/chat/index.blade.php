@@ -191,9 +191,7 @@
         @include('chat.edit_group_modals')
         @include('chat.report_user_modal')
 
-        <footer class="footer">
-            All right reserved by {{ config('app.name', 'Laravel') }} {{ date('Y') }}
-        </footer>
+        @include('layouts/footer')
     </div>
     @include('chat.templates.conversation-template')
     @include('chat.templates.message')

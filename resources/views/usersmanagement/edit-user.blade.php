@@ -162,6 +162,8 @@
                 </div>
             </div>
         </div>
+
+        @include('layouts/footer')
     </div>
     
     {{-- @include('modals.modal-save') --}}

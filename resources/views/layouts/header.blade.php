@@ -355,11 +355,11 @@
                                     <p class=" mb-0">{{ Auth::user()->email }}</p>
                                 </div>
                             </div>
-                            <a class="dropdown-item" href="#"><i data-feather="user" class="feather-sm text-info me-1 ms-1"></i> My
+                            <a class="dropdown-item" href="{{ route('profile.show', [Auth::user()->id]) }}"><i data-feather="user" class="feather-sm text-info me-1 ms-1"></i> My
                                 Profile</a>
                             <a class="dropdown-item" href="#"><i data-feather="credit-card" class="feather-sm text-info me-1 ms-1"></i>
                                 My Balance</a>
-                            <a class="dropdown-item" href="#"><i data-feather="mail" class="feather-sm text-success me-1 ms-1"></i>
+                            <a class="dropdown-item" href="{{ url('/messages/inbox') }}"><i data-feather="mail" class="feather-sm text-success me-1 ms-1"></i>
                                 Inbox</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#"><i data-feather="settings" class="feather-sm text-warning me-1 ms-1"></i>

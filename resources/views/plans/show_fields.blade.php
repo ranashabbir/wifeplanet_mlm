@@ -7,7 +7,7 @@
 <!-- Description Field -->
 <div class="form-group">
     {!! Form::label('description', 'Description:') !!}
-    <p>{{ $plan->description }}</p>
+    <p>{!! $plan->description !!}</p>
 </div>
 
 <!-- Price Field -->
@@ -25,7 +25,7 @@
 <!-- Image Field -->
 <div class="form-group">
     {!! Form::label('image', 'Image:') !!}
-    <p>{{ $plan->image }}</p>
+    <img src="{{ Storage::url('plans/'.$plan->id.'/'.$plan->image) }}" width="200px;" />
 </div>
 
 <!-- Created At Field -->

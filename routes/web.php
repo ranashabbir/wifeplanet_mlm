@@ -43,16 +43,11 @@ Route::get('activate', 'AuthController@verifyAccount');
 Route::post('update-language', 'UserController@updateLanguage')->middleware('auth');
 
 Route::group(['middleware' => ['role:admin', 'web', 'auth', 'user.activated']], function () {
-    // Route::resource('users', 'UserController');
-    // Route::post('users/{user}/active-de-active', 'UserController@activeDeActiveUser')
-    //     ->name('active-de-active-user');
-    // Route::post('users/{user}/update', 'UserController@update');
-    // Route::post('users/store', 'UserController@update')->name('users.store');
-    // Route::delete('users/{user}/archive', 'UserController@archiveUser');
-    // Route::post('users/restore', 'UserController@restoreUser');
+    Route::resource('countries', 'CountryController');
 
-    // Route::resource('roles', 'RoleController');
-    // Route::post('roles/{role}/update', 'RoleController@update');
+    Route::resource('states', 'StateController');
+
+    Route::resource('cities', 'CityController');
     
     Route::get('settings', 'SettingsController@index')->name('settings.index');
     Route::post('settings', 'SettingsController@update')->name('settings.update');
@@ -84,7 +79,12 @@ Route::group(['middleware' => ['role:admin', 'web', 'auth', 'user.activated']], 
 Route::group(['middleware' => ['user.activated', 'auth']], function () {
     //view routes
     Route::get('/conversations', 'ChatController@index')->name('conversations');
-    // Route::get('profile', 'UserController@getProfile');
+
+    Route::get('/messages/inbox', 'MessagesController@index')->name('messages.inbox');
+    Route::get('/messages/outbox', 'MessagesController@outbox')->name('messages.outbox');
+    Route::get('/messages/compose', 'MessagesController@compose')->name('messages.compose');
+    Route::get('/messages/view/{id}', 'MessagesController@view')->name('messages.view');
+
     Route::group(['namespace' => 'API'], function () {
         Route::get('logout', 'Auth\LoginController@logout');
 
@@ -152,6 +152,43 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
         //report user
         Route::post('report-user', 'ReportUserController@store')->name('report-user.store');
     });
+});
+
+// Registered, activated, and is current user routes.
+Route::group(['middleware' => ['role:admin|user', 'auth', 'user.activated', 'currentUser']], function () {
+
+    // User Profile and Account Routes
+    Route::resource(
+        'profile',
+        'ProfileController', [
+            'only' => [
+                'show',
+                'edit',
+                'update',
+                'create',
+            ],
+        ]
+    );
+    Route::put('profile/{username}/updateUserAccount', [
+        'as'   => '{username}',
+        'uses' => 'ProfileController@updateUserAccount',
+    ]);
+    Route::put('profile/{username}/updateUserPassword', [
+        'as'   => '{username}',
+        'uses' => 'ProfileController@updateUserPassword',
+    ]);
+    Route::delete('profile/{username}/deleteUserAccount', [
+        'as'   => '{username}',
+        'uses' => 'ProfileController@deleteUserAccount',
+    ]);
+
+    // Route to show user avatar
+    Route::get('images/profile/{id}/avatar/{image}', [
+        'uses' => 'ProfileController@userProfileAvatar',
+    ]);
+
+    // Route to upload user avatar.
+    Route::post('avatar/upload', ['as' => 'avatar.upload', 'uses' => 'ProfileController@upload']);
 });
 
 Route::group(['middleware' => ['role:admin|user', 'auth', 'user.activated']], function () {

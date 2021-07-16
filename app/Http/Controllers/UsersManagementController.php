@@ -104,6 +104,8 @@ class UsersManagementController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+        $profile = new Profile();
+
         $user = User::create([
             'name'             => $request->input('name'),
             'lastname'        => $request->input('lastname'),
@@ -112,6 +114,7 @@ class UsersManagementController extends Controller
             'is_activate'        => 1,
         ]);
 
+        $user->profile()->save($profile);
         $user->attachRole($request->input('role'));
         $user->save();
 
@@ -231,11 +234,8 @@ class UsersManagementController extends Controller
     {
         $currentUser = Auth::user();
         $user = User::findOrFail($id);
-        $ipAddress = new CaptureIpTrait();
 
         if ($user->id != $currentUser->id) {
-            $user->deleted_ip_address = $ipAddress->getClientIp();
-            $user->save();
             $user->delete();
 
             return redirect('users')->with('success', trans('usersmanagement.deleteSuccess'));

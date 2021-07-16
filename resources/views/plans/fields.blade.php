@@ -7,33 +7,49 @@
 <div class="form-group col-sm-12 col-lg-12">
     <div class="row">
         <!-- Price Field -->
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-6">
             {!! Form::label('price', 'Price:') !!}
             {!! Form::number('price', null, ['class' => 'form-control']) !!}
         </div>
         
         <!-- Image Field -->
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-6">
             {!! Form::label('image', 'Image:') !!}
             {!! Form::file('image', ['class' => 'form-control']) !!}
         </div>
-        
-        <div class="form-group col-sm-4">
+    </div>
+</div>
+
+<div class="form-group col-sm-12 col-lg-12">
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="d-block">Site:</label>
+            <div class="form-check form-check-inline">
+                {!! Form::radio('site', 'dating', true, array('id' => 'dating', 'class' => 'form-check-input')); !!}
+                {!! Form::label('dating', 'Dating', array('class' => 'form-check-label')) !!}
+            </div>
+            <div class="form-check form-check-inline">
+                {!! Form::radio('site', 'mlm', false, array('id' => 'mlm', 'class' => 'form-check-input')); !!}
+                {!! Form::label('mlm', 'MLM', array('class' => 'form-check-label')) !!}
+            </div>
+        </div>
+
+        <div class="form-group col-sm-6 dating_input-wrap">
             <label class="d-block">Type:</label>
             <div class="form-check form-check-inline">
-                {!! Form::radio('type', 'monthly', true, array('id' => 'monthly', 'class' => 'form-check-input')); !!}
+                {!! Form::radio('type', 'monthly', false, array('id' => 'monthly', 'class' => 'form-check-input')); !!}
                 {!! Form::label('monthly', 'Monthly', array('class' => 'form-check-label')) !!}
             </div>
             <div class="form-check form-check-inline">
-                {!! Form::radio('type', 'quarterly', true, array('id' => 'quarterly', 'class' => 'form-check-input')); !!}
+                {!! Form::radio('type', 'quarterly', false, array('id' => 'quarterly', 'class' => 'form-check-input')); !!}
                 {!! Form::label('quarterly', 'Quarterly', array('class' => 'form-check-label')) !!}
             </div>
             <div class="form-check form-check-inline">
-                {!! Form::radio('type', 'halfyearly', true, array('id' => 'halfyearly', 'class' => 'form-check-input')); !!}
+                {!! Form::radio('type', 'halfyearly', false, array('id' => 'halfyearly', 'class' => 'form-check-input')); !!}
                 {!! Form::label('halfyearly', 'Half Yearly', array('class' => 'form-check-label')) !!}
             </div>
             <div class="form-check form-check-inline">
-                {!! Form::radio('type', 'yearly', true, array('id' => 'yearly', 'class' => 'form-check-input')); !!}
+                {!! Form::radio('type', 'yearly', false, array('id' => 'yearly', 'class' => 'form-check-input')); !!}
                 {!! Form::label('yearly', 'Yearly', array('class' => 'form-check-label')) !!}
             </div>
         </div>

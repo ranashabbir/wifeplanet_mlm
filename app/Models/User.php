@@ -294,4 +294,42 @@ class User extends Authenticatable
     {
         return $this->hasOne(ReportedUser::class, 'reported_to')->where('reported_by', '=', Auth::id());
     }
+
+    /**
+     * User Profile Relationships.
+     *
+     * @var array
+     */
+    public function profile()
+    {
+        return $this->hasOne('App\Models\Profile');
+    }
+
+    // User Profile Setup - SHould move these to a trait or interface...
+
+    public function profiles()
+    {
+        return $this->belongsToMany('App\Models\Profile')->withTimestamps();
+    }
+
+    public function hasProfile($name)
+    {
+        foreach ($this->profiles as $profile) {
+            if ($profile->name == $name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function assignProfile($profile)
+    {
+        return $this->profiles()->attach($profile);
+    }
+
+    public function removeProfile($profile)
+    {
+        return $this->profiles()->detach($profile);
+    }
 }

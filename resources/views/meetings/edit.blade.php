@@ -42,6 +42,8 @@
                 </div>
             </div>
         </div>
+
+        @include('layouts/footer')
     </div>
 @endsection
 @section('page_js')

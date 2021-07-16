@@ -1,6 +1,6 @@
 @extends('layouts.index')
 @section('title')
-    {{ __('Create Plan') }}
+    {{ __('View Plan') }}
 @endsection
 @section('page_css')
     {{-- <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"> --}}

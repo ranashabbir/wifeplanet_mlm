@@ -47,8 +47,7 @@ class Plan extends Model
         'title' => 'string',
         'description' => 'string',
         'price' => 'integer',
-        'type' => 'string',
-        'image' => 'string'
+        'type' => 'string'
     ];
 
     /**

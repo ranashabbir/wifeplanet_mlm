@@ -15,13 +15,13 @@
                             <a href="#" class="dropdown-toggle link u-dropdown" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu animated flipInY">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('profile.show', [Auth::user()->id]) }}">
                                     <i data-feather="user" class="feather-sm text-info me-1 ms-1"></i> My Profile
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i data-feather="credit-card" class="feather-sm text-info me-1 ms-1"></i> My Balance
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ url('/messages/inbox') }}">
                                     <i data-feather="mail" class="feather-sm text-success me-1 ms-1"></i>
                                     Inbox
                                 </a>
@@ -68,10 +68,17 @@
                             <li class="sidebar-item"><a href="{{ url('/roles/create') }}" class="sidebar-link {{ request()->is('roles/create') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Create New </span></a></li>
                         </ul>
                     </li>
-                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-tasks"></i><span class="hide-menu">Plans Management </span></a>
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="package" class="feather-icon"></i><span class="hide-menu">Plans Management </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="{{ url('/plans') }}" class="sidebar-link {{ request()->is('plans') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>
                             <li class="sidebar-item"><a href="{{ url('/plans/create') }}" class="sidebar-link {{ request()->is('plans/create') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Create New </span></a></li>
+                        </ul>
+                    </li>
+                @endif
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="inbox" class="feather-icon"></i><span class="hide-menu">Messages </span></a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item"><a href="{{ url('/messages/inbox') }}" class="sidebar-link {{ request()->is('messages') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>
+                            <li class="sidebar-item"><a href="{{ url('/messages/compose') }}" class="sidebar-link {{ request()->is('messages/compose') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Compose </span></a></li>
                         </ul>
                     </li>
                     <li class="sidebar-item">
@@ -80,6 +87,7 @@
                             <span class="hide-menu">Conversation</span>
                         </a>
                     </li>
+                @if(Auth::user()->hasRole('admin'))
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ request()->is('settings*') ? 'active' : '' }} waves-effect waves-dark" href="{{ route('settings.index') }}" aria-expanded="false">
                             <i data-feather="settings" class="feather feather-settings"></i>
