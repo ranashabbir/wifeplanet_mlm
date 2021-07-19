@@ -86,6 +86,10 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
     Route::get('/messages/outbox', 'MessagesController@outbox')->name('messages.outbox');
     Route::get('/messages/compose', 'MessagesController@compose')->name('messages.compose');
     Route::get('/messages/view/{id}', 'MessagesController@view')->name('messages.view');
+    Route::get('/messages/reply/{id}', 'MessagesController@reply')->name('messages.reply');
+    Route::get('/messages/delete/{id}', 'MessagesController@destroy')->name('messages.delete');
+    Route::post('/messages/store', 'MessagesController@store')->name('messages.store');
+    Route::post('/messages/{id}/update', 'MessagesController@update')->name('messages.update');
 
     Route::group(['namespace' => 'API'], function () {
         Route::get('logout', 'Auth\LoginController@logout');
