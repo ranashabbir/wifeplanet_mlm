@@ -37,31 +37,31 @@
                                     <!-- Level 1 Field -->
                                     <div class="form-group col-sm-12 col-lg-12">
                                         {!! Form::label('level_1', 'Level 1:') !!}
-                                        {!! Form::number('level_1', null, ['class' => 'form-control']) !!}
+                                        {!! Form::number('level_1', '0', ['class' => 'form-control']) !!}
                                     </div>
 
                                     <!-- Level 2 Field -->
                                     <div class="form-group col-sm-12 col-lg-12">
                                         {!! Form::label('level_2', 'Level 2:') !!}
-                                        {!! Form::number('level_2', null, ['class' => 'form-control']) !!}
+                                        {!! Form::number('level_2', '0', ['class' => 'form-control']) !!}
                                     </div>
 
                                     <!-- Level 3 Field -->
                                     <div class="form-group col-sm-12 col-lg-12">
                                         {!! Form::label('level_3', 'Level 3:') !!}
-                                        {!! Form::number('level_3', null, ['class' => 'form-control']) !!}
+                                        {!! Form::number('level_3', '0', ['class' => 'form-control']) !!}
                                     </div>
 
                                     <!-- Level 4 Field -->
                                     <div class="form-group col-sm-12 col-lg-12">
                                         {!! Form::label('level_4', 'Level 4:') !!}
-                                        {!! Form::number('level_4', null, ['class' => 'form-control']) !!}
+                                        {!! Form::number('level_4', '0', ['class' => 'form-control']) !!}
                                     </div>
 
                                     <!-- Level 5 Field -->
                                     <div class="form-group col-sm-12 col-lg-12">
                                         {!! Form::label('level_5', 'Level 5:') !!}
-                                        {!! Form::number('level_5', null, ['class' => 'form-control']) !!}
+                                        {!! Form::number('level_5', '0', ['class' => 'form-control']) !!}
                                     </div>
 
                                     <!-- Submit Field -->

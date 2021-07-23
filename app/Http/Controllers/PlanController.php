@@ -249,10 +249,40 @@ class PlanController extends AppBaseController
         $bonusExist = Bonus::whereNull('deleted_at')->where('plan_id', $id)->first();
         if (!$bonusExist) {
             $bonus = new Bonus();
-            $bonus->fill($request->all());
+            if ($request->input('level_1') != '') {
+                $bonus->level_1 = $request->input('level_1');
+            }
+            if ($request->input('level_2') != '') {
+                $bonus->level_2 = $request->input('level_2');
+            }
+            if ($request->input('level_3') != '') {
+                $bonus->level_3 = $request->input('level_3');
+            }
+            if ($request->input('level_4') != '') {
+                $bonus->level_4 = $request->input('level_4');
+            }
+            if ($request->input('level_5') != '') {
+                $bonus->level_5 = $request->input('level_5');
+            }
             $bonus->save();
         } else {
-            $bonusExist->fill($request->all())->save();
+            
+            if ($request->input('level_1') != '') {
+                $bonusExist->level_1 = $request->input('level_1');
+            }
+            if ($request->input('level_2') != '') {
+                $bonusExist->level_2 = $request->input('level_2');
+            }
+            if ($request->input('level_3') != '') {
+                $bonusExist->level_3 = $request->input('level_3');
+            }
+            if ($request->input('level_4') != '') {
+                $bonusExist->level_4 = $request->input('level_4');
+            }
+            if ($request->input('level_5') != '') {
+                $bonusExist->level_5 = $request->input('level_5');
+            }
+            $bonusExist->save();
         }
 
         Flash::success('Plan bonuses updated successfully.');
