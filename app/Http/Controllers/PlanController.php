@@ -246,13 +246,13 @@ class PlanController extends AppBaseController
             return redirect(route('plans.index'));
         }
 
-        $bonusExist = DB::table('bonuses')->whereNull('deleted_at')->where('plan_id', $id)->first();
+        $bonusExist = Bonus::whereNull('deleted_at')->where('plan_id', $id)->first();
         if (!$bonusExist) {
             $bonus = new Bonus();
             $bonus->fill($request->all());
             $bonus->save();
         } else {
-            $bonusExist->update($request->all());
+            $bonusExist->fill($request->all())->save();
         }
 
         Flash::success('Plan bonuses updated successfully.');
