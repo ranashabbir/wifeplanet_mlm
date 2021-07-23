@@ -22,6 +22,12 @@
     <p>{{ $plan->type }}</p>
 </div>
 
+<!-- Role Field -->
+<div class="form-group">
+    {!! Form::label('role_id', 'Role:') !!}
+    <p>{{ $plan->usergroup->name }}</p>
+</div>
+
 <!-- Image Field -->
 <div class="form-group">
     {!! Form::label('image', 'Image:') !!}

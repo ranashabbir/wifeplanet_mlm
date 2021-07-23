@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/libs/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/ckeditor/samples/css/samples.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/select2/dist/css/select2.min.css') }}">
 @endsection
 
 @section('content')
@@ -50,11 +51,14 @@
     </script>
     <script>
         $(document).ready(function() {
+            $('#role_id').select2();
             $("input[name=site]").on("change", function() {
                 if ( $(this).val() == 'mlm' ) {
                     $('.dating_input-wrap').addClass('hide');
+                    $('input[type=submit]').val('Save & Add Bonus');
                 } else {
                     $('.dating_input-wrap').removeClass('hide');
+                    $('input[type=submit]').val('Save');
                 }
             });
         });

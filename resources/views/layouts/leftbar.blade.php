@@ -90,6 +90,7 @@
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="{{ url('/plans') }}" class="sidebar-link {{ request()->is('plans') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>
                             <li class="sidebar-item"><a href="{{ url('/plans/create') }}" class="sidebar-link {{ request()->is('plans/create') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Create New </span></a></li>
+                            <li class="sidebar-item"><a href="{{ url('/bonuses') }}" class="sidebar-link {{ request()->is('bonuses') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Bonuses </span></a></li>
                         </ul>
                     </li>
                 @endif

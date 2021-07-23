@@ -9,9 +9,11 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
-
+use DB;
 use Image;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Plan;
+use App\Models\Bonus;
 
 class PlanController extends AppBaseController
 {
@@ -32,7 +34,9 @@ class PlanController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $plans = $this->planRepository->paginate(10);
+        $plans = DB::table('plans')->select('plans.*', 'roles.name')
+                        ->leftJoin('roles', 'plans.role_id', '=', 'roles.id')
+                        ->paginate(10);
 
         return view('plans.index')
             ->with('plans', $plans);
@@ -45,7 +49,11 @@ class PlanController extends AppBaseController
      */
     public function create()
     {
-        return view('plans.create');
+        $roles = DB::table('roles')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
+        $roles[0] = 'Select User Grooup';
+        ksort($roles);
+
+        return view('plans.create')->with('roles', $roles);
     }
 
     /**
@@ -118,13 +126,17 @@ class PlanController extends AppBaseController
     {
         $plan = $this->planRepository->find($id);
 
+        $roles = DB::table('roles')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
+        $roles[0] = 'Select User Grooup';
+        ksort($roles);
+
         if (empty($plan)) {
             Flash::error('Plan not found');
 
             return redirect(route('plans.index'));
         }
 
-        return view('plans.edit')->with('plan', $plan);
+        return view('plans.edit')->with('plan', $plan)->with('roles', $roles);
     }
 
     /**
@@ -172,7 +184,11 @@ class PlanController extends AppBaseController
 
         Flash::success('Plan updated successfully.');
 
-        return redirect(route('plans.index'));
+        if ($request->input('site') == 'mlm') {
+            return redirect(route('plans.bonus', $plan->id));
+        } else {
+            return redirect(route('plans.index'));
+        }
     }
 
     /**
@@ -197,6 +213,43 @@ class PlanController extends AppBaseController
         $this->planRepository->delete($id);
 
         Flash::success('Plan deleted successfully.');
+
+        return redirect(route('plans.index'));
+    }
+
+    public function bonus($id) {
+        $plan = Plan::where('id', $id)->first();
+
+        return view('plans.bonus')->with('plan', $plan);
+    }
+
+    public function createbonus() {
+        $plans = DB::table('plans')->where('site', 'mlm')->whereNull('deleted_at')->pluck('title', 'id')->toArray();
+
+        return view('plans.createbonus')->with('plans', $plans);
+    }
+
+    public function bonuses() {
+        $bonuses = Bonus::whereNull('deleted_at')->paginate(10);
+
+        return view('plans.bonuses')->with('bonuses', $bonuses);
+    }
+
+    public function updatebonus($id, Request $request)
+    {
+        $plan = Plan::find($id);
+
+        if (empty($plan)) {
+            Flash::error('Plan not found');
+
+            return redirect(route('plans.index'));
+        }
+
+        $bonus = new Bonus();
+        $bonus->fill($request->all());
+        $bonus->save();
+
+        Flash::success('Plan updated successfully.');
 
         return redirect(route('plans.index'));
     }

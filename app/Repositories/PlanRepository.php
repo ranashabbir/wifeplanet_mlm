@@ -19,7 +19,8 @@ class PlanRepository extends BaseRepository
     protected $fieldSearchable = [
         'title',
         'price',
-        'type'
+        'type',
+        'site'
     ];
 
     /**

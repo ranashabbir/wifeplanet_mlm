@@ -24,18 +24,17 @@ class Plan extends Model
     use HasFactory;
 
     public $table = 'plans';
-    
 
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'title',
         'description',
         'price',
         'type',
-        'image'
+        'image',
+        'role_id',
+        'site'
     ];
 
     /**
@@ -47,7 +46,9 @@ class Plan extends Model
         'title' => 'string',
         'description' => 'string',
         'price' => 'integer',
-        'type' => 'string'
+        'type' => 'string',
+        'role_id' => 'integer',
+        'site' => 'string'
     ];
 
     /**
@@ -58,8 +59,25 @@ class Plan extends Model
     public static $rules = [
         'title' => 'required|max:25',
         'price' => 'required',
-        'type' => 'required'
+        'type' => 'required',
+        'site' => 'required'
     ];
 
-    
+    /**
+     * @return HasOne
+     */
+    public function usergroup()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
+    }
+
+    /**
+     * Plan Bonus Relationships.
+     *
+     * @var array
+     */
+    public function bonus()
+    {
+        return $this->hasOne('App\Models\Bonus');
+    }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('title')
-    {{ __('Plans') }}
+    {{ __('Bonuses') }}
 @endsection
 
 @section('css')
@@ -16,12 +16,13 @@
                     @include('laravelusers::partials.form-status')
                 </div>
                 <div class="col-md-5 align-self-center">
-                    <h3 class="page-title">Showing All Plans</h3>
+                    <h3 class="page-title">Showing All Bonuses</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">All Plans</li>
+                                <li class="breadcrumb-item"><a href="{{ url('/plans') }}">Plans</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">All Bonuses</li>
                             </ol>
                         </nav>
                     </div>
@@ -38,7 +39,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="border-bottom title-part-padding">
-                            <h4 class="card-title mb-0">Plans</h4>
+                            <h4 class="card-title mb-0">Bonuses</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive users-table">
@@ -46,42 +47,35 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>ID</th>
-                                            <th class="hidden-sm hidden-xs hidden-md">Title</th>
-                                            <th>Price</th>
-                                            <th>Site</th>
-                                            <th>Role</th>
-                                            <th>Type</th>
-                                            {{-- <th class="hidden-sm hidden-xs hidden-md">Description</th> --}}
+                                            <th>Level 1</th>
+                                            <th>Level 2</th>
+                                            <th>Level 3</th>
+                                            <th>Level 4</th>
+                                            <th>Level 5</th>
+                                            <th>Plan</th>
                                             <th colspan="3" class="no-search no-sort hidden-sm hidden-xs hidden-md">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="users_table">
-                                        @foreach($plans as $plan)
+                                        @foreach($bonuses as $bonus)
                                             <tr>
-                                                <td>{{ $plan->id }}</td>
-                                                <td>{{ $plan->title }}</td>
-                                                <td>{{ $plan->price }}</td>
-                                                <td>{{ ucfirst($plan->site) }}</td>
-                                                <td>{{ $plan->name }}</td>
-                                                <td>{{ ucfirst($plan->type) }}</td>
-                                                {{-- <td>{!! $plan->description !!}</td> --}}
+                                                <td>{{ $bonus->id }}</td>
+                                                <td>{{ $bonus->level_1 }}</td>
+                                                <td>{{ $bonus->level_2 }}</td>
+                                                <td>{{ $bonus->level_3 }}</td>
+                                                <td>{{ $bonus->level_4 }}</td>
+                                                <td>{{ $bonus->level_5 }}</td>
+                                                <td>{{ $bonus->plan->title }}</td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('plans.show', [$plan->id]) }}" data-toggle="tooltip" title="{!! __('laravelusers::laravelusers.tooltips.show') !!}">
-                                                        {!! __('laravelusers::laravelusers.buttons.show') !!}
-                                                    </a> 
-                                                    <a class="btn btn-sm btn-info" href="{{ route('plans.edit', [$plan->id]) }}" data-toggle="tooltip" title="{!! __('laravelusers::laravelusers.tooltips.edit') !!}">
+                                                    <a class="btn btn-sm btn-info" href="{{ route('plans.bonus', [$bonus->plan->id]) }}" data-toggle="tooltip" title="{!! __('laravelusers::laravelusers.tooltips.edit') !!}">
                                                         {!! __('laravelusers::laravelusers.buttons.edit') !!}
                                                     </a> 
-                                                    {!! Form::open(array('route' => ['plans.destroy', $plan->id], 'class' => '', 'style' => 'display:inline-block;', 'data-bs-toggle' => 'tooltip', 'title' => __('laravelusers::laravelusers.tooltips.delete'))) !!}
-                                                        {!! Form::hidden('_method', 'DELETE') !!}
-                                                        {!! Form::button(__('laravelusers::laravelusers.buttons.delete'), array('class' => 'btn btn-danger btn-sm','type' => 'button' ,'data-bs-toggle' => 'modal', 'data-bs-target' => '#al-danger-alert', 'data-bs-id' => $plan->id, 'data-bs-title' => __('Delete Plan'), 'data-bs-message' => __('laravelusers::modals.delete_user_message', ['user' => $plan->title]))) !!}
-                                                    {!! Form::close() !!}
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {{ $plans->links() }}
+                                {{ $bonuses->links() }}
                             </div>
                         </div>
                     </div>

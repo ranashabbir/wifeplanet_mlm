@@ -76,6 +76,10 @@ Route::group(['middleware' => ['role:admin', 'web', 'auth', 'user.activated']], 
     Route::post('users/{user}/update', 'UsersManagementController@update')->name('users.update');
 
     Route::resource('plans', 'PlanController');
+    Route::get('/bonus/{id}', 'PlanController@bonus')->name('plans.bonus');
+    Route::get('/createbonus', 'PlanController@createbonus')->name('plans.createbonus');
+    Route::post('/plans/updatebonus/{id}', 'PlanController@updatebonus')->name('plans.updatebonus');
+    Route::get('/bonuses', 'PlanController@bonuses')->name('plans.bonuses');
 });
 
 Route::group(['middleware' => ['user.activated', 'auth']], function () {
