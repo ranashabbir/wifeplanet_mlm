@@ -36,6 +36,7 @@ class PlanController extends AppBaseController
     {
         $plans = DB::table('plans')->select('plans.*', 'roles.name')
                         ->leftJoin('roles', 'plans.role_id', '=', 'roles.id')
+                        ->whereNull('plans.deleted_at')
                         ->paginate(10);
 
         return view('plans.index')
@@ -50,7 +51,7 @@ class PlanController extends AppBaseController
     public function create()
     {
         $roles = DB::table('roles')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
-        $roles[0] = 'Select User Grooup';
+        $roles[0] = 'Select User Group';
         ksort($roles);
 
         return view('plans.create')->with('roles', $roles);
@@ -245,11 +246,16 @@ class PlanController extends AppBaseController
             return redirect(route('plans.index'));
         }
 
-        $bonus = new Bonus();
-        $bonus->fill($request->all());
-        $bonus->save();
+        $bonusExist = DB::table('bonuses')->whereNull('deleted_at')->where('plan_id', $id)->first();
+        if (!$bonusExist) {
+            $bonus = new Bonus();
+            $bonus->fill($request->all());
+            $bonus->save();
+        } else {
+            $bonusExist->update($request->all());
+        }
 
-        Flash::success('Plan updated successfully.');
+        Flash::success('Plan bonuses updated successfully.');
 
         return redirect(route('plans.index'));
     }
