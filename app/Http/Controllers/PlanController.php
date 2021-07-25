@@ -264,6 +264,9 @@ class PlanController extends AppBaseController
             if ($request->input('level_5') != '') {
                 $bonus->level_5 = $request->input('level_5');
             }
+            if ($request->input('commission') != '') {
+                $bonus->commission = $request->input('commission');
+            }
             $bonus->save();
         } else {
             
@@ -281,6 +284,9 @@ class PlanController extends AppBaseController
             }
             if ($request->input('level_5') != '') {
                 $bonusExist->level_5 = $request->input('level_5');
+            }
+            if ($request->input('commission') != '') {
+                $bonusExist->commission = $request->input('commission');
             }
             $bonusExist->save();
         }

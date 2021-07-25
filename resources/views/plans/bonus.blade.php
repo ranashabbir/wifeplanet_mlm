@@ -29,6 +29,12 @@
                             <div class="card-body">
                                 {!! Form::model($plan->bonus, ['route' => ['plans.updatebonus', $plan->id]]) !!}
                                     {!! Form::hidden('plan_id', $plan->id) !!}
+                                    <!-- Commission Field -->
+                                    <div class="form-group col-sm-12 col-lg-12">
+                                        {!! Form::label('commission', 'Commission') !!}
+                                        {!! Form::number('commission', null, ['class' => 'form-control']) !!}
+                                    </div>
+
                                     <!-- Level 1 Field -->
                                     <div class="form-group col-sm-12 col-lg-12">
                                         {!! Form::label('level_1', 'Level 1:') !!}

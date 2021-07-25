@@ -47,6 +47,7 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>ID</th>
+                                            <th>Commission</th>
                                             <th>Level 1</th>
                                             <th>Level 2</th>
                                             <th>Level 3</th>
@@ -60,6 +61,7 @@
                                         @foreach($bonuses as $bonus)
                                             <tr>
                                                 <td>{{ $bonus->id }}</td>
+                                                <td>{{ $bonus->commission }}</td>
                                                 <td>{{ $bonus->level_1 }}</td>
                                                 <td>{{ $bonus->level_2 }}</td>
                                                 <td>{{ $bonus->level_3 }}</td>

@@ -21,7 +21,8 @@ class Bonus extends Model
         'level_3',
         'level_4',
         'level_5',
-        'plan_id'
+        'plan_id',
+        'commission'
     ];
 
     /**

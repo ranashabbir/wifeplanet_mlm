@@ -34,6 +34,13 @@
                                         {!! Form::select('plan_id', $plans, null, ['id' => 'plan_id', 'class' => 'form-control select2']) !!}
                                     </div>
 
+                                    <!-- Commission Field -->
+                                    <div class="form-group col-sm-12 col-lg-12">
+                                        {!! Form::label('commission', 'Commission') !!}
+                                        {!! Form::number('commission', '0', ['class' => 'form-control']) !!}
+                                    </div>
+
+
                                     <!-- Level 1 Field -->
                                     <div class="form-group col-sm-12 col-lg-12">
                                         {!! Form::label('level_1', 'Level 1:') !!}
