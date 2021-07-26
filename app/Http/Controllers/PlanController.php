@@ -277,7 +277,8 @@ class PlanController extends AppBaseController
             Flash::error('Commission must be less than Plans Price('.$plan->price.').');
             return redirect(route('plans.bonus', $plan->id))
                         ->withErrors($validator)
-                        ->withInput();
+                        // ->withInput()
+                        ;
         }
 
         $levelSum = $request->input('level_1') + $request->input('level_2') + $request->input('level_3') + $request->input('level_4') + $request->input('level_5');
@@ -287,7 +288,8 @@ class PlanController extends AppBaseController
             $validator->getMessageBag()->add('level_1', 'Total percentage for levels can never be more than 100.');
             return redirect(route('plans.bonus', $plan->id))
                         ->withErrors($validator)
-                        ->withInput();
+                        // ->withInput()
+                        ;
         }
 
         $bonusExist = Bonus::whereNull('deleted_at')->where('plan_id', $id)->first();
