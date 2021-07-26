@@ -274,6 +274,7 @@ class PlanController extends AppBaseController
         ]);
 
         if ($validator->fails()) {
+            Flash::error('Commission must be less than Plans Price('.$plan->price.').');
             return redirect(route('plans.bonus', $plan->id))
                         ->withErrors($validator)
                         ->withInput();
@@ -282,6 +283,7 @@ class PlanController extends AppBaseController
         $levelSum = $request->input('level_1') + $request->input('level_2') + $request->input('level_3') + $request->input('level_4') + $request->input('level_5');
 
         if ($levelSum >= 100) {
+            Flash::error('Total percentage for levels can never be more than 100.');
             $validator->getMessageBag()->add('level_1', 'Total percentage for levels can never be more than 100.');
             return redirect(route('plans.bonus', $plan->id))
                         ->withErrors($validator)
