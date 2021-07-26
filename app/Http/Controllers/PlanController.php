@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePlanRequest;
 use App\Repositories\PlanRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Flash;
 use Response;
 use DB;
@@ -40,6 +41,14 @@ class PlanController extends AppBaseController
                         ->paginate(10);
 
         return view('plans.index')
+            ->with('plans', $plans);
+    }
+
+    public function mlmPackages()
+    {
+        $plans = Plan::where('site', 'mlm')->whereNull('deleted_at')->get();
+
+        return view('plans.mlmpackages')
             ->with('plans', $plans);
     }
 
@@ -160,6 +169,11 @@ class PlanController extends AppBaseController
 
         $plan = $this->planRepository->update($request->all(), $id);
 
+        if ($request->input('site') == 'mlm') {
+            $plan->type = '';
+            $plan->save();
+        }
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $file_name = explode('.',$image->getClientOriginalName());
@@ -244,6 +258,30 @@ class PlanController extends AppBaseController
             Flash::error('Plan not found');
 
             return redirect(route('plans.index'));
+        }
+
+        $validator = Validator::make($request->all(), [
+            'commission' => 'required|lt:'.$plan->price,
+            'plan_id' => 'required',
+        ],
+        [
+            'required' => 'The :attribute field is required.',
+            'lt' => 'Commission must be less than Plans Price('.$plan->price.').',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect(route('plans.bonus', $plan->id))
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $levelSum = $request->input('level_1') + $request->input('level_2') + $request->input('level_3') + $request->input('level_4') + $request->input('level_5');
+
+        if ($levelSum >= 100) {
+            $validator->getMessageBag()->add('level_1', 'Total percentage for levels can never be more than 100.');
+            return redirect(route('plans.bonus', $plan->id))
+                        ->withErrors($validator)
+                        ->withInput();
         }
 
         $bonusExist = Bonus::whereNull('deleted_at')->where('plan_id', $id)->first();
