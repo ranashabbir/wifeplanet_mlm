@@ -59,7 +59,7 @@ class Plan extends Model
     public static $rules = [
         'title' => 'required|max:25',
         'price' => 'required',
-        'type' => 'required',
+        'type' => '',
         'site' => 'required'
     ];
 
