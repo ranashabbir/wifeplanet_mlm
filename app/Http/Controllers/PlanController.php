@@ -128,7 +128,7 @@ class PlanController extends AppBaseController
         $plan = $this->planRepository->find($id);
 
         $roles = DB::table('roles')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
-        $roles[0] = 'Select User Grooup';
+        $roles[0] = 'Select User Group';
         ksort($roles);
 
         if (empty($plan)) {
@@ -249,6 +249,7 @@ class PlanController extends AppBaseController
         $bonusExist = Bonus::whereNull('deleted_at')->where('plan_id', $id)->first();
         if (!$bonusExist) {
             $bonus = new Bonus();
+            $bonus->plan_id = $request->input('plan_id');
             if ($request->input('level_1') != '') {
                 $bonus->level_1 = $request->input('level_1');
             }
@@ -269,7 +270,7 @@ class PlanController extends AppBaseController
             }
             $bonus->save();
         } else {
-            
+            $bonusExist->plan_id = $request->input('plan_id');
             if ($request->input('level_1') != '') {
                 $bonusExist->level_1 = $request->input('level_1');
             }
