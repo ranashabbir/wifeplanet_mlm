@@ -102,7 +102,11 @@ class PlanController extends AppBaseController
 
         Flash::success('Plan saved successfully.');
 
-        return redirect(route('plans.index'));
+        if ($request->input('site') == 'mlm') {
+            return redirect(route('plans.bonus', $plan->id));
+        } else {
+            return redirect(route('plans.index'));
+        }
     }
 
     /**
