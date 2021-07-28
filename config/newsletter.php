@@ -32,7 +32,7 @@ return [
          * You can set it to any string you want and you can add
          * as many lists as you want.
          */
-        'subscribers' => [
+        'MLM audience' => [
 
             /*
              * A MailChimp list id. Check the MailChimp docs if you don't know
