@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f1e67a281caa84408e0873bf179da4d",
+    "content-hash": "2e148c1ddc5d8a137ca5d4e95db28a53",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1789,6 +1789,68 @@
                 }
             ],
             "time": "2021-01-03T20:38:00+00:00"
+        },
+        {
+            "name": "junaidnasir/larainvite",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/junaidnasir/larainvite.git",
+                "reference": "c80daf97592097946bd694c5a84b53d7be96021a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/junaidnasir/larainvite/zipball/c80daf97592097946bd694c5a84b53d7be96021a",
+                "reference": "c80daf97592097946bd694c5a84b53d7be96021a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^5.8|^6.0|^7.0|^8.0",
+                "illuminate/events": "^5.8|^6.0|^7.0|^8.0",
+                "illuminate/support": "^5.8|^6.0|^7.0|^8.0",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.2|^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Junaidnasir\\Larainvite\\LaraInviteServiceProvider"
+                    ],
+                    "aliases": {
+                        "Invite": "Junaidnasir\\Larainvite\\Facades\\Invite"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Junaidnasir\\Larainvite\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Junaid Nasir",
+                    "email": "contact@junaidnasir.com"
+                }
+            ],
+            "description": "Laravel Invitation package, existing users can invite others by email",
+            "homepage": "https://github.com/junaidnasir/larainvite",
+            "keywords": [
+                "Invite",
+                "invitations",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/junaidnasir/larainvite/issues",
+                "source": "https://github.com/junaidnasir/larainvite/tree/v4.0.0"
+            },
+            "time": "2020-09-16T08:24:51+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
@@ -11488,5 +11550,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

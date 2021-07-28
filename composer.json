@@ -17,6 +17,7 @@
         "intervention/image": "^2.5",
         "jeremykenedy/laravel-roles": "^6.0",
         "jeremykenedy/laravel-users": "^4.3",
+        "junaidnasir/larainvite": "^4.0",
         "laminas/laminas-diactoros": "^2.2",
         "laravel/framework": "^8.40",
         "laravel/passport": "^10",

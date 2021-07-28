@@ -13,6 +13,9 @@ use jeremykenedy\LaravelRoles\Models\Role;
 use App\Models\Country;
 use App\Models\Profile;
 use Newsletter;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Flash;
 
 class RegisterController extends Controller
 {
@@ -87,7 +90,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'lastname' => $data['lastname'],
             'phone' => $data['phone'],
-            'country' => $country->name
+            'country' => $country->name,
+            'is_active' => 1
         ]);
 
         $profile = new Profile();
@@ -102,5 +106,20 @@ class RegisterController extends Controller
         ]);
 
         return $user;
+    }
+
+    public function register(Request $request)
+    {
+        $requestData = $request->all();
+        $this->validator($requestData)->validate();
+
+        //Determine User type
+        event(new Registered($user = $this->create($requestData)));
+
+        \Auth::logout();
+
+        return redirect('/login')->with('message', __('Thank you for registering! Please verify your email to browse the website.'));
+        // return $this->registered($request, $user)
+        //                 ?: redirect($this->redirectPath());
     }
 }

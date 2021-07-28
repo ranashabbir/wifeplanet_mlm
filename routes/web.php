@@ -167,7 +167,7 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
 });
 
 // Registered, activated, and is current user routes.
-Route::group(['middleware' => ['role:admin|user', 'auth', 'user.activated', 'currentUser']], function () {
+Route::group(['middleware' => ['auth', 'user.activated', 'currentUser']], function () {
 
     // User Profile and Account Routes
     Route::resource(
