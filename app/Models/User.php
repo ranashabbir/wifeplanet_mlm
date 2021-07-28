@@ -20,11 +20,11 @@ use Laravel\Passport\Client;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Passport\Token;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
-use Junaidnasir\Larainvite\InviteTrait;
+// use Junaidnasir\Larainvite\InviteTrait;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasRoleAndPermission, Notifiable, ImageTrait, HasApiTokens, SoftDeletes, InviteTrait;
+    use HasFactory, Notifiable, HasRoleAndPermission, Notifiable, ImageTrait, HasApiTokens, SoftDeletes;//, InviteTrait;
     use ImageTrait {
         deleteImage as traitDeleteImage;
     }
