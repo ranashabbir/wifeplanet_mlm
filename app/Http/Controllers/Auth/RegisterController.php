@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use jeremykenedy\LaravelRoles\Models\Role;
 
+use App\Models\Country;
+use App\Models\Profile;
 use Newsletter;
 
 class RegisterController extends Controller
@@ -44,6 +46,13 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        $countries = Country::whereNull('deleted_at')->get();
+
+        return view('auth.register')->with('countries', $countries);
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -71,21 +80,25 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $role = Role::where('slug', '=', 'unverified')->first();
+        $country = Country::where('id', $data['country'])->first();
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'lastname' => $data['lastname'],
             'phone' => $data['phone'],
-            'country' => $data['country']
+            'country' => $country->name
         ]);
 
+        $profile = new Profile();
+        $profile->country_id = $data['country'];
+        $user->profile()->save($profile);
         $user->attachRole($role);
-        Newsletter::subscribe($data['email'], [
-            'FNAME' => $data['name'],
-            'LNAME' => $data['lastname'],
-            'PHONE' => $data['phone']
-        ]);
+        // Newsletter::subscribe($data['email'], [
+        //     'FNAME' => $data['name'],
+        //     'LNAME' => $data['lastname'],
+        //     'PHONE' => $data['phone']
+        // ]);
 
         return $user;
     }

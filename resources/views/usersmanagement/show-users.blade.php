@@ -53,6 +53,8 @@
                                             @if(config('laravelusers.rolesEnabled'))
                                                 <th class="hidden-sm hidden-xs">{!! __('laravelusers::laravelusers.users-table.role') !!}</th>
                                             @endif
+                                            <th class="hidden-sm hidden-xs hidden-md">{!! __('Is Active') !!}</th>
+                                            <th class="hidden-sm hidden-xs hidden-md">{!! __('Verified') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('laravelusers::laravelusers.users-table.created') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('laravelusers::laravelusers.users-table.updated') !!}</th>
                                             <th width="90px;" class="no-search no-sort hidden-sm hidden-xs hidden-md">{!! __('laravelusers::laravelusers.users-table.actions') !!}</th>
@@ -80,6 +82,20 @@
                                                         @endforeach
                                                     </td>
                                                 @endif
+                                                <td class="hidden-sm hidden-xs hidden-md">
+                                                    @if($user->is_active)
+                                                        {!! __('Yes') !!}
+                                                    @else
+                                                        {!! __('No') !!}
+                                                    @endif
+                                                </td>
+                                                <td class="hidden-sm hidden-xs hidden-md">
+                                                    @if($user->email_verified_at != null)
+                                                        {!! __('Yes') !!}
+                                                    @else
+                                                        {!! __('No') !!}
+                                                    @endif
+                                                </td>
                                                 <td class="hidden-sm hidden-xs hidden-md">{{$user->created_at}}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">{{$user->updated_at}}</td>
                                                 <td>

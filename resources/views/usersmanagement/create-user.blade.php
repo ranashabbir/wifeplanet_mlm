@@ -4,7 +4,8 @@
     {!! trans('usersmanagement.create-new-user') !!}
 @endsection
 
-@section('template_fastload_css')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/select2/dist/css/select2.min.css') }}">
 @endsection
 
 @section('content')
@@ -104,6 +105,42 @@
                                         @endif
                                     </div>
                                 </div>
+
+                                <div class="form-group has-feedback row {{ $errors->has('is_active') ? ' has-error ' : '' }}">
+                                    {!! Form::label('is_active', __('Is Active?'), array('class' => 'col-md-3 control-label')); !!}
+                    
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <select class="form-control" name="is_active" id="is_active">
+                                                <option value="0">{!! __('No') !!}</option>
+                                                <option value="1">{!! __('Yes') !!}</option>
+                                            </select>
+                                        </div>
+                                        @if ($errors->has('is_active'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('is_active') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group has-feedback row {{ $errors->has('email_verified_at') ? ' has-error ' : '' }}">
+                                    {!! Form::label('email_verified_at', __('Email Verified?'), array('class' => 'col-md-3 control-label')); !!}
+                    
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <select class="form-control" name="email_verified_at" id="email_verified_at">
+                                                <option value="0">{!! __('No') !!}</option>
+                                                <option value="1">{!! __('Yes') !!}</option>
+                                            </select>
+                                        </div>
+                                        @if ($errors->has('email_verified_at'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('email_verified_at') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
             
                                 <div class="form-group has-feedback row {{ $errors->has('password') ? ' has-error ' : '' }}">
                                     {!! Form::label('password', trans('forms.create_user_label_password'), array('class' => 'col-md-3 control-label')); !!}
@@ -154,5 +191,12 @@
     </div>
 @endsection
 
-@section('footer_scripts')
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('#role').select2();
+        $('#is_active').select2();
+        $('#email_verified_at').select2();
+    });
+</script>
 @endsection

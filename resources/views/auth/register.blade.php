@@ -17,7 +17,7 @@
 
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/select2/dist/css/select2.min.css') }}">
     <!-- Custom CSS -->
     <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -102,8 +102,14 @@
                                     @enderror
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control form-input-bg @error('country') is-invalid @enderror" id="country" min="11" placeholder="United States" name="country" value="{{ old('country') }}">
-                                    <label for="country">{{ __('Country') }}</label>
+                                    <select class="form-control" name="country" id="country">
+                                        <option value="">{{ __('Country') }}</option>
+                                        @if ($countries)
+                                            @foreach($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                     @error('country')
                                         <div class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -130,6 +136,7 @@
 
     <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
     <script>
         $(".preloader ").fadeOut();
 
@@ -151,7 +158,11 @@
                 form.classList.add('was-validated')
               }, false)
             })
-        })()
+        })();
+
+        $(document).ready(function() {
+            $('#country').select2();
+        });
     </script>
 </body>
 

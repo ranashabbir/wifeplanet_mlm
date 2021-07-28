@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -94,6 +94,8 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
     Route::get('/messages/delete/{id}', 'MessagesController@destroy')->name('messages.delete');
     Route::post('/messages/store', 'MessagesController@store')->name('messages.store');
     Route::post('/messages/{id}/update', 'MessagesController@update')->name('messages.update');
+
+    Route::get('/packages', 'PlanController@mlmPackages')->name('mlm.packages');
 
     Route::group(['namespace' => 'API'], function () {
         Route::get('logout', 'Auth\LoginController@logout');

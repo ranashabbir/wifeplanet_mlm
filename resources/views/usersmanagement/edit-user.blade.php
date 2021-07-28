@@ -4,6 +4,10 @@
     {!! __('usersmanagement.editing-user', ['name' => $user->name]) !!}
 @endsection
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/select2/dist/css/select2.min.css') }}">
+@endsection
+
 @section('content')
     <div class="page-wrapper">
         <div class="container-fluid">
@@ -94,7 +98,7 @@
                                                 <option value="">{{ __('forms.create_user_ph_role') }}</option>
                                                 @if ($roles)
                                                     @foreach($roles as $role)
-                                                        <option value="{{ $role->id }}"   selected="selected" >{{ $role->name }}</option>
+                                                        <option value="{{ $role->id }}" @if($user->hasRole($role->slug))selected="selected"@endif >{{ $role->name }}</option>
                                                     @endforeach
                                                 @endif
                                             </select>
@@ -102,6 +106,42 @@
                                         @if ($errors->has('role'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('role') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                    
+                                <div class="form-group has-feedback row {{ $errors->has('is_active') ? ' has-error ' : '' }}">
+                                    {!! Form::label('is_active', __('Is Active?'), array('class' => 'col-md-3 control-label')); !!}
+                    
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <select class="form-control" name="is_active" id="is_active">
+                                                <option value="0" @if(!$user->is_active)selected="selected"@endif>{!! __('No') !!}</option>
+                                                <option value="1" @if($user->is_active)selected="selected"@endif>{!! __('Yes') !!}</option>
+                                            </select>
+                                        </div>
+                                        @if ($errors->has('is_active'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('is_active') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group has-feedback row {{ $errors->has('email_verified_at') ? ' has-error ' : '' }}">
+                                    {!! Form::label('email_verified_at', __('Email Verified?'), array('class' => 'col-md-3 control-label')); !!}
+                    
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <select class="form-control" name="email_verified_at" id="email_verified_at">
+                                                <option value="0" @if($user->email_verified_at == null)selected="selected"@endif>{!! __('No') !!}</option>
+                                                <option value="1" @if($user->email_verified_at != null)selected="selected"@endif>{!! __('Yes') !!}</option>
+                                            </select>
+                                        </div>
+                                        @if ($errors->has('email_verified_at'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('email_verified_at') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -165,12 +205,14 @@
 
         @include('layouts/footer')
     </div>
-    
-    {{-- @include('modals.modal-save') --}}
 @endsection
 
 @section('scripts')
-  {{-- @include('scripts.delete-modal-script') --}}
-  {{--@include('scripts.save-modal-script')--}}
-  {{-- @include('scripts.check-changed') --}}
+<script>
+    $(document).ready(function() {
+        $('#role').select2();
+        $('#is_active').select2();
+        $('#email_verified_at').select2();
+    });
+</script>
 @endsection

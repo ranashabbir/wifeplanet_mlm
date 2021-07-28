@@ -107,11 +107,12 @@ class UsersManagementController extends Controller
         $profile = new Profile();
 
         $user = User::create([
-            'name'             => $request->input('name'),
-            'lastname'        => $request->input('lastname'),
-            'email'            => $request->input('email'),
-            'password'         => bcrypt($request->input('password')),
-            'is_activate'        => 1,
+            'name'              => $request->input('name'),
+            'lastname'          => $request->input('lastname'),
+            'email'             => $request->input('email'),
+            'password'          => bcrypt($request->input('password')),
+            'is_active'         => $request->input('is_active'),
+            'email_verified_at' => $request->input('email_verified_at') == '1' ? date("Y-m-d H:i:s", time()) : null,
         ]);
 
         $user->profile()->save($profile);
@@ -210,6 +211,14 @@ class UsersManagementController extends Controller
 
         if ($request->input('password') != null) {
            $user->password = bcrypt($request->input('password'));
+        }
+
+        $user->is_active = $request->input('is_active');
+
+        if($request->input('email_verified_at') == '1') {
+            $user->email_verified_at = date('Y-m-d H:i:s', time());
+        } else {
+            $user->email_verified_at = null;
         }
 
         $userRole = $request->input('role');
