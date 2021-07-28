@@ -96,6 +96,7 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
     Route::post('/messages/{id}/update', 'MessagesController@update')->name('messages.update');
 
     Route::get('/packages', 'PlanController@mlmPackages')->name('mlm.packages');
+    Route::get('/purchase/{package_id}', 'PlanController@purchasePackage')->name('purchase.package');
 
     Route::group(['namespace' => 'API'], function () {
         Route::get('logout', 'Auth\LoginController@logout');

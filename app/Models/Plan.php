@@ -79,4 +79,12 @@ class Plan extends Model
     {
         return $this->hasOne('App\Models\Bonus');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'plan_id');
+    }
 }

@@ -107,6 +107,14 @@
                             <span class="hide-menu">Conversation</span>
                         </a>
                     </li>
+                @if(!Auth::user()->hasRole('admin'))
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ request()->is('packages*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('packages') }}" aria-expanded="false">
+                            <i data-feather="package" class="feather feather-package"></i>
+                            <span class="hide-menu">Packages</span>
+                        </a>
+                    </li>
+                @endif
                 @if(Auth::user()->hasRole('admin'))
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ request()->is('settings*') ? 'active' : '' }} waves-effect waves-dark" href="{{ route('settings.index') }}" aria-expanded="false">

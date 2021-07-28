@@ -332,4 +332,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->profiles()->detach($profile);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'user_id');
+    }
 }

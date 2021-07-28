@@ -15,6 +15,8 @@ use Image;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Plan;
 use App\Models\Bonus;
+use App\Models\Subscription;
+use Auth;
 
 class PlanController extends AppBaseController
 {
@@ -47,9 +49,11 @@ class PlanController extends AppBaseController
     public function mlmPackages()
     {
         $plans = Plan::where('site', 'mlm')->whereNull('deleted_at')->get();
+        $subscription = Auth::user()->subscriptions->last();
 
         return view('plans.mlmpackages')
-            ->with('plans', $plans);
+            ->with('plans', $plans)
+            ->with('subscription', $subscription);
     }
 
     /**
@@ -339,5 +343,30 @@ class PlanController extends AppBaseController
         Flash::success('Plan bonuses updated successfully.');
 
         return redirect(route('plans.bonuses'));
+    }
+
+    public function purchasePackage($package_id) {
+        if (!$package_id) {
+            Flash::error('Package ID not found.');
+
+            return redirect(route('mlm.packages'));
+        }
+
+        $plan = Plan::find($package_id);
+        if ( empty( $plan ) ) {
+            Flash::error('Package not found.');
+
+            return redirect(route('mlm.packages'));
+        }
+
+        $subscription = new Subscription();
+        $subscription->plan_id = $package_id;
+        $subscription->user_id = Auth::user()->id;
+        $subscription->price = $plan->price;
+        $subscription->status = 'active';
+        $subscription->save();
+
+        Flash::success('Your purchase completed successfully.');
+        return redirect(route('mlm.packages'));
     }
 }
