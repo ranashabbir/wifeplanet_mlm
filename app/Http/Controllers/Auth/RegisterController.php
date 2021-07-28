@@ -94,11 +94,12 @@ class RegisterController extends Controller
         $profile->country_id = $data['country'];
         $user->profile()->save($profile);
         $user->attachRole($role);
-        // Newsletter::subscribe($data['email'], [
-        //     'FNAME' => $data['name'],
-        //     'LNAME' => $data['lastname'],
-        //     'PHONE' => $data['phone']
-        // ]);
+
+        Newsletter::subscribe($data['email'], [
+            'FNAME' => $data['name'],
+            'LNAME' => $data['lastname'],
+            'PHONE' => $data['phone']
+        ]);
 
         return $user;
     }
