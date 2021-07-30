@@ -12,6 +12,7 @@ use File;
 use Image;
 
 use DB;
+use App\Models\Plan;
 
 class ProfileController extends Controller
 {
@@ -56,8 +57,16 @@ class ProfileController extends Controller
             abort(404);
         }
 
+        $plan_name = '';
+
+        $plan = Plan::find($user->subscriptions->last()->plan_id);
+        if ($plan) {
+            $plan_name = $plan->title;
+        }
+
         $data = [
-            'user' => $user
+            'user' => $user,
+            'plan_name' => $plan_name
         ];
 
         return view('profiles.show')->with($data);

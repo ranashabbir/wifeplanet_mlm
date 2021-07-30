@@ -54,6 +54,19 @@
 								{{ $user->email }}
 							</dd>
 
+							<dt>
+								{{ __('Parent Account') }}
+							</dt>
+							<dd>
+								{{ $user->parent->name }} {{ $user->parent->lastname }}
+							</dd>
+							<dt>
+								{{ __('Subscription Plan') }}
+							</dt>
+							<dd>
+								{{ $plan_name }}
+							</dd>
+
 							@if ($user->profile)
 
 								@if ($user->profile->location)

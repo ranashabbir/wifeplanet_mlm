@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('register/{code?}', 'Auth\RegisterController@showRegistrationForm');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -80,6 +82,9 @@ Route::group(['middleware' => ['role:admin', 'web', 'auth', 'user.activated']], 
     Route::get('/createbonus', 'PlanController@createbonus')->name('plans.createbonus');
     Route::post('/plans/updatebonus/{id}', 'PlanController@updatebonus')->name('plans.updatebonus');
     Route::get('/bonuses', 'PlanController@bonuses')->name('plans.bonuses');
+
+    Route::get('/subscriptions', 'SubscriptionController@index')->name('subscriptions.index');
+    Route::get('/commissions/{user_id}', 'SubscriptionController@commissions')->name('subscriptions.commissions');
 });
 
 Route::group(['middleware' => ['user.activated', 'auth']], function () {
@@ -97,6 +102,9 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
 
     Route::get('/packages', 'PlanController@mlmPackages')->name('mlm.packages');
     Route::get('/purchase/{package_id}', 'PlanController@purchasePackage')->name('purchase.package');
+
+    Route::get('/invite', 'InviteController@index')->name('invite');
+    Route::post('/inviteusers', 'InviteController@invite')->name('invite.invite');
 
     Route::group(['namespace' => 'API'], function () {
         Route::get('logout', 'Auth\LoginController@logout');

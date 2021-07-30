@@ -16,6 +16,7 @@ use Newsletter;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Flash;
+use Junaidnasir\Larainvite\Facades\Invite;
 
 class RegisterController extends Controller
 {
@@ -49,11 +50,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function showRegistrationForm()
+    public function showRegistrationForm($code = null)
     {
         $countries = Country::whereNull('deleted_at')->get();
 
-        return view('auth.register')->with('countries', $countries);
+        return view('auth.register')->with('countries', $countries)->with('code', $code);
     }
 
     /**
@@ -82,6 +83,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $code = $data['code'];
+        $parent_id = 0;
+        if( Invite::isValid($code)) {
+            $invitation = Invite::get($code);
+            $referral_user = $invitation->user;
+            $parent_id = $referral_user->id;
+        } else {
+            $status = Invite::status($code);
+        }
+
+        $email = $data['email'];
+        if( Invite::isAllowed($code, $email) ){
+            // Register this user
+            Invite::consume($code);
+        }
+
         $role = Role::where('slug', '=', 'unverified')->first();
         $country = Country::where('id', $data['country'])->first();
         $user = User::create([
@@ -91,7 +108,8 @@ class RegisterController extends Controller
             'lastname' => $data['lastname'],
             'phone' => $data['phone'],
             'country' => $country->name,
-            'is_active' => 1
+            'is_active' => 1,
+            'parent_id' => $parent_id
         ]);
 
         $profile = new Profile();

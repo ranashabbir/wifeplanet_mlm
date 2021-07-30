@@ -17,6 +17,8 @@ use App\Models\Plan;
 use App\Models\Bonus;
 use App\Models\Subscription;
 use Auth;
+use App\Models\Commission;
+use App\Models\User;
 
 class PlanController extends AppBaseController
 {
@@ -346,6 +348,7 @@ class PlanController extends AppBaseController
     }
 
     public function purchasePackage($package_id) {
+        $user = \Auth::user();
         if (!$package_id) {
             Flash::error('Package ID not found.');
 
@@ -359,6 +362,32 @@ class PlanController extends AppBaseController
             return redirect(route('mlm.packages'));
         }
 
+        $levelOneUser = $user->parent;
+        if ($levelOneUser && $plan->bonus) {
+            $bonus = $plan->bonus;
+            $this->addCommission($user->id, $levelOneUser->id, $bonus, 1);
+
+            if ($levelOneUser->parent_id != 0) {
+                $levelTwoUser = DB::table('users')->where('id', $levelOneUser->parent_id)->first();
+                $this->addCommission($user->id, $levelTwoUser->id, $bonus, 2);
+                
+                if ($levelTwoUser->parent_id != 0) {
+                    $levelThreeUser = DB::table('users')->where('id', $levelTwoUser->parent_id)->first();
+                    $this->addCommission($user->id, $levelThreeUser->id, $bonus, 3);
+
+                    if ($levelThreeUser->parent_id != 0) {
+                        $levelFourUser = DB::table('users')->where('id', $levelThreeUser->parent_id)->first();
+                        $this->addCommission($user->id, $levelFourUser->id, $bonus, 4);
+    
+                        if ($levelFourUser->parent_id != 0) {
+                            $levelFiveUser = DB::table('users')->where('id', $levelFourUser->parent_id)->first();
+                            $this->addCommission($user->id, $levelFiveUser->id, $bonus, 5);
+                        }
+                    }
+                }
+            }
+        }
+
         $subscription = new Subscription();
         $subscription->plan_id = $package_id;
         $subscription->user_id = Auth::user()->id;
@@ -368,5 +397,29 @@ class PlanController extends AppBaseController
 
         Flash::success('Your purchase completed successfully.');
         return redirect(route('mlm.packages'));
+    }
+
+    private function addCommission($user_id, $receiver_id, $bonus, $level) {
+        $percent = 0;
+        if ($level == 1) {
+            $percent = $bonus->level_1;
+        } else if ($level == 2) {
+            $percent = $bonus->level_2;
+        } else if ($level == 3) {
+            $percent = $bonus->level_3;
+        } else if ($level == 4) {
+            $percent = $bonus->level_4;
+        } else if ($level == 5) {
+            $percent = $bonus->level_5;
+        }
+
+        if ($percent != 0) {
+            $commission = new Commission();
+            $commission->price = ( $bonus->commission * $percent ) / 100;
+            $commission->user_id = $user_id;
+            $commission->receiver_id = $receiver_id;
+            $commission->level = $level;
+            $commission->save();
+        }
     }
 }

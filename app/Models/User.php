@@ -81,6 +81,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'gender',
         'privacy',
         'language',
+        'parent_id',
     ];
 
     const LANGUAGES = [
@@ -339,5 +340,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class, 'user_id');
+    }
+    
+    /**
+     * @return belongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo(User::class, 'parent_id');
     }
 }

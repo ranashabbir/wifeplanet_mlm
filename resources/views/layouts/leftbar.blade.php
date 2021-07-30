@@ -115,6 +115,18 @@
                         </a>
                     </li>
                 @endif
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ request()->is('subscriptions*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('subscriptions') }}" aria-expanded="false">
+                        <i data-feather="package" class="feather feather-package"></i>
+                        <span class="hide-menu">Subscriptions</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ request()->is('invite*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('invite') }}" aria-expanded="false">
+                        <i data-feather="package" class="feather feather-package"></i>
+                        <span class="hide-menu">Invite</span>
+                    </a>
+                </li>
                 @if(Auth::user()->hasRole('admin'))
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ request()->is('settings*') ? 'active' : '' }} waves-effect waves-dark" href="{{ route('settings.index') }}" aria-expanded="false">

@@ -52,6 +52,7 @@
                         <div class="col-12">
                             <form class="form-horizontal needs-validation" novalidate method="POST" action="{{ route('register') }}">
                                 @csrf
+                                <input type="hidden" name="code" value="{{$code}}">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control form-input-bg @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                                     <label for="name">{{ __('First Name') }}</label>
