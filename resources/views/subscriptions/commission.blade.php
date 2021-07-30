@@ -49,7 +49,7 @@
                                         <tr>
                                             <th>{!! __('ID') !!}</th>
                                             <th>{!! __('Receiver') !!}</th>
-                                            <th>{!! __('User') !!}</th>
+                                            <th>{!! __('From') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('Price') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('Level') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('Created') !!}</th>

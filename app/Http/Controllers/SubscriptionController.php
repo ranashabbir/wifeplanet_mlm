@@ -25,7 +25,7 @@ class SubscriptionController extends Controller
                         ->leftJoin('users as sender', 'commissions.user_id', '=', 'sender.id')
                         ->leftJoin('users as receiver', 'commissions.receiver_id', '=', 'receiver.id')
                         ->select('commissions.*', 'sender.name as sender_name', 'sender.lastname as sender_lastname', 'receiver.name as receiver_name', 'receiver.lastname as receiver_lastname')
-                        ->where('commissions.user_id', $user_id)
+                        ->where('commissions.receiver_id', $user_id)
                         ->get();
 
         $user = User::find($user_id);

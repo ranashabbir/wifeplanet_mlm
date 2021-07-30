@@ -123,7 +123,7 @@
                 </li>
                 @if(Auth::user()->hasRole('admin'))
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ request()->is('subscriptions*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('subscriptions') }}" aria-expanded="false">
+                        <a class="sidebar-link {{ request()->is('subscriptions*') ? 'active' : '' }} {{ request()->is('commissions*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('subscriptions') }}" aria-expanded="false">
                             <i data-feather="package" class="feather feather-package"></i>
                             <span class="hide-menu">Subscriptions</span>
                         </a>

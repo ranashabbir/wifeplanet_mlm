@@ -59,9 +59,11 @@ class ProfileController extends Controller
 
         $plan_name = '';
 
-        $plan = Plan::find($user->subscriptions->last()->plan_id);
-        if ($plan) {
-            $plan_name = $plan->title;
+        if ( count( $user->subscriptions ) > 0 ) {
+            $plan = Plan::find($user->subscriptions->last()->plan_id);
+            if ($plan) {
+                $plan_name = $plan->title;
+            }
         }
 
         $data = [

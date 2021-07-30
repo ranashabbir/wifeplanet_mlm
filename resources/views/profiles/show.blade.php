@@ -58,7 +58,7 @@
 								{{ __('Parent Account') }}
 							</dt>
 							<dd>
-								{{ $user->parent->name }} {{ $user->parent->lastname }}
+								@if($user->parent) {{ $user->parent->name }} {{ $user->parent->lastname }}@endif
 							</dd>
 							<dt>
 								{{ __('Subscription Plan') }}
