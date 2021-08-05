@@ -115,11 +115,11 @@
                         </a>
                     </li>
                 @endif
-                <li class="sidebar-item">
-                    <a class="sidebar-link {{ request()->is('invite*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('invite') }}" aria-expanded="false">
-                        <i data-feather="package" class="feather feather-package"></i>
-                        <span class="hide-menu">Invite</span>
-                    </a>
+                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="user-plus" class="feather-icon"></i><span class="hide-menu">Invites </span></a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item"><a href="{{ url('/invite') }}" class="sidebar-link {{ request()->is('invite') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> Invite New Members </span></a></li>
+                        <li class="sidebar-item"><a href="{{ url('/myinvites') }}" class="sidebar-link {{ request()->is('myinvites') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> My invites </span></a></li>
+                    </ul>
                 </li>
                 @if(Auth::user()->hasRole('admin'))
                     <li class="sidebar-item">
