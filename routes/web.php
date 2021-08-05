@@ -19,9 +19,9 @@ Route::get('/', function () {
 
 Route::get('register/{code?}', 'Auth\RegisterController@showRegistrationForm');
 
-Auth::routes(['verify' => true]);
+Route::match(array('GET','POST'),'/contactus', 'HomeController@contact')->name('contactus');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes(['verify' => true]);
 
 Route::get('upgrade-to-v3-4-0', function () {
     try {
@@ -88,6 +88,7 @@ Route::group(['middleware' => ['role:admin', 'web', 'auth', 'user.activated']], 
 });
 
 Route::group(['middleware' => ['user.activated', 'auth']], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
     //view routes
     Route::get('/conversations', 'ChatController@index')->name('conversations');
 
@@ -104,6 +105,7 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
     Route::get('/purchase/{package_id}', 'PlanController@purchasePackage')->name('purchase.package');
 
     Route::get('/invite', 'InviteController@index')->name('invite');
+    Route::get('/myinvites', 'InviteController@my')->name('invite.my');
     Route::post('/inviteusers', 'InviteController@invite')->name('invite.invite');
 
     Route::group(['namespace' => 'API'], function () {

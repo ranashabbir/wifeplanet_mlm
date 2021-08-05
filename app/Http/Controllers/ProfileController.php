@@ -57,6 +57,10 @@ class ProfileController extends Controller
             abort(404);
         }
 
+        $usertitles = User::with(['titles' => function ($q) {
+            $q->orderBy('id', 'desc');
+        }])->find($id)->titles;
+
         $plan_name = '';
 
         if ( count( $user->subscriptions ) > 0 ) {
@@ -68,7 +72,8 @@ class ProfileController extends Controller
 
         $data = [
             'user' => $user,
-            'plan_name' => $plan_name
+            'plan_name' => $plan_name,
+            'usertitle' => $usertitles
         ];
 
         return view('profiles.show')->with($data);

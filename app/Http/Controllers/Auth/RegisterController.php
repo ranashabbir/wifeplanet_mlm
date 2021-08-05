@@ -12,6 +12,8 @@ use jeremykenedy\LaravelRoles\Models\Role;
 
 use App\Models\Country;
 use App\Models\Profile;
+use App\Models\UserTitle;
+
 use Newsletter;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
@@ -89,6 +91,48 @@ class RegisterController extends Controller
             $invitation = Invite::get($code);
             $referral_user = $invitation->user;
             $parent_id = $referral_user->id;
+
+            $parent = User::with(['titles' => function ($q) {
+                $q->orderBy('id', 'desc');
+            }])->find($parent_id);
+
+            if ( $parent ) {
+                $children = User::where('parent_id', $parent_id)->with(['titles' => function ($q) {
+                    $q->orderBy('id', 'desc');
+                }])->get();
+
+                if ( count($parent->titles) == 0 ) {
+                    if (count($children) >= 20) {
+                        $newTitle = new UserTitle();
+                        $newTitle->user_id = $parent_id;
+                        $newTitle->title_id = 1;
+                        $newTitle->save();
+                    }
+                } else {
+                    $childLeader = 0;
+                    $childExecutive = 0;
+                    foreach($children as $child) {
+                        if ( count( $child->titles ) > 0 && $child->titles[0]->title->name == 'TEAM LEADER' ) {
+                            $childLeader++;
+                        }
+                        if ( count( $child->titles ) > 0 && $child->titles[0]->title->name == 'EXECUTIVE LEADER' ) {
+                            $childExecutive++;
+                        }
+                    }
+
+                    if ($childExecutive >= 20) {
+                        $newTitle = new UserTitle();
+                        $newTitle->user_id = $parent_id;
+                        $newTitle->title_id = 3;
+                        $newTitle->save();
+                    } else if ($childLeader >= 20) {
+                        $newTitle = new UserTitle();
+                        $newTitle->user_id = $parent_id;
+                        $newTitle->title_id = 2;
+                        $newTitle->save();
+                    }
+                }
+            }
         } else {
             $status = Invite::status($code);
         }

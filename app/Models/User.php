@@ -349,4 +349,20 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(User::class, 'parent_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(User::class, 'parent_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function titles()
+    {
+        return $this->hasMany(UserTitle::class, 'user_id');
+    }
 }

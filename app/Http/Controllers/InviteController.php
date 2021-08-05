@@ -8,6 +8,8 @@ use App\Models\Invitation;
 use Junaidnasir\Larainvite\Facades\Invite;
 use App\Mail\MarkdownMail;
 
+use App\Models\User;
+
 use Auth;
 use Mail;
 use Flash;
@@ -17,6 +19,15 @@ class InviteController extends Controller
     public function index()
     {
         return view('invites.index');
+    }
+
+    public function my()
+    {
+        $user = User::with(['children' => function ($q) {
+            $q->orderBy('id', 'desc');
+        }])->find(Auth::user()->id);
+
+        return view('invites.my')->with('user', $user);
     }
 
     public function invite(Request $request)

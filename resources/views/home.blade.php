@@ -28,7 +28,7 @@
         <!-- Row -->
         <div class="row">
             <!-- Column -->
-            <div class="col-lg-6">
+            {{-- <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-md-flex align-items-center">
@@ -47,9 +47,9 @@
                         <div id="total-revenue"></div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- Column -->
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <!-- Row -->
                 <div class="row">
                     <!-- Column -->
@@ -59,8 +59,8 @@
                             <div class="row pt-2 pb-2">
                                 <!-- Column -->
                                 <div class="col pr-0">
-                                    <h1 class="fw-light">86</h1>
-                                    <h6 class="text-muted">New Clients</h6></div>
+                                    <h1 class="fw-light">{{ $newusers }}</h1>
+                                    <h6 class="text-muted">New Users</h6></div>
                                 <!-- Column -->
                                 <div class="col text-end align-self-center">
                                     <div data-label="20%" class="css-bar mb-0 css-bar-primary css-bar-20"><i class="mdi mdi-account-circle"></i></div>
@@ -75,8 +75,8 @@
                             <div class="row pt-2 pb-2">
                                 <!-- Column -->
                                 <div class="col pr-0">
-                                    <h1 class="fw-light">248</h1>
-                                    <h6 class="text-muted">All Projects</h6></div>
+                                    <h1 class="fw-light">{{ $upgrades }}</h1>
+                                    <h6 class="text-muted">Upgrades</h6></div>
                                 <!-- Column -->
                                 <div class="col text-end align-self-center">
                                     <div data-label="30%" class="css-bar mb-0 css-bar-danger css-bar-20"><i class="mdi mdi-briefcase-check"></i></div>
@@ -91,8 +91,8 @@
                             <div class="row pt-2 pb-2">
                                 <!-- Column -->
                                 <div class="col pr-0">
-                                    <h1 class="fw-light">352</h1>
-                                    <h6 class="text-muted">New Items</h6></div>
+                                    <h1 class="fw-light">{{ $freeuser }}</h1>
+                                    <h6 class="text-muted">Free Members</h6></div>
                                 <!-- Column -->
                                 <div class="col text-end align-self-center">
                                     <div data-label="40%" class="css-bar mb-0 css-bar-warning css-bar-40"><i class="mdi mdi-star-circle"></i></div>
@@ -107,8 +107,8 @@
                             <div class="row pt-2 pb-2">
                                 <!-- Column -->
                                 <div class="col pr-0">
-                                    <h1 class="fw-light">159</h1>
-                                    <h6 class="text-muted">Invoices</h6></div>
+                                    <h1 class="fw-light">{{ $freepackage }}</h1>
+                                    <h6 class="text-muted">Free Package Users</h6></div>
                                 <!-- Column -->
                                 <div class="col text-end align-self-center">
                                     <div data-label="60%" class="css-bar mb-0 css-bar-info css-bar-60"><i class="mdi mdi-receipt"></i></div>
@@ -119,8 +119,7 @@
                 </div>
             </div>
         </div>
-        <!-- Row -->
-        <!-- Row -->
+{{-- 
         <div class="row">
             <div class="col-lg-6 d-flex align-items-stretch">
                 <div class="card w-100">
@@ -136,11 +135,10 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- Row -->
+
                         <div class="row mt-4">
                             <div class="col-md-7">
                                 <div id="sales-of-the-month" class="m-auto"></div>
-                                <!-- <div class="round-overlap sales"><i class="mdi mdi-cart"></i></div> -->
                             </div>
                             <div class="col-md-5 align-self-center">
                                 <h1 class="mb-0">65<small>%</small></h1>
@@ -152,7 +150,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- Row -->
                     </div>
                 </div>
             </div>
@@ -177,8 +174,7 @@
                 </div>
             </div>
         </div>
-        <!-- Row -->
-        <!-- Row -->
+
         <div class="row">
             <div class="col-lg-8 d-flex align-items-stretch">
                 <div class="card w-100">
@@ -309,89 +305,37 @@
                 </div>
             </div>
         </div>
-        <!-- Row -->
-        <!-- Row -->
+--}}
         <div class="row">
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Recent Comments</h4>
+                        <h4 class="card-title">Profiles to approve</h4>
                     </div>
-                    <!-- ============================================================== -->
-                    <!-- Comment widgets -->
-                    <!-- ============================================================== -->
-                    <div class="comment-widgets scrollable position-relative mb-2" style="height: 450px;">
-                        <!-- Comment Row -->
-                        <div class="d-flex flex-row comment-row p-2 p-md-3">
-                            <div class="p-1 p-md-2"><span class="round text-white d-inline-block text-center"><img src="../assets/images/users/1.jpg" alt="user" width="50" class="rounded-circle"></span></div>
-                            <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
-                                <h5 class="font-weight-medium">James Anderson</h5>
-                                <p class="mb-1 fs-3 fw-light text-muted">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
-                                <div class="comment-footer d-md-flex align-items-center mt-2">                                            
-                                    <span class="badge bg-light-info text-info">Pending</span>
-                                    <span class="action-icons">
+
+                    <div class="comment-widgets scrollable position-relative mb-2" >
+                        @foreach ($forapproval as $item)
+                            <div class="d-flex flex-row comment-row p-2 p-md-3">
+                                <div class="p-1 p-md-2"><span class="round text-white d-inline-block text-center"><img src="@if($item->profile && $item->profile->avatar) {{ $item->profile->avatar }} @else {{ asset('assets/images/users/1.jpg') }} @endif" alt="user" width="50" class="rounded-circle"></span></div>
+                                <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
+                                    <h5 class="font-weight-medium">{{ $item->name }} {{ $item->lastname }}</h5>
+                                    <p class="mb-1 fs-3 fw-light text-muted">{{ $item->email }}</p>
+                                    <div class="comment-footer d-md-flex align-items-center mt-2">                                            
+                                        <span class="badge bg-light-info text-info">Pending</span>
+                                        {{-- <span class="action-icons">
                                             <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-pencil-alt"></i></a>
                                             <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-check"></i></a>
                                             <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-heart"></i></a>    
-                                        </span>
-                                    <span class="text-muted ms-auto d-block text-end fs-2 fw-normal">April 14, 2016</span>
+                                        </span> --}}
+                                        <span class="text-muted ms-auto d-block text-end fs-2 fw-normal">{{ date('j F, Y', strtotime($item->created_at)) }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Comment Row -->
-                        <div class="d-flex flex-row comment-row p-2 p-md-3 active">
-                            <div class="p-1 p-md-2"><span class="round text-white d-inline-block text-center"><img src="../assets/images/users/2.jpg" alt="user" width="50" class="rounded-circle"></span></div>
-                            <div class="comment-text active w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
-                                <h5 class="font-weight-medium">Michael Jorden</h5>
-                                <p class="mb-1 fs-3 fw-light text-muted">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry..</p>
-                                <div class="comment-footer d-md-flex align-items-center  mt-2">
-                                    <span class="badge bg-light-success text-success">Approved</span>
-                                    <span class="action-icons active">
-                                            <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-pencil-alt"></i></a>
-                                            <a href="javascript:void(0)" class="ps-2 align-middle"><i class="icon-close"></i></a>
-                                            <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-heart text-danger"></i></a>    
-                                        </span>
-                                    <span class="text-muted ms-auto  d-block text-end fs-2 fw-normal">April 14, 2016</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Comment Row -->
-                        <div class="d-flex flex-row comment-row p-2 p-md-3">
-                            <div class="p-1 p-md-2"><span class="round text-white d-inline-block text-center"><img src="../assets/images/users/3.jpg" alt="user" width="50" class="rounded-circle"></span></div>
-                            <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
-                                <h5 class="font-weight-medium">Johnathan Doeting</h5>
-                                <p class="mb-1 fs-3 fw-light text-muted">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
-                                <div class="comment-footer d-md-flex align-items-center mt-2">
-                                    <span class="badge bg-light-danger text-danger">Rejected</span>
-                                    <span class="action-icons">
-                                            <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-pencil-alt"></i></a>
-                                            <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-check"></i></a>
-                                            <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-heart"></i></a>    
-                                        </span>
-                                    <span class="text-muted ms-auto d-block text-end fs-2 fw-normal">April 14, 2016</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Comment Row -->
-                        <div class="d-flex flex-row comment-row p-2 p-md-3">
-                            <div class="p-1 p-md-2"><span class="round text-white d-inline-block text-center"><img src="../assets/images/users/4.jpg" alt="user" width="50" class="rounded-circle"></span></div>
-                            <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
-                                <h5 class="font-weight-medium">James Anderson</h5>
-                                <p class="mb-1 fs-3 fw-light text-muted">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry..</p>
-                                <div class="comment-footer d-md-flex align-items-center mt-2">
-                                    <span class="badge bg-light-info text-info">Pending</span>
-                                    <span class="action-icons">
-                                                <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-pencil-alt"></i></a>
-                                                <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-check"></i></a>
-                                                <a href="javascript:void(0)" class="ps-2 align-middle"><i class="ti-heart"></i></a>    
-                                            </span>
-                                    <span class="text-muted ms-auto d-block text-end fs-2 fw-normal">April 14, 2016</span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
+{{--             
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
@@ -401,7 +345,7 @@
                                 <button class="btn btn-sm btn-rounded btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Add Task</button>
                             </div>
                         </div>
-                        <!-- .modal for add task -->
+
                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -426,14 +370,9 @@
                                             <button type="button" class="btn btn-success" data-bs-dismiss="modal">Submit</button>
                                         </div>
                                     </div>
-                                    <!-- /.modal-content -->
                                 </div>
-                                <!-- /.modal-dialog -->
                             </div>
-                            <!-- /.modal -->
-                        <!-- ============================================================== -->
-                        <!-- To do list widgets -->
-                        <!-- ============================================================== -->
+
                         <div class="to-do-widget mt-3 scrollable"  style="height: 444px;">
                             
                             <ul class="list-task todo-list list-group mb-0" data-role="tasklist">
@@ -503,8 +442,9 @@
                     </div>
                 </div>
             </div>
+             --}}
         </div>
-        <!-- Row -->
+
     </div>
 
     @include('layouts/footer')
