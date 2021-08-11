@@ -167,7 +167,7 @@ class TransactionController extends Controller
                         ->withInput();
         }
 
-        if ($request->input('amount') > $request->input('available')) {
+        if ($request->input('type') == 'withdraw' && $request->input('amount') > $request->input('available')) {
             Flash::error('Entered amount exceeds available amount.');
             $validator->getMessageBag()->add('amount', 'Entered amount exceeds available amount.');
             return redirect(route('transactions.' . $request->input('type')))
