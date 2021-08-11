@@ -114,6 +114,13 @@
                             <span class="hide-menu">Packages</span>
                         </a>
                     </li>
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-bank" style="margin: -5px 8px 0 5px;width:18px;height:18px;"></i><span class="hide-menu">My Bank </span></a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item"><a href="{{ url('/transactions') }}" class="sidebar-link {{ request()->is('transactions') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> All Transactions </span></a></li>
+                            <li class="sidebar-item"><a href="{{ url('/withdraw') }}" class="sidebar-link {{ request()->is('withdraw') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Withdraw </span></a></li>
+                            <li class="sidebar-item"><a href="{{ url('/deposit') }}" class="sidebar-link {{ request()->is('deposit') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Deposit </span></a></li>
+                        </ul>
+                    </li>
                 @endif
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="user-plus" class="feather-icon"></i><span class="hide-menu">Invites </span></a>
                     <ul aria-expanded="false" class="collapse  first-level">
@@ -122,6 +129,12 @@
                     </ul>
                 </li>
                 @if(Auth::user()->hasRole('admin'))
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ request()->is('withdrawal*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('withdrawal') }}" aria-expanded="false">
+                            <i data-feather="package" class="feather feather-package"></i>
+                            <span class="hide-menu">Withdrawal Requests</span>
+                        </a>
+                    </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ request()->is('subscriptions*') ? 'active' : '' }} {{ request()->is('commissions*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('subscriptions') }}" aria-expanded="false">
                             <i data-feather="package" class="feather feather-package"></i>

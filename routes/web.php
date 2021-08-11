@@ -85,10 +85,19 @@ Route::group(['middleware' => ['role:admin', 'web', 'auth', 'user.activated']], 
 
     Route::get('/subscriptions', 'SubscriptionController@index')->name('subscriptions.index');
     Route::get('/commissions/{user_id}', 'SubscriptionController@commissions')->name('subscriptions.commissions');
+
+    Route::get('/withdrawal', 'TransactionController@withdrawal')->name('transactions.withdrawal');
+    Route::get('/processrequest/{id}/{type}', 'TransactionController@processrequest')->name('transactions.processrequest');
 });
 
 Route::group(['middleware' => ['user.activated', 'auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/transactions', 'TransactionController@index')->name('transactions');
+    Route::get('/deposit', 'TransactionController@deposit')->name('transactions.deposit');
+    Route::get('/withdraw', 'TransactionController@withdraw')->name('transactions.withdraw');
+    Route::post('/updatetransaction', 'TransactionController@update')->name('transactions.update');
+    
     //view routes
     Route::get('/conversations', 'ChatController@index')->name('conversations');
 

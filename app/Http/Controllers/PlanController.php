@@ -19,6 +19,7 @@ use App\Models\Subscription;
 use Auth;
 use App\Models\Commission;
 use App\Models\User;
+use App\Models\Transaction;
 
 class PlanController extends AppBaseController
 {
@@ -395,6 +396,13 @@ class PlanController extends AppBaseController
         $subscription->status = 'active';
         $subscription->save();
 
+        $transaction = new Transaction();
+        $transaction->user_id = Auth::user()->id;
+        $transaction->amount = $plan->price;
+        $transaction->type = 'purchase';
+        $transaction->status = 'pending';
+        $transaction->save();
+
         Flash::success('Your purchase completed successfully.');
         return redirect(route('mlm.packages'));
     }
@@ -420,6 +428,14 @@ class PlanController extends AppBaseController
             $commission->receiver_id = $receiver_id;
             $commission->level = $level;
             $commission->save();
+
+            $transaction = new Transaction();
+            $transaction->user_id = $receiver_id;
+            $transaction->from = $user_id;
+            $transaction->amount = ( $bonus->commission * $percent ) / 100;
+            $transaction->type = 'commission';
+            $transaction->status = 'pending';
+            $transaction->save();
         }
     }
 }

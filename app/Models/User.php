@@ -365,4 +365,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UserTitle::class, 'user_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'user_id');
+    }
 }
