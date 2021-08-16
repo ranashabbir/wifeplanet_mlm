@@ -88,6 +88,8 @@ Route::group(['middleware' => ['role:admin', 'web', 'auth', 'user.activated']], 
 
     Route::get('/withdrawal', 'TransactionController@withdrawal')->name('transactions.withdrawal');
     Route::get('/processrequest/{id}/{type}', 'TransactionController@processrequest')->name('transactions.processrequest');
+
+    Route::get('/statistics', 'HomeController@statistics')->name('mlm.statistics');
 });
 
 Route::group(['middleware' => ['user.activated', 'auth']], function () {

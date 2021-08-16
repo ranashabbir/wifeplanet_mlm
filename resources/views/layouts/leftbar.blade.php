@@ -129,10 +129,15 @@
                     </ul>
                 </li>
                 @if(Auth::user()->hasRole('admin'))
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-bank" style="margin: -5px 8px 0 5px;width:18px;height:18px;"></i><span class="hide-menu">My Bank </span></a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item"><a href="{{ url('/withdrawal') }}" class="sidebar-link {{ request()->is('withdrawal') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Withdrawal Requests </span></a></li>
+                        </ul>
+                    </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ request()->is('withdrawal*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('withdrawal') }}" aria-expanded="false">
-                            <i data-feather="package" class="feather feather-package"></i>
-                            <span class="hide-menu">Withdrawal Requests</span>
+                        <a class="sidebar-link {{ request()->is('statistics*') ? 'active' : '' }} {{ request()->is('statistics*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('statistics') }}" aria-expanded="false">
+                            <i data-feather="grid" class="feather feather-package"></i>
+                            <span class="hide-menu">MLM Statistics</span>
                         </a>
                     </li>
                     <li class="sidebar-item">

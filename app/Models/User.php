@@ -82,6 +82,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'privacy',
         'language',
         'parent_id',
+        'crypto',
     ];
 
     const LANGUAGES = [

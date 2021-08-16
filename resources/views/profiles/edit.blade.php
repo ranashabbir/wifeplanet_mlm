@@ -354,7 +354,7 @@
                                                     {!! Form::model($user, array('action' => array('ProfileController@updateUserAccount', $user->id), 'method' => 'PUT', 'id' => 'user_basics_form')) !!}
 
                                                         <div class="pt-4 pr-3 pl-2 form-group has-feedback row {{ $errors->has('name') ? ' has-error ' : '' }}">
-                                                            {!! Form::label('name', __('Name'), array('class' => 'col-md-3 control-label')); !!}
+                                                            {!! Form::label('name', __('First Name'), array('class' => 'col-md-3 control-label')); !!}
                                                             <div class="col-md-9">
                                                                 <div class="input-group">
                                                                     {!! Form::text('name', $user->name, array('id' => 'name', 'class' => 'form-control', 'placeholder' => __('Name'))) !!}
@@ -367,6 +367,25 @@
                                                                 @if($errors->has('name'))
                                                                     <span class="help-block">
                                                                         <strong>{{ $errors->first('name') }}</strong>
+                                                                    </span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pr-3 pl-2 form-group has-feedback row {{ $errors->has('lastname') ? ' has-error ' : '' }}">
+                                                            {!! Form::label('lastname', __('Last Name'), array('class' => 'col-md-3 control-label')); !!}
+                                                            <div class="col-md-9">
+                                                                <div class="input-group">
+                                                                    {!! Form::text('lastname', $user->lastname, array('id' => 'lastname', 'class' => 'form-control', 'placeholder' => __('Last Name'))) !!}
+                                                                    <div class="input-group-append">
+                                                                        <label class="input-group-text" for="last_name">
+                                                                            <i class="fa fa-fw {{ __('forms.create_user_icon_lastname') }}" aria-hidden="true"></i>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                @if($errors->has('lastname'))
+                                                                    <span class="help-block">
+                                                                        <strong>{{ $errors->first('lastname') }}</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
@@ -391,20 +410,20 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="pr-3 pl-2 form-group has-feedback row {{ $errors->has('lastname') ? ' has-error ' : '' }}">
-                                                            {!! Form::label('lastname', __('Last Name'), array('class' => 'col-md-3 control-label')); !!}
+                                                        <div class="pr-3 pl-2 form-group has-feedback row {{ $errors->has('crypto') ? ' has-error ' : '' }}">
+                                                            {!! Form::label('crypto', __('Crypto Address'), array('class' => 'col-md-3 control-label')); !!}
                                                             <div class="col-md-9">
                                                                 <div class="input-group">
-                                                                    {!! Form::text('lastname', $user->lastname, array('id' => 'lastname', 'class' => 'form-control', 'placeholder' => __('Last Name'))) !!}
+                                                                    {!! Form::text('crypto', $user->crypto, array('id' => 'crypto', 'class' => 'form-control', 'placeholder' => __('Crypto Address'))) !!}
                                                                     <div class="input-group-append">
-                                                                        <label class="input-group-text" for="last_name">
+                                                                        <label class="input-group-text" for="crypto">
                                                                             <i class="fa fa-fw {{ __('forms.create_user_icon_lastname') }}" aria-hidden="true"></i>
                                                                         </label>
                                                                     </div>
                                                                 </div>
-                                                                @if($errors->has('lastname'))
+                                                                @if($errors->has('crypto'))
                                                                     <span class="help-block">
-                                                                        <strong>{{ $errors->first('lastname') }}</strong>
+                                                                        <strong>{{ $errors->first('crypto') }}</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>

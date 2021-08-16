@@ -51,6 +51,7 @@
                                             <th>{!! __('User') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('Amount') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('Status') !!}</th>
+                                            <th class="hidden-sm hidden-xs hidden-md">{!! __('Crypto Address') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('Requested On') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('Actions') !!}</th>
                                         </tr>
@@ -62,6 +63,7 @@
                                                 <td>{{ $item->user->name }} {{ $item->user->lastname }}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">{{ $item->amount }}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">{{ ucfirst($item->status) }}</td>
+                                                <td class="hidden-sm hidden-xs hidden-md">{{ ucfirst($item->user->crypto) }}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">{{$item->created_at}}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">
                                                     @if($item->status != 'completed')

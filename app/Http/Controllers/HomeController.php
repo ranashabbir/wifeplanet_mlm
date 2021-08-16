@@ -14,6 +14,7 @@ use Mail;
 use Flash;
 
 use DB;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -112,5 +113,67 @@ class HomeController extends Controller
         if (\Request::isMethod('get')) {
             return view('contact')->with('countries', $countries);
         }
+    }
+
+    public function statistics()
+    {
+        $user = Auth::user();
+        $customer = User::whereNull('deleted_at')->where('parent_id', '!=', '0')->get();
+        $no_parent = User::whereNull('deleted_at')->where('parent_id', '0')->get();
+        $upgrades = Subscription::whereNull('deleted_at')
+                        ->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
+                        ->where('status', 'active')
+                        ->get();
+
+        $withdrawn = DB::table("transactions")
+                        ->select(DB::raw("SUM(amount) as withdrawn"))
+                        ->where('type', "withdraw")
+                        ->groupBy('user_id')
+                        ->first();
+
+        $purchase = DB::table("transactions")
+                        ->select(DB::raw("SUM(amount) as purchase"))
+                        ->where('type', "purchase")
+                        ->groupBy('user_id')
+                        ->first();
+
+        $bonus = DB::table("transactions")
+                        ->select(DB::raw("SUM(amount) as bonus"))
+                        ->where('type', "commission")
+                        ->groupBy('user_id')
+                        ->first();
+
+        $deposit = DB::table("transactions")
+                        ->select(DB::raw("SUM(amount) as deposit"))
+                        ->where('type', "deposit")
+                        ->groupBy('user_id')
+                        ->first();
+
+        $top_earning = DB::table("transactions")
+                        ->select('user_id', DB::raw("SUM(amount) as bonus"))
+                        ->where('type', "commission")
+                        ->groupBy('user_id')
+                        ->orderBy('bonus', 'desc')
+                        ->get();
+
+        $titles = DB::table('user_titles')
+                        ->select('titles.name as title_name', 'users.name as f_name', 'users.lastname as l_name')
+                        ->leftJoin('titles', 'user_titles.title_id', '=', 'titles.id')
+                        ->leftJoin('users', 'user_titles.user_id', '=', 'users.id')
+                        ->get()
+        ;
+
+        return view('statistics')
+                ->with('user', $user)
+                ->with('upgrades', $upgrades)
+                ->with('customer', $customer)
+                ->with('no_parent', $no_parent)
+                ->with('withdrawn', $withdrawn ? $withdrawn->withdrawn : '0.00')
+                ->with('purchase', $purchase ? $purchase->purchase : '0.00')
+                ->with('deposit', $deposit ? $deposit->deposit : '0.00')
+                ->with('bonus', $bonus ? $bonus->bonus : '0.00')
+                ->with('top_earning', $top_earning)
+                ->with('titles', $titles)
+        ;
     }
 }

@@ -13,6 +13,7 @@ use Image;
 
 use DB;
 use App\Models\Plan;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
@@ -208,6 +209,7 @@ class ProfileController extends Controller
             $user->email = $request->input('email');
         }
 
+        $user->crypto = $request->input('crypto');
         $user->save();
 
         return redirect('profile/'.$user->id.'/edit')->with('success', trans('profile.updateAccountSuccess'));
