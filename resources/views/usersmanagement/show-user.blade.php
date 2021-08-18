@@ -33,10 +33,16 @@
 					</div>
 
 					<div class="card-body">
-
+						@if (\Session::has('success'))
+							<div class="alert alert-success">
+								<ul>
+									<li>{!! \Session::get('success') !!}</li>
+								</ul>
+							</div>
+						@endif
 						<div class="row">
 						<div class="col-sm-4 offset-sm-2 col-md-2 offset-md-3">
-							<img src="@if ($user->profile) {{ $user->profile->photo_url }} @else {{ Gravatar::get($user->email) }} @endif" alt="{{ $user->name }}" class="rounded-circle center-block mb-3 mt-4 user-image">
+							<img style="width: 80px;" src="@if($user->profile && $user->profile->avatar) {{ $user->profile->avatar }} @else {{ asset('assets/images/users/5.jpg') }} @endif" alt="{{ $user->name }}" class="rounded-circle center-block mb-3 mt-4 user-image">
 						</div>
 						<div class="col-sm-4 col-md-6">
 							<h4 class="text-muted margin-top-sm-1 text-center text-left-tablet">

@@ -101,7 +101,12 @@
 							@endif
 						</dl>
 
-						<a href="{{ route('profile.edit', [$user->id]) }}" class="btn btn-sm btn-primary">Edit Profile</a>
+						@if (Auth::user()->id == $user->id || Auth::user()->hasRole('admin'))
+							<a href="{{ route('profile.edit', [$user->id]) }}" class="btn btn-sm btn-primary">Edit Profile</a>
+						@endif
+						@if (Auth::user()->id != $user->id)
+							<a href="{{ route('report.user', [$user->id]) }}" class="btn btn-sm btn-primary">Report User</a>
+						@endif
 					</div>
 				</div>
 			</div>

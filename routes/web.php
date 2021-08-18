@@ -99,7 +99,15 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
     Route::get('/deposit', 'TransactionController@deposit')->name('transactions.deposit');
     Route::get('/withdraw', 'TransactionController@withdraw')->name('transactions.withdraw');
     Route::post('/updatetransaction', 'TransactionController@update')->name('transactions.update');
-    
+
+    Route::get('/registeruser', 'UserController@registeruser')->name('user.registeruser');
+    Route::post('/addregisteruser', 'UserController@addregisteruser')->name('user.addregisteruser');
+
+    Route::get('/report/{user_id}', 'UserController@report')->name('report.user');
+    Route::get('/reports', 'UserController@reports')->name('users.reports');
+    Route::get('/blockusers/{user_id}', 'UserController@blockusers')->name('users.blockusers');
+    Route::get('/deletereport/{id}', 'UserController@deletereport')->name('delete.report');
+
     //view routes
     Route::get('/conversations', 'ChatController@index')->name('conversations');
 

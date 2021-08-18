@@ -59,7 +59,7 @@
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="{{ route('users') }}" class="sidebar-link {{ request()->is('users') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>
                             <li class="sidebar-item"><a href="{{ url('users/create') }}" class="sidebar-link {{ request()->is('users/create') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Create New </span></a></li>
-                            {{-- <li class="sidebar-item"><a href="{{ url('users/deleted') }}" class="sidebar-link {{ request()->is('users/deleted') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Deleted Users </span></a></li> --}}
+                            <li class="sidebar-item"><a href="{{ url('reports') }}" class="sidebar-link {{ request()->is('reports') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Reported Users </span></a></li>
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="sidebar" class="feather-icon"></i><span class="hide-menu">Role Management </span></a>
@@ -125,6 +125,7 @@
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="user-plus" class="feather-icon"></i><span class="hide-menu">Invites </span></a>
                     <ul aria-expanded="false" class="collapse  first-level">
                         <li class="sidebar-item"><a href="{{ url('/invite') }}" class="sidebar-link {{ request()->is('invite') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> Invite New Members </span></a></li>
+                        <li class="sidebar-item"><a href="{{ url('/registeruser') }}" class="sidebar-link {{ request()->is('registeruser') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> Register New Members </span></a></li>
                         <li class="sidebar-item"><a href="{{ url('/myinvites') }}" class="sidebar-link {{ request()->is('myinvites') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> My invites </span></a></li>
                     </ul>
                 </li>

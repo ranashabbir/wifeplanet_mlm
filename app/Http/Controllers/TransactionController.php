@@ -183,6 +183,9 @@ class TransactionController extends Controller
         $transaction->user_id = Auth::user()->id;
         $transaction->amount = $request->input('amount');
         $transaction->type = $request->input('type');
+        if ( $request->input('type') == 'withdraw' ) {
+            $transaction->crypto_address = Auth::user()->crypto;
+        }
         $transaction->status = 'pending';
         $transaction->save();
 
