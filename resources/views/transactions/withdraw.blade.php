@@ -89,6 +89,13 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                @if (Auth::user()->crypto == '' || Auth::user()->crypto == null)
+                                    <div class="col-sm-12 col-lg-12">
+                                        <div class="alert alert-warning">
+                                            Please add crypto wallet address from your profile to withdraw money. <a href="{{ url('profile/'.Auth::user()->id.'/edit') }}" class="btn btn-sm btn-default float-right">Add Crypto Address</a>
+                                        </div>
+                                    </div>
+                                @endif
                                 {!! Form::open(['route' => 'transactions.update']) !!}
                                     {!! Form::hidden('type', 'withdraw') !!}
                                     {!! Form::hidden('available', $availableAmount) !!}
@@ -100,7 +107,9 @@
 
                                     <!-- Submit Field -->
                                     <div class="form-group col-sm-12">
-                                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                                        @if (Auth::user()->crypto != '' && Auth::user()->crypto != null)
+                                            {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                                        @endif
                                         <a href="{{ route('transactions') }}" class="btn btn-secondary">Cancel</a>
                                     </div>
                                 {!! Form::close() !!}

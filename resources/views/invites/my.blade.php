@@ -4,105 +4,9 @@
     {{ __('My Invites') }}
 @endsection
 
-<style>
-    .tree ul {
-        padding-top: 20px; position: relative;
-        
-        transition: all 0.5s;
-        -webkit-transition: all 0.5s;
-        -moz-transition: all 0.5s;
-    }
-
-    .tree li {
-        float: left; text-align: center;
-        list-style-type: none;
-        position: relative;
-        padding: 20px 5px 0 5px;
-        
-        transition: all 0.5s;
-        -webkit-transition: all 0.5s;
-        -moz-transition: all 0.5s;
-    }
-
-    /*We will use ::before and ::after to draw the connectors*/
-
-    .tree li::before, .tree li::after{
-        content: '';
-        position: absolute; top: 0; right: 50%;
-        border-top: 1px solid #ccc;
-        width: 50%; height: 20px;
-    }
-    .tree li::after{
-        right: auto; left: 50%;
-        border-left: 1px solid #ccc;
-    }
-
-    /*We need to remove left-right connectors from elements without 
-    any siblings*/
-    .tree li:only-child::after, .tree li:only-child::before {
-        display: none;
-    }
-
-    /*Remove space from the top of single children*/
-    .tree li:only-child{ padding-top: 0;}
-
-    /*Remove left connector from first child and 
-    right connector from last child*/
-    .tree li:first-child::before, .tree li:last-child::after{
-        border: 0 none;
-    }
-    /*Adding back the vertical connector to the last nodes*/
-    .tree li:last-child::before{
-        border-right: 1px solid #ccc;
-        border-radius: 0 5px 0 0;
-        -webkit-border-radius: 0 5px 0 0;
-        -moz-border-radius: 0 5px 0 0;
-    }
-    .tree li:first-child::after{
-        border-radius: 5px 0 0 0;
-        -webkit-border-radius: 5px 0 0 0;
-        -moz-border-radius: 5px 0 0 0;
-    }
-
-    /*Time to add downward connectors from parents*/
-    .tree ul ul::before{
-        content: '';
-        position: absolute; top: 0; left: 50%;
-        border-left: 1px solid #ccc;
-        width: 0; height: 20px;
-    }
-
-    .tree li a{
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        text-decoration: none;
-        color: #666;
-        font-family: arial, verdana, tahoma;
-        font-size: 11px;
-        display: inline-block;
-        
-        border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        
-        transition: all 0.5s;
-        -webkit-transition: all 0.5s;
-        -moz-transition: all 0.5s;
-    }
-
-    /*Time for some hover effects*/
-    /*We will apply the hover effect the the lineage of the element also*/
-    .tree li a:hover, .tree li a:hover+ul li a {
-        background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
-    }
-    /*Connector styles on hover*/
-    .tree li a:hover+ul li::after, 
-    .tree li a:hover+ul li::before, 
-    .tree li a:hover+ul::before, 
-    .tree li a:hover+ul ul::before{
-        border-color:  #94a0b4;
-    }
-</style>
+@section('css')
+    <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
+@endsection
 
 @section('content')
     <div class="page-wrapper">
@@ -112,12 +16,12 @@
                     @include('laravelusers::partials.form-status')
                 </div>
                 <div class="col-md-5 align-self-center">
-                    <h3 class="page-title">My Invites</h3>
+                    <h3 class="page-title">Showing All Invites</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url('/home') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">My Invites</li>
+                                <li class="breadcrumb-item active" aria-current="page">All Invites</li>
                             </ol>
                         </nav>
                     </div>
@@ -129,75 +33,73 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="tree">
-                                <ul>
-                                    <li>
-                                        <a href="#">{{ $user->name }} {{ $user->lastname }}</a>
-                                        @if ( count( $user->children ) > 0 )
-                                            <ul>
-                                                @foreach ( $user->children as $child )
-                                                    <li>
-                                                        <a href="#">{{ $child->name }} {{ $child->lastname }}</a>
-                                                        @if (count($child->children)>0)
-                                                            <ul>
-                                                                @foreach ($child->children as $subchild)
-                                                                    <li>
-                                                                        <a href="#">{{ $subchild->name }} {{ $subchild->lastname }}</a>
-                                                                        @if (count($child->children)>0)
-                                                                            <ul>
-                                                                                @foreach ($subchild->children as $sschild)
-                                                                                    <li>
-                                                                                        <a href="#">{{ $sschild->name }} {{ $sschild->lastname }}</a>
-                                                                                    </li>
-                                                                                @endforeach
-                                                                            </ul>
-                                                                        @endif
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @endif
-                                                        <!--
-                                                        <ul>
-                                                            <li>
-                                                                <a href="#">2.1</a>
-                                                
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">2.2</a>
-                                                            </li>
-                                                        </ul>
-                                                        -->
-                                                    </li>
-                                                    <!--
-                                                    <li>
-                                                        <a href="#">3</a>
-                                                        <ul>
-                                                            <li>
-                                                                <a href="#">3.1</a>
-                                                                <ul>
-                                                                    <li>
-                                                                        <a href="#">3.1.1</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#">3.1.2</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">3.2</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    -->
+            @include('flash::message')
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="border-bottom title-part-padding">
+                            <h4 class="card-title mb-0">Invites</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive users-table">
+                                <table class="table table-striped table-bordered datatable-select-inputs text-nowrap">
+                                    <thead class="thead">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th class="hidden-sm hidden-xs hidden-md">Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Parent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users_table">
+                                        @foreach($user->children as $first)
+                                            @foreach ($first->children as $second)
+                                                @foreach ($second->children as $third)
+                                                    @foreach ($third->children as $forth)
+                                                        <tr>
+                                                            <td>{{ $forth->id }}</td>
+                                                            <td>{{ $forth->name }} {{ $forth->lastname }}</td>
+                                                            <td>{{ $forth->email }}</td>
+                                                            <td>{{ $forth->phone }}</td>
+                                                            <td>{{ $forth->parent->name }} {{ $forth->parent->lastname }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    <tr>
+                                                        <td>{{ $third->id }}</td>
+                                                        <td>{{ $third->name }} {{ $third->lastname }}</td>
+                                                        <td>{{ $third->email }}</td>
+                                                        <td>{{ $third->phone }}</td>
+                                                        <td>{{ $third->parent->name }} {{ $third->parent->lastname }}</td>
+                                                    </tr>
                                                 @endforeach
-                                            </ul>
-                                        @endif
-                                    </li>
-                                </ul>
+                                                <tr>
+                                                    <td>{{ $second->id }}</td>
+                                                    <td>{{ $second->name }} {{ $second->lastname }}</td>
+                                                    <td>{{ $second->email }}</td>
+                                                    <td>{{ $second->phone }}</td>
+                                                    <td>{{ $second->parent->name }} {{ $second->parent->lastname }}</td>
+                                                </tr>
+                                            @endforeach
+                                            <tr>
+                                                <td>{{ $first->id }}</td>
+                                                <td>{{ $first->name }} {{ $first->lastname }}</td>
+                                                <td>{{ $first->email }}</td>
+                                                <td>{{ $first->phone }}</td>
+                                                <td>{{ $first->parent->name }} {{ $first->parent->lastname }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Parent</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -210,5 +112,7 @@
 @endsection
 
 @section('scripts')
-
+    <script src="{{ asset('assets/libs/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/datatable/custom-datatable.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/datatable/datatable-api.init.js') }}"></script>
 @endsection

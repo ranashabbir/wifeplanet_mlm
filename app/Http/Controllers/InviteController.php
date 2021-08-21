@@ -9,6 +9,7 @@ use Junaidnasir\Larainvite\Facades\Invite;
 use App\Mail\MarkdownMail;
 
 use App\Models\User;
+use App\Models\Title;
 
 use Auth;
 use Mail;
@@ -28,6 +29,15 @@ class InviteController extends Controller
         }])->find(Auth::user()->id);
 
         return view('invites.my')->with('user', $user);
+    }
+
+    public function mynetworks()
+    {
+        $user = User::with(['children' => function ($q) {
+            $q->orderBy('id', 'desc');
+        }])->find(Auth::user()->id);
+
+        return view('networks.my')->with('user', $user);
     }
 
     public function invite(Request $request)
@@ -70,5 +80,19 @@ class InviteController extends Controller
 
         Flash::success('Invites sent successfully.');
         return redirect()->back();
+    }
+
+    public function titles()
+    {
+        $titles = Title::all();
+
+        return view('titles.index')->with('titles', $titles);
+    }
+
+    public function mytitles()
+    {
+        $user = User::with('titles')->where('id', Auth::user()->id)->first();
+
+        return view('titles.my')->with('user', $user);
     }
 }

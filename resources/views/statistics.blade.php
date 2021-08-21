@@ -78,6 +78,33 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <h3>Users</h3>
+                    <div class="col-sm-6">
+                        <div class="card card-body">
+                            <div class="row pt-2 pb-2">
+                                <div class="col pr-0">
+                                    <h1 class="fw-light">{{ count($customer) }}</h1>
+                                    <h6 class="text-muted">Total Customers</h6></div>
+                                <div class="col text-end align-self-center">
+                                    <div data-label="20%" class="css-bar mb-0 css-bar-primary css-bar-20"><i class="mdi mdi-account-circle"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card card-body">
+                            <div class="row pt-2 pb-2">
+                                <div class="col pr-0">
+                                    <h1 class="fw-light">{{ count($no_parent) }}</h1>
+                                    <h6 class="text-muted">Total No Parent User</h6></div>
+                                <div class="col text-end align-self-center">
+                                    <div data-label="30%" class="css-bar mb-0 css-bar-danger css-bar-20"><i class="mdi mdi-briefcase-check"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

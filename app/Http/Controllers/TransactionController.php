@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Transaction;
+use App\Models\Conversation;
 
 use Flash;
 use Auth;
@@ -167,6 +168,13 @@ class TransactionController extends Controller
                         ->withInput();
         }
 
+        if ($request->input('type') == 'withdraw' && ( Auth::user()->crypto == '' || Auth::user()->crypto == null ) ) {
+            Flash::error('Your request can\'t be processed. Please add Crypto Wallet Address from your profile.');
+            return redirect(route('transactions.' . $request->input('type')))
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         if ($request->input('type') == 'withdraw' && $request->input('amount') > $request->input('available')) {
             Flash::error('Entered amount exceeds available amount.');
             $validator->getMessageBag()->add('amount', 'Entered amount exceeds available amount.');
@@ -213,7 +221,16 @@ class TransactionController extends Controller
         }
 
         $transaction->update(["status" => $type]);
-        
+
+        $message = Conversation::create([
+            'message' => $type == 'declined' ? 'We declined your withdrawal because you didn\'t verify your account.' : 'We have processed your withdrawal.',
+            'to_id' => $transaction->user_id,
+            'from_id' => Auth::user()->id,
+            'to_type' => 'App\Models\Conversation',
+            'message_type' => 0,
+            'status' => 0,
+        ]);
+
         Flash::success('Withdrawal request processed.');
         return redirect(route('transactions.withdrawal'));
     }

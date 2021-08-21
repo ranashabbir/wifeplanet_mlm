@@ -103,10 +103,13 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
     Route::get('/registeruser', 'UserController@registeruser')->name('user.registeruser');
     Route::post('/addregisteruser', 'UserController@addregisteruser')->name('user.addregisteruser');
 
-    Route::get('/report/{user_id}', 'UserController@report')->name('report.user');
+    Route::post('/report/{user_id}', 'UserController@report')->name('report.user');
     Route::get('/reports', 'UserController@reports')->name('users.reports');
     Route::get('/blockusers/{user_id}', 'UserController@blockusers')->name('users.blockusers');
     Route::get('/deletereport/{id}', 'UserController@deletereport')->name('delete.report');
+
+    Route::get('/titles', 'InviteController@titles')->name('titles');
+    Route::get('/mytitles', 'InviteController@mytitles')->name('mytitles');
 
     //view routes
     Route::get('/conversations', 'ChatController@index')->name('conversations');
@@ -126,6 +129,8 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
     Route::get('/invite', 'InviteController@index')->name('invite');
     Route::get('/myinvites', 'InviteController@my')->name('invite.my');
     Route::post('/inviteusers', 'InviteController@invite')->name('invite.invite');
+
+    Route::get('/mynetworks', 'InviteController@mynetworks')->name('invite.mynetworks');
 
     Route::group(['namespace' => 'API'], function () {
         Route::get('logout', 'Auth\LoginController@logout');

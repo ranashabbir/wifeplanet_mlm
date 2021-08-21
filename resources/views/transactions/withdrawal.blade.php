@@ -66,8 +66,11 @@
                                                 <td class="hidden-sm hidden-xs hidden-md">{{ $item->crypto_address }}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">{{$item->created_at}}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">
-                                                    @if($item->status != 'completed')
-                                                        <a href="{{ route('transactions.processrequest', ['id' => $item->id, 'type' => 'completed']) }}" class="btn btn-success btn-sm">Processed</a>
+                                                    @if($item->status != 'completed' && $item->user->crypto != null && $item->user->crypto != '')
+                                                        <a href="{{ route('transactions.processrequest', ['id' => $item->id, 'type' => 'completed']) }}" class="btn btn-success btn-sm">Process</a>
+                                                    @endif
+                                                    @if($item->status != 'declined' && $item->status != 'completed')
+                                                        <a href="{{ route('transactions.processrequest', ['id' => $item->id, 'type' => 'declined']) }}" class="btn btn-success btn-sm">Decline</a>
                                                     @endif
                                                 </td>
                                             </tr>

@@ -24,6 +24,7 @@ use App\Models\Country;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Report;
+use App\Models\Conversation;
 
 class UserController extends AppBaseController
 {
@@ -299,7 +300,7 @@ class UserController extends AppBaseController
         ->with('success', 'User has been registered and verification email is sent. Dummy password for user is "123456".');
     }
 
-    public function report($user_id)
+    public function report(Request $request, $user_id)
     {
         if (!$user_id) {
             return back();
@@ -309,10 +310,20 @@ class UserController extends AppBaseController
         if (!$user) {
             return back();
         }
-        
+
         $report = Report::create([
             'user_id' => $user_id,
+            'message' => $request->input('message'),
             'reported_by' => Auth::user()->id
+        ]);
+
+        $message = Conversation::create([
+            'message' => $request->input('message').' <a href="/profile/'.$user->id.'">'.$user->name.' '.$user->lastname.'</a>',
+            'to_id' => 1,
+            'from_id' => Auth::user()->id,
+            'to_type' => 'App\Models\Conversation',
+            'message_type' => 0,
+            'status' => 0,
         ]);
 
         return redirect(url('/profile/'.$user_id))->with('success', 'User reported.');

@@ -48,6 +48,7 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>{!! __('ID') !!}</th>
+                                            <th>{!! __('Message') !!}</th>
                                             <th>{!! __('Reported User') !!}</th>
                                             <th>{!! __('Reported By') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('Created') !!}</th>
@@ -59,8 +60,9 @@
                                         @foreach($reports as $report)
                                             <tr>
                                                 <td>{{ $report->id }}</td>
-                                                <td>{{ $report->u_fname }} {{ $report->u_lname }}</td>
-                                                <td>{{ $report->r_fname }} {{ $report->r_lname }}</td>
+                                                <td>{!! $report->message !!}</td>
+                                                <td><a href="{{ url('/profile/'.$report->user_id) }}">{{ $report->u_fname }} {{ $report->u_lname }}</a></td>
+                                                <td><a href="{{ url('/profile/'.$report->reported_by) }}">{{ $report->r_fname }} {{ $report->r_lname }}</a></td>
                                                 <td class="hidden-sm hidden-xs hidden-md">{{$report->created_at}}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">{{$report->updated_at}}</td>
                                                 <td>
