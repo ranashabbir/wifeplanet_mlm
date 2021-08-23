@@ -36,12 +36,12 @@ class InviteController extends Controller
         $user = User::with(['children' => function ($q) {
             $q->orderBy('id', 'desc');
         }])->find(Auth::user()->id);
-        if( Auth::user()->profile && Auth::user()->profile->avatar ) {
-            $image = url(Auth::user()->profile->avatar);
-        } else {
-            $image = asset('assets/images/users/5.jpg');
-        }
-        $userJSON = '{"name" : "'.$user->name . ' ' . $user->lastname.'","image":"'.$image.'"';
+        // if( Auth::user()->profile && Auth::user()->profile->avatar ) {
+        //     $image = url(Auth::user()->profile->avatar);
+        // } else {
+        //     $image = asset('assets/images/users/5.jpg');
+        // }
+        $userJSON = '{"name" : "'.$user->name . ' ' . $user->lastname.'"';
         if ( count( $user->children ) > 0 ) {
             $userJSON .= ',"children" : [';
             foreach($user->children as $fk => $first) {
