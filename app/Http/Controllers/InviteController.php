@@ -58,22 +58,22 @@ class InviteController extends Controller
                                     $userJSON .= ',"children" : [';
                                     foreach($third->children as $fok => $forth) {
                                         $userJSON .= '{"name" : "'.$forth->name . ' ' . $forth->lastname.'"}';
-                                        $fok == 0 && count($third->children) > 0 && $fok+1 < count($third->children) ? $userJSON .= ',' : $userJSON .= '';
+                                        $fok+1 < count($third->children) ? $userJSON .= ',' : $userJSON .= '';
                                     }
                                     $userJSON .= ']';
                                 }
                                 $userJSON .= '}';
-                                $tk == 0 && count($second->children) > 0 && $tk+1 < count($second->children) ? $userJSON .= ',' : $userJSON .= '';
+                                $tk+1 < count($second->children) ? $userJSON .= ',' : $userJSON .= '';
                             }
                             $userJSON .= ']';
                         }
                         $userJSON .= '}';
-                        $sk == 0 && count($first->children) > 0 && $sk+1 < count($first->children) ? $userJSON .= ',' : $userJSON .= '';
+                        $sk+1 < count($first->children) ? $userJSON .= ',' : $userJSON .= '';
                     }
                     $userJSON .= ']';
                 }
                 $userJSON .= '}';
-                $fk == 0 && count($user->children) > 0 && $fk+1 < count($user->children) ? $userJSON .= ',' : $userJSON .= '';
+                $fk+1 < count($user->children) ? $userJSON .= ',' : $userJSON .= '';
             }
             $userJSON .= ']';
         }
