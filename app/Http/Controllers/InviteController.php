@@ -36,8 +36,53 @@ class InviteController extends Controller
         $user = User::with(['children' => function ($q) {
             $q->orderBy('id', 'desc');
         }])->find(Auth::user()->id);
+        if( Auth::user()->profile && Auth::user()->profile->avatar ) {
+            $image = url(Auth::user()->profile->avatar);
+        } else {
+            $image = asset('assets/images/users/5.jpg');
+        }
+        $userJSON = '{"name" : "'.$user->name . ' ' . $user->lastname.'","image":"'.$image.'"';
+        if ( count( $user->children ) > 0 ) {
+            $userJSON .= ',"children" : [';
+            foreach($user->children as $fk => $first) {
+                $userJSON .= '{"name" : "'.$first->name . ' ' . $first->lastname.'"';
+                if ( count( $first->children ) > 0 ) {
+                    $userJSON .= ',"children" : [';
+                    foreach($first->children as $sk => $second) {
+                        $userJSON .= '{"name" : "'.$second->name . ' ' . $second->lastname.'"';
+                        if ( count( $second->children ) > 0 ) {
+                            $userJSON .= ',"children" : [';
+                            foreach($second->children as $tk => $third) {
+                                $userJSON .= '{"name" : "'.$third->name . ' ' . $third->lastname.'"';
+                                if ( count( $third->children ) > 0 ) {
+                                    $userJSON .= ',"children" : [';
+                                    foreach($third->children as $fok => $forth) {
+                                        $userJSON .= '{"name" : "'.$forth->name . ' ' . $forth->lastname.'"}';
+                                        $fok == 0 && count($third->children) > 0 && $fok+1 < count($third->children) ? $userJSON .= ',' : $userJSON .= '';
+                                    }
+                                    $userJSON .= ']';
+                                }
+                                $userJSON .= '}';
+                                $tk == 0 && count($second->children) > 0 && $tk+1 < count($second->children) ? $userJSON .= ',' : $userJSON .= '';
+                            }
+                            $userJSON .= ']';
+                        }
+                        $userJSON .= '}';
+                        $sk == 0 && count($first->children) > 0 && $sk+1 < count($first->children) ? $userJSON .= ',' : $userJSON .= '';
+                    }
+                    $userJSON .= ']';
+                }
+                $userJSON .= '}';
+                $fk == 0 && count($user->children) > 0 && $fk+1 < count($user->children) ? $userJSON .= ',' : $userJSON .= '';
+            }
+            $userJSON .= ']';
+        }
+        $userJSON .= '}';
 
-        return view('networks.my')->with('user', $user);
+        return view('networks.my')->with([
+            'user' => $user,
+            'userJSON' => $userJSON,
+        ]);
     }
 
     public function invite(Request $request)
