@@ -169,7 +169,14 @@ class TransactionController extends Controller
         }
 
         if ($request->input('type') == 'withdraw' && ( Auth::user()->crypto == '' || Auth::user()->crypto == null ) ) {
-            Flash::error('Your request can\'t be processed. Please add Crypto Wallet Address from your profile.');
+            $validator->getMessageBag()->add('has_crypto', 'Please add Crypto Wallet Address from your profile.');
+            return redirect(route('transactions.' . $request->input('type')))
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        if ($request->input('type') == 'withdraw' && $request->input('confirm') == null ) {
+            $validator->getMessageBag()->add('confirm', 'Please confirm that You are responsible for setting correct crypto wallet address. It\'s required.');
             return redirect(route('transactions.' . $request->input('type')))
                         ->withErrors($validator)
                         ->withInput();
@@ -217,6 +224,11 @@ class TransactionController extends Controller
 
         if (!$transaction) {
             Flash::error('Withdrawal request not found.');
+            return redirect()->back();
+        }
+
+        if ($transaction->user->crypto == '' || $transaction->user->crypto == null) {
+            Flash::error('User has not added crypto wallet address.');
             return redirect()->back();
         }
 

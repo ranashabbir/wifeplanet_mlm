@@ -98,11 +98,23 @@
                                 @endif
                                 {!! Form::open(['route' => 'transactions.update']) !!}
                                     {!! Form::hidden('type', 'withdraw') !!}
+                                    {!! Form::hidden('has_crypto', Auth::user()->crypto != '' && Auth::user()->crypto != null ? 1 : 0) !!}
                                     {!! Form::hidden('available', $availableAmount) !!}
                                     <!-- Commission Field -->
                                     <div class="form-group col-sm-12 col-lg-12">
                                         {!! Form::label('amount', 'Amount') !!}
                                         {!! Form::number('amount', null, ['min' => 50,'class' => 'form-control']) !!}
+                                    </div>
+
+                                    <div class="form-group col-sm-12 col-lg-12">
+                                        <div class="d-md-flex align-items-center mt-3">
+                                            <div class="form-check">
+                                              <input class="form-check-input" type="checkbox" name="confirm" value="" id="flexCheckDefault">
+                                              <label class="form-check-label" for="flexCheckDefault">
+                                                {{ __('I confirm that I am responsible for setting correct crypto wallet address.') }}
+                                              </label>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <!-- Submit Field -->

@@ -100,12 +100,12 @@
                         <li class="sidebar-item"><a href="{{ url('/mytitles') }}" class="sidebar-link {{ request()->is('mytitles') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> My Titles </span></a></li>
                     </ul>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ request()->is('mynetworks*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('mynetworks') }}" aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
                         <span class="hide-menu">My Networks</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="inbox" class="feather-icon"></i><span class="hide-menu">Messages </span></a>
                     <ul aria-expanded="false" class="collapse  first-level">
                         <li class="sidebar-item"><a href="{{ url('/messages/inbox') }}" class="sidebar-link {{ request()->is('messages') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>
@@ -134,11 +134,12 @@
                         </ul>
                     </li>
                 @endif
-                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="user-plus" class="feather-icon"></i><span class="hide-menu">Invites </span></a>
+                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="user-plus" class="feather-icon"></i><span class="hide-menu">Networks </span></a>
                     <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item"><a href="{{ url('/mynetworks') }}" class="sidebar-link {{ request()->is('mynetworks') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> My Networks </span></a></li>
+                        <li class="sidebar-item"><a href="{{ url('/myinvites') }}" class="sidebar-link {{ request()->is('myinvites') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Invited Members </span></a></li>
                         <li class="sidebar-item"><a href="{{ url('/invite') }}" class="sidebar-link {{ request()->is('invite') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> Invite New Members </span></a></li>
                         <li class="sidebar-item"><a href="{{ url('/registeruser') }}" class="sidebar-link {{ request()->is('registeruser') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> Register New Members </span></a></li>
-                        <li class="sidebar-item"><a href="{{ url('/myinvites') }}" class="sidebar-link {{ request()->is('myinvites') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> My invites </span></a></li>
                     </ul>
                 </li>
                 @if(Auth::user()->hasRole('admin'))

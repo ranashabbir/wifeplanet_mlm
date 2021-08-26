@@ -37,51 +37,111 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
 
-        $newusers = User::whereNull('deleted_at')
-                        ->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
-                        ->whereNotNull('email_verified_at')
-                        ->where('is_active', 1)
-                        ->get()->count()
-        ;
+        if (Auth::user()->hasRole('admin')) {
+            $newusers = User::whereNull('deleted_at')
+                            ->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
+                            ->whereNotNull('email_verified_at')
+                            ->where('is_active', 1)
+                            ->get()->count()
+            ;
 
-        $upgrades = Subscription::whereNull('deleted_at')
-                        ->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
-                        ->where('status', 'active')
-                        ->get()->count()
-        ;
+            $upgrades = Subscription::whereNull('deleted_at')
+                            ->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
+                            ->where('status', 'active')
+                            ->get()->count()
+            ;
 
-        $freeuser = DB::table('users')
-                        ->join('subscriptions', 'subscriptions.user_id', '!=', 'users.id')
-                        ->where('users.created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
-                        ->whereNull('users.deleted_at')
-                        ->get()
-                        ->count()
-        ;
+            $freeuser = DB::table('users')
+                            ->join('subscriptions', 'subscriptions.user_id', '!=', 'users.id')
+                            ->where('users.created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
+                            ->whereNull('users.deleted_at')
+                            ->get()
+                            ->count()
+            ;
 
-        $freepackage = DB::table('users')
-                        ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
-                        ->where('users.created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
-                        ->where('subscriptions.price', 0)
-                        ->whereNull('users.deleted_at')
-                        ->get()
-                        ->count()
-        ;
+            $freepackage = DB::table('users')
+                            ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
+                            ->where('users.created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
+                            ->where('subscriptions.price', 0)
+                            ->whereNull('users.deleted_at')
+                            ->get()
+                            ->count()
+            ;
 
-        $forapproval = USER::with('profile')
-                ->whereNull('deleted_at')
-                ->whereNull('is_active')
-                ->orWhere('is_active', 0)
-                ->orderBy('id', 'desc')
-                ->get()
-        ;
+            $forapproval = USER::with('profile')
+                    ->whereNull('deleted_at')
+                    ->whereNull('is_active')
+                    ->orWhere('is_active', 0)
+                    ->orderBy('id', 'desc')
+                    ->get()
+            ;
 
-        return view('home')
-                ->with('newusers', $newusers)
-                ->with('upgrades', $upgrades)
-                ->with('freeuser', $freeuser)
-                ->with('freepackage', $freepackage)
-                ->with('forapproval', $forapproval)
-        ;
+            return view('home')
+                    ->with('newusers', $newusers)
+                    ->with('upgrades', $upgrades)
+                    ->with('freeuser', $freeuser)
+                    ->with('freepackage', $freepackage)
+                    ->with('forapproval', $forapproval)
+            ;
+        } else {
+            $user = Auth::user();
+            $customer = User::whereNull('deleted_at')->where('parent_id', '=', $user->id)->get();
+
+            $withdrawn = DB::table("transactions")
+                            ->select(DB::raw("SUM(amount) as withdrawn"))
+                            ->where('type', "withdraw")
+                            ->where('user_id', $user->id)
+                            ->groupBy('user_id')
+                            ->first();
+
+            $purchase = DB::table("transactions")
+                            ->select(DB::raw("SUM(amount) as purchase"))
+                            ->where('type', "purchase")
+                            ->where('user_id', $user->id)
+                            ->groupBy('user_id')
+                            ->first();
+
+            $bonus = DB::table("transactions")
+                            ->select(DB::raw("SUM(amount) as bonus"))
+                            ->where('type', "commission")
+                            ->where('user_id', $user->id)
+                            ->groupBy('user_id')
+                            ->first();
+
+            $deposit = DB::table("transactions")
+                            ->select(DB::raw("SUM(amount) as deposit"))
+                            ->where('type', "deposit")
+                            ->where('user_id', $user->id)
+                            ->groupBy('user_id')
+                            ->first();
+
+            $top_earning = DB::table("transactions")
+                            ->select('user_id', DB::raw("SUM(amount) as bonus"))
+                            ->where('type', "commission")
+                            ->where('user_id', $user->id)
+                            ->groupBy('user_id')
+                            ->orderBy('bonus', 'desc')
+                            ->get();
+
+            $titles = DB::table('user_titles')
+                            ->select('titles.name as title_name', 'users.name as f_name', 'users.lastname as l_name')
+                            ->leftJoin('titles', 'user_titles.title_id', '=', 'titles.id')
+                            ->leftJoin('users', 'user_titles.user_id', '=', 'users.id')
+                            ->where('user_id', $user->id)
+                            ->get()
+            ;
+            return view('home')
+                ->with('user', $user)
+                ->with('customer', $customer)
+                // ->with('no_parent', $no_parent)
+                ->with('withdrawn', $withdrawn ? $withdrawn->withdrawn : '0.00')
+                ->with('purchase', $purchase ? $purchase->purchase : '0.00')
+                ->with('deposit', $deposit ? $deposit->deposit : '0.00')
+                ->with('bonus', $bonus ? $bonus->bonus : '0.00')
+                ->with('top_earning', $top_earning)
+                ->with('titles', $titles)
+            ;
+        }
     }
 
     public function contact(Request $request)

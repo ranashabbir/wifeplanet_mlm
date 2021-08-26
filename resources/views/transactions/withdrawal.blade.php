@@ -70,7 +70,7 @@
                                                         <a href="{{ route('transactions.processrequest', ['id' => $item->id, 'type' => 'completed']) }}" class="btn btn-success btn-sm">Process</a>
                                                     @endif
                                                     @if($item->status != 'declined' && $item->status != 'completed')
-                                                        <a href="{{ route('transactions.processrequest', ['id' => $item->id, 'type' => 'declined']) }}" class="btn btn-success btn-sm">Decline</a>
+                                                        <a href="{{ route('transactions.processrequest', ['id' => $item->id, 'type' => 'declined']) }}" class="btn btn-danger btn-sm">Decline</a>
                                                     @endif
                                                 </td>
                                             </tr>
