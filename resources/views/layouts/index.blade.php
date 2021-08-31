@@ -84,7 +84,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/moment-timezone.min.js') }}"></script>
-    {{-- <script src="{{ asset('assets/icheck/icheck.min.js') }}"></script> --}}
+    <script src="{{ asset('assets/icheck/icheck.min.js') }}"></script>
     <script src="https://www.jsviews.com/download/jsviews.min.js"></script>
     <script src="{{ asset('js/emojionearea.js') }}"></script>
     <script src="{{ asset('assets/js/emojione.min.js') }}"></script>

@@ -27,7 +27,7 @@
         "laravelcollective/html": "^6.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "livewire/livewire": "^2.5",
-        "pusher/pusher-php-server": "~4.0",
+        "pusher/pusher-php-server": "^7.0",
         "spatie/laravel-newsletter": "^4.10",
         "spatie/laravel-permission": "^3.2",
         "yajra/laravel-datatables-oracle": "~9.0"
