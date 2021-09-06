@@ -16,7 +16,7 @@
                 </b>
 
                 <span class="logo-text">
-                    {{ __('Admin') }}
+                    {{-- {{ __('Admin') }} --}}
                     <!--
                     <img src="{{-- asset('assets/images/logo-text.png') --}}" alt="homepage" class="dark-logo" />
  

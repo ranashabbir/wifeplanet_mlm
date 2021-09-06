@@ -94,6 +94,12 @@
                         </ul>
                     </li>
                 @endif
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ request()->is('profile*') ? 'active' : '' }} waves-effect waves-dark" href="{{ route('profile.show', [Auth::user()->id]) }}" aria-expanded="false">
+                        <i data-feather="user" class="feather"></i>
+                        <span class="hide-menu">My Profile</span>
+                    </a>
+                </li>
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="sidebar" class="feather-icon"></i><span class="hide-menu">Titles </span></a>
                     <ul aria-expanded="false" class="collapse  first-level">
                         <li class="sidebar-item"><a href="{{ url('/titles') }}" class="sidebar-link {{ request()->is('titles') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>
@@ -108,17 +114,18 @@
                 </li> --}}
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i data-feather="inbox" class="feather-icon"></i><span class="hide-menu">Messages </span></a>
                     <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item"><a href="{{ url('conversations') }}" class="sidebar-link {{ request()->is('conversations*') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> Conversation </span></a></li>
                         <li class="sidebar-item"><a href="{{ url('/messages/inbox') }}" class="sidebar-link {{ request()->is('messages') ? 'active' : '' }}"><i class="mdi mdi-view-quilt"></i><span class="hide-menu"> View All </span></a></li>
                         <li class="sidebar-item"><a href="{{ url('/messages/outbox') }}" class="sidebar-link {{ request()->is('messages/outbox') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Outbox </span></a></li>
                         <li class="sidebar-item"><a href="{{ url('/messages/compose') }}" class="sidebar-link {{ request()->is('messages/compose') ? 'active' : '' }}"><i class="mdi mdi-view-parallel"></i><span class="hide-menu"> Compose </span></a></li>
                     </ul>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link {{ request()->is('conversations*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('conversations') }}" aria-expanded="false">
                         <i data-feather="message-circle" class="feather feather-message-circle"></i>
                         <span class="hide-menu">Conversation</span>
                     </a>
-                </li>
+                </li> --}}
                 @if(!Auth::user()->hasRole('admin'))
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ request()->is('packages*') ? 'active' : '' }} waves-effect waves-dark" href="{{ url('packages') }}" aria-expanded="false">

@@ -125,6 +125,8 @@
                             -->
                                 <div class="d-flex align-items-stretch">
                                     <button type="submit" class="btn btn-info d-block w-100">{{ __('Register') }}</button>
+                                    &nbsp;
+                                    <a href="{{ url('/'); }}" class="btn btn-danger d-block w-100">{{ __('Cancel') }}</a>
                                 </div>
                             </form>
                         </div>

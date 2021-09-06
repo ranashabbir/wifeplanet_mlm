@@ -48,7 +48,7 @@
                                 <span class="db"><img src="{{ asset('assets/images/logo-light-icon.png') }}" alt="logo" /></span>
                                 {{-- <span class="db"><img src="{{ asset('assets/images/logo-light-text.png') }}" alt="logo" /></span> --}}
                             </div>
-                            <h2 class="text-white mt-4 fw-light">{{ config('app.name', 'Laravel') }} <span class="font-weight-medium">Admin</span> Dating Site</h2>
+                            <h2 class="text-white mt-4 fw-light">{{ config('app.name', 'Laravel') }} <!--<span class="font-weight-medium">Admin</span> Dating Site--></h2>
                             <p class="op-5 text-white fs-4 mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                     <div class="col-lg-6 col-xl-3 col-md-7">
                         <div class="card" id="loginform">
                             <div class="card-body">
-                                <h2>Welcome to MLM Admin</h2>
+                                <h2>Welcome to {{ config('app.name', 'Laravel') }}</h2>
                                 <p class="text-muted fs-4">New Here? <a href="{{ route('register') }}" id="register">{{ __('Register') }}</a></p>
                                 <form class="form-horizontal mt-4 pt-4 needs-validation" novalidate  method="POST" action="{{ route('login') }}">
                                     @csrf

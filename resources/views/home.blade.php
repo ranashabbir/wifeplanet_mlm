@@ -88,19 +88,27 @@
                         </div>
 
                         <div class="comment-widgets scrollable position-relative mb-2" >
-                            @foreach ($forapproval as $item)
-                                <div class="d-flex flex-row comment-row p-2 p-md-3">
-                                    <div class="p-1 p-md-2"><span class="round text-white d-inline-block text-center"><img src="@if($item->profile && $item->profile->avatar) {{ $item->profile->avatar }} @else {{ asset('assets/images/users/1.jpg') }} @endif" alt="user" width="50" class="rounded-circle"></span></div>
-                                    <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
-                                        <h5 class="font-weight-medium">{{ $item->name }} {{ $item->lastname }}</h5>
-                                        <p class="mb-1 fs-3 fw-light text-muted">{{ $item->email }}</p>
-                                        <div class="comment-footer d-md-flex align-items-center mt-2">                                            
-                                            <span class="badge bg-light-info text-info">Pending</span>
-                                            <span class="text-muted ms-auto d-block text-end fs-2 fw-normal">{{ date('j F, Y', strtotime($item->created_at)) }}</span>
+                            @if (count($forapproval)>0)
+                                @foreach ($forapproval as $item)
+                                    <div class="d-flex flex-row comment-row p-2 p-md-3">
+                                        <div class="p-1 p-md-2"><span class="round text-white d-inline-block text-center"><img src="@if($item->profile && $item->profile->avatar) {{ $item->profile->avatar }} @else {{ asset('assets/images/users/1.jpg') }} @endif" alt="user" width="50" class="rounded-circle"></span></div>
+                                        <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
+                                            <h5 class="font-weight-medium">{{ $item->name }} {{ $item->lastname }}</h5>
+                                            <p class="mb-1 fs-3 fw-light text-muted">{{ $item->email }}</p>
+                                            <div class="comment-footer d-md-flex align-items-center mt-2">                                            
+                                                <span class="badge bg-light-info text-info">Pending</span>
+                                                <span class="text-muted ms-auto d-block text-end fs-2 fw-normal">{{ date('j F, Y', strtotime($item->created_at)) }}</span>
+                                            </div>
                                         </div>
                                     </div>
+                                @endforeach
+                            @else
+                                <div class="card-body">
+                                    <div class="alert alert-warning">
+                                        {{ __('No profiles to approve yet.') }}
+                                    </div>
                                 </div>
-                            @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -178,18 +186,27 @@
                         </div>
 
                         <div class="comment-widgets scrollable position-relative mb-2" >
-                            @foreach ($customer as $item)
-                                <div class="d-flex flex-row comment-row p-2 p-md-3">
-                                    <div class="p-1 p-md-2"><span class="round text-white d-inline-block text-center"><img src="@if($item->profile && $item->profile->avatar) {{ $item->profile->avatar }} @else {{ asset('assets/images/users/1.jpg') }} @endif" alt="user" width="50" class="rounded-circle"></span></div>
-                                    <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
-                                        <h5 class="font-weight-medium">{{ $item->name }} {{ $item->lastname }}</h5>
-                                        <p class="mb-1 fs-3 fw-light text-muted">Parent {{ $item->parent->name }}</p>
-                                        <div class="comment-footer d-md-flex align-items-center mt-2">
-                                            <span class="text-muted ms-auto d-block text-end fs-2 fw-normal">{{ date('j F, Y', strtotime($item->created_at)) }}</span>
+                            @if (count($customer)>0)
+                                @foreach ($customer as $item)
+                                    <div class="d-flex flex-row comment-row p-2 p-md-3">
+                                        <div class="p-1 p-md-2"><span class="round text-white d-inline-block text-center"><img src="@if($item->profile && $item->profile->avatar) {{ $item->profile->avatar }} @else {{ asset('assets/images/users/1.jpg') }} @endif" alt="user" width="50" class="rounded-circle"></span></div>
+                                        <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
+                                            <h5 class="font-weight-medium">{{ $item->name }} {{ $item->lastname }}</h5>
+                                            <p class="mb-1 fs-3 fw-light text-muted">Parent {{ $item->parent->name }}</p>
+                                            <div class="comment-footer d-md-flex align-items-center mt-2">
+                                                <span class="text-muted ms-auto d-block text-end fs-2 fw-normal">{{ date('j F, Y', strtotime($item->created_at)) }}</span>
+                                            </div>
                                         </div>
                                     </div>
+                                @endforeach
+                            @else
+                                <div class="card-body">
+                                    <div class="alert alert-warning">
+                                        {{ __('You have no customers yet.') }} <a href="{{ url('/registeruser') }}" class="btn btn-sm btn-default" style="float: right;">{{ __('Register User') }}</a>
+                                    </div>
                                 </div>
-                            @endforeach
+                            @endif
+                            
                         </div>
                     </div>
                 </div>
@@ -200,15 +217,23 @@
                         </div>
 
                         <div class="comment-widgets scrollable position-relative mb-2" >
-                            @foreach ($titles as $item)
-                                <div class="d-flex flex-row comment-row p-2 p-md-3">
-                                    <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
-                                        <h5 class="font-weight-medium">{{ $item->f_name }} {{ $item->l_name }}</h5>
-                                        <p class="mb-1 fs-3 fw-light text-muted">{{ $item->title_name }}</p>
-                                        <div class="comment-footer d-md-flex align-items-center mt-2"></div>
+                            @if (count($customer)>0)
+                                @foreach ($titles as $item)
+                                    <div class="d-flex flex-row comment-row p-2 p-md-3">
+                                        <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
+                                            <h5 class="font-weight-medium">{{ $item->f_name }} {{ $item->l_name }}</h5>
+                                            <p class="mb-1 fs-3 fw-light text-muted">{{ $item->title_name }}</p>
+                                            <div class="comment-footer d-md-flex align-items-center mt-2"></div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="card-body">
+                                    <div class="alert alert-warning">
+                                        {{ __('You have no titles yet.') }} <a href="{{ url('/titles') }}" class="btn btn-sm btn-default" style="float: right;">{{ __('View All') }}</a>
                                     </div>
                                 </div>
-                            @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
