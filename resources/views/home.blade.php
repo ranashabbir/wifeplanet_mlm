@@ -91,10 +91,13 @@
                             @if (count($forapproval)>0)
                                 @foreach ($forapproval as $item)
                                     <div class="d-flex flex-row comment-row p-2 p-md-3">
-                                        <div class="p-1 p-md-2"><span class="round text-white d-inline-block text-center"><img src="@if($item->profile && $item->profile->avatar) {{ $item->profile->avatar }} @else {{ asset('assets/images/users/1.jpg') }} @endif" alt="user" width="50" class="rounded-circle"></span></div>
+                                        <div class="p-1 p-md-2"><a href="{{ route('profile.show', [$item->id]) }}"><span class="round text-white d-inline-block text-center"><img src="@if($item->profile && $item->profile->avatar) {{ $item->profile->avatar }} @else {{ asset('assets/images/users/1.jpg') }} @endif" alt="user" width="50" class="rounded-circle"></span></a></div>
                                         <div class="comment-text w-100 py-1 py-md-3 pr-md-3 pl-md-4 px-2">
-                                            <h5 class="font-weight-medium">{{ $item->name }} {{ $item->lastname }}</h5>
-                                            <p class="mb-1 fs-3 fw-light text-muted">{{ $item->email }}</p>
+                                            <h5 class="font-weight-medium"><a href="{{ route('profile.show', [$item->id]) }}">{{ $item->name }} {{ $item->lastname }}</a></h5>
+                                            <p class="mb-1 fs-3 fw-light text-muted" style="display:inline-block;">{{ $item->email }}</p>
+                                            <p style="display:inline-block;float:right;">
+                                                <a href="{{ route('users.approve', $item->id) }}" title="{{ __('Approve') }}" class="btn btn-sm btn-success"><i data-feather="check" class="feather-icon"></i></a>
+                                            </p>
                                             <div class="comment-footer d-md-flex align-items-center mt-2">                                            
                                                 <span class="badge bg-light-info text-info">Pending</span>
                                                 <span class="text-muted ms-auto d-block text-end fs-2 fw-normal">{{ date('j F, Y', strtotime($item->created_at)) }}</span>

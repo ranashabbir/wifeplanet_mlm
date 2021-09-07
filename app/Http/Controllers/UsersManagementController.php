@@ -38,9 +38,9 @@ class UsersManagementController extends Controller
 
         $pagintaionEnabled = config('usersmanagement.enablePagination');
         if ($pagintaionEnabled) {
-            $users = User::paginate(config('usersmanagement.paginateListSize'));
+            $users = User::with('parent')->paginate(config('usersmanagement.paginateListSize'));
         } else {
-            $users = User::all();
+            $users = User::with('parent')->get();
         }
         $roles = Role::all();
 
@@ -295,5 +295,21 @@ class UsersManagementController extends Controller
         return response()->json([
             json_encode($results),
         ], Response::HTTP_OK);
+    }
+
+    public function approve($user_id)
+    {
+        if (!$user_id) {
+            return back()->with('error', __('User id not found.'));
+        }
+
+        $user = User::find($user_id);
+        if (!$user) {
+            return back()->with('error', __('User not found.'));
+        }
+
+        $user->is_active = 1;
+        $user->save();
+        return redirect('users')->with('success', __('User is approved.'));
     }
 }

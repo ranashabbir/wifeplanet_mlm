@@ -77,6 +77,8 @@ Route::group(['middleware' => ['role:admin', 'web', 'auth', 'user.activated']], 
     Route::post('users/store', 'UsersManagementController@store')->name('users.store');
     Route::post('users/{user}/update', 'UsersManagementController@update')->name('users.update');
 
+    Route::get('users/approve/{user_id}', 'UsersManagementController@approve')->name('users.approve');
+
     Route::resource('plans', 'PlanController');
     Route::get('/bonus/{id}', 'PlanController@bonus')->name('plans.bonus');
     Route::get('/createbonus', 'PlanController@createbonus')->name('plans.createbonus');

@@ -143,7 +143,7 @@ class RegisterController extends Controller
             Invite::consume($code);
         }
 
-        $role = Role::where('slug', '=', 'unverified')->first();
+        $role = Role::where('is_default', '1')->first();
         $country = Country::where('id', $data['country'])->first();
         $user = User::create([
             'name' => $data['name'],

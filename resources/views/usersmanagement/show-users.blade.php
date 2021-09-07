@@ -50,6 +50,7 @@
                                             <th>{!! __('laravelusers::laravelusers.users-table.id') !!}</th>
                                             <th>{!! __('laravelusers::laravelusers.users-table.name') !!}</th>
                                             <th class="hidden-xs">{!! __('laravelusers::laravelusers.users-table.email') !!}</th>
+                                            <th class="hidden-sm hidden-xs hidden-md">{!! __('Parent') !!}</th>
                                             @if(config('laravelusers.rolesEnabled'))
                                                 <th class="hidden-sm hidden-xs">{!! __('laravelusers::laravelusers.users-table.role') !!}</th>
                                             @endif
@@ -66,6 +67,13 @@
                                                 <td>{{$user->id}}</td>
                                                 <td>{{$user->name}}</td>
                                                 <td class="hidden-xs">{{$user->email}}</td>
+                                                <td class="hidden-xs">
+                                                    @if ($user->parent)
+                                                        {{$user->parent->name}}
+                                                    @else
+                                                        {{ __("No Parent") }}
+                                                    @endif
+                                                </td>
                                                 @if(config('laravelusers.rolesEnabled'))
                                                     <td class="hidden-sm hidden-xs">
                                                         @foreach ($user->roles as $user_role)
