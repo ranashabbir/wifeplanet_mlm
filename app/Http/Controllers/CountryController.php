@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 
+use Illuminate\Support\Facades\Storage;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\City;
+
 class CountryController extends AppBaseController
 {
     /** @var  CountryRepository */
@@ -150,6 +155,61 @@ class CountryController extends AppBaseController
         $this->countryRepository->delete($id);
 
         Flash::success('Country deleted successfully.');
+
+        return redirect(route('countries.index'));
+    }
+
+    public function readcsv()
+    {
+        // ini_set('max_execution_time', 30000);
+        $file_n = storage_path('app/worldcities.csv');
+        $file = fopen($file_n, "r");
+        $all_data = array();
+
+        fgetcsv($file);
+
+        $i = 0;
+        // echo'<pre>';
+        while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
+            if (isset($data[1]) && isset($data[5]) && isset($data[6]) && isset($data[7]) && isset($data[9]) && isset($data[10])) {
+                // echo $i . ' | Country:- ' .$data[5]. ' == State:- ' .$data[9]. ' == City:- ' .$data[1].'<br>';
+                isset($data[5]) ? $country = Country::where('name', 'like', trim($data[5]))->first() : $country = null;
+                isset($data[9]) ? $state = State::where('name', 'like', trim($data[9]))->first() : $state = null;
+                isset($data[1]) ? $city = City::where('name', 'like', trim($data[1]))->first() : $city = null;
+
+                // var_dump($country);
+                // var_dump($state);
+                // var_dump($city);
+                // exit;
+                if ($country == null) {
+                    $country = Country::create([
+                        'name' => trim($data[5]),
+                        'code' => trim($data[7]),
+                        'short_code' => trim($data[6])
+                    ]);
+                }
+
+                if ($state == null) {
+                    $state = State::create([
+                        'name' => trim($data[9]),
+                        'short_code' => trim($data[10]),
+                        'country_id' => $country->id
+                    ]);
+                }
+
+                if ($city == null) {
+                    $city = City::create([
+                        'name' => trim($data[1]),
+                        'state_id' => $state->id,
+                        'country_id' => $country->id
+                    ]);
+                }
+                $i++;
+            }
+        }
+        fclose($file);
+// exit;
+        Flash::success($i . ' records added successfully.');
 
         return redirect(route('countries.index'));
     }

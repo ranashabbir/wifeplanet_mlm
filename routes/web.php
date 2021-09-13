@@ -46,6 +46,7 @@ Route::post('update-language', 'UserController@updateLanguage')->middleware('aut
 
 Route::group(['middleware' => ['role:admin', 'web', 'auth', 'user.activated']], function () {
     Route::resource('countries', 'CountryController');
+    Route::get('/readcsv', 'CountryController@readcsv')->name('readcsv');
 
     Route::resource('states', 'StateController');
     Route::post('/getStates', 'StateController@getStates')->name('getStates');
