@@ -53,12 +53,12 @@
                                                             <div class="col-10 offset-1 col-sm-10 offset-sm-1 mb-1">
                                                                 <div class="row" data-toggle="buttons">
                                                                     <div class="col-6 col-xs-6 right-btn-container">
-                                                                        <label class="btn btn-primary @if($user->profile->avatar == '') active @endif btn-block btn-sm" data-toggle="collapse" data-target=".collapseOne:not(.show), .collapseTwo.show">
+                                                                        <label class="btn btn-primary @if($user->profile->avatar == '') active @endif btn-block btn-sm flex-btn" data-toggle="collapse" data-target=".collapseOne:not(.show), .collapseTwo.show">
                                                                             <input type="radio" name="avatar_status" id="option1" autocomplete="off" value="0" @if($user->profile->avatar_status == 0) checked @endif> Use Gravatar
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-6 col-xs-6 left-btn-container">
-                                                                        <label class="btn btn-primary @if($user->profile->avatar != '') active @endif btn-block btn-sm" data-toggle="collapse" data-target=".collapseOne.show, .collapseTwo:not(.show)">
+                                                                        <label class="btn btn-primary @if($user->profile->avatar != '') active @endif btn-block btn-sm flex-btn" data-toggle="collapse" data-target=".collapseOne.show, .collapseTwo:not(.show)">
                                                                             <input type="radio" name="avatar_status" id="option2" autocomplete="off" value="1" @if($user->profile->avatar_status == 1) checked @endif> Use My Image
                                                                         </label>
                                                                     </div>

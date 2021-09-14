@@ -3,12 +3,12 @@
     {!! Form::text('topic', isset($meeting) ? $meeting->topic : null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-<div class="form-group col-sm-3 col-md-6 col-lg-6 col-xl-3">
+<div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
     {!! Form::label('start_time', 'Meeting Date:')!!}<span class="red">*</span>
     {!! Form::text('start_time', isset($meeting) ? $meeting->start_time : null, ['class' => 'form-control start-time', 'required', 'autocomplete' => 'off']) !!}
 </div>
 
-<div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+<div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3 select-box">
     {!! Form::label('time_zone', 'Time zone:')!!}<span class="red">*</span>
     {!! Form::select('time_zone', $timeZones, isset($meetingTimeZone) ? $meetingTimeZone : null, ['class' => 'form-control time-zone', 'placeholder' => 'Select timezone' ]) !!}
 </div>
@@ -18,7 +18,7 @@
     {!! Form::number('duration', isset($meeting) ? $meeting->duration : null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-<div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3">
+<div class="form-group col-sm-6 col-md-6 col-lg-6 col-xl-3 select-box">
     {!! Form::label('members', 'Staff List:')!!}<span class="red">*</span>
     {!! Form::select('members[]', $users, isset($members) ? $members : null, ['class' => 'form-control members', 'multiple']) !!}
 </div>

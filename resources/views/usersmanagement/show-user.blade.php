@@ -42,13 +42,13 @@
 						@endif
 						<div class="row">
 						<div class="col-sm-4 offset-sm-2 col-md-2 offset-md-3">
-							<img style="width: 80px;" src="@if($user->profile && $user->profile->avatar) {{ $user->profile->avatar }} @else {{ asset('assets/images/users/5.jpg') }} @endif" alt="{{ $user->name }}" class="rounded-circle center-block mb-3 mt-4 user-image">
+							<img style="width: 80px;" src="@if($user->profile && $user->profile->avatar) {{ $user->profile->avatar }} @else {{ asset('assets/images/users/5.jpg') }} @endif" alt="{{ $user->name }}" class="rounded-circle center-block mb-1 user-image">
 						</div>
 						<div class="col-sm-4 col-md-6">
-							<h4 class="text-muted margin-top-sm-1 text-center text-left-tablet">
+							<h4 class="text-muted margin-top-sm-1 text-left text-left-tablet">
 							{{ $user->name }}
 							</h4>
-							<p class="text-center text-left-tablet">
+							<p class="text-left text-left-tablet">
 							<strong>
 								{{ $user->name }} {{ $user->last_name }}
 							</strong>
@@ -81,13 +81,13 @@
 
 						@if ($user->name)
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 							<strong>
 							{{ __('usersmanagement.labelUserName') }}
 							</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 							{{ $user->name }}
 						</div>
 
@@ -98,13 +98,13 @@
 
 						@if ($user->email)
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 						<strong>
 							{{ __('usersmanagement.labelEmail') }}
 						</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 						<span data-toggle="tooltip" data-placement="top" title="{{ __('usersmanagement.tooltips.email-user', ['user' => $user->email]) }}">
 							{{ HTML::mailto($user->email, $user->email) }}
 						</span>
@@ -117,13 +117,13 @@
 
 						@if ($user->name)
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 							<strong>
 							{{ __('usersmanagement.labelFirstName') }}
 							</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 							{{ $user->name }}
 						</div>
 
@@ -134,13 +134,13 @@
 
 						@if ($user->lastname)
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 							<strong>
 							{{ __('usersmanagement.labelLastName') }}
 							</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 							{{ $user->lastname }}
 						</div>
 
@@ -149,13 +149,13 @@
 
 						@endif
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 						<strong>
 							{{ __('usersmanagement.labelRole') }}
 						</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 						@foreach ($user->roles as $user_role)
 
 							@if ($user_role->name == 'User')
@@ -180,13 +180,13 @@
 						<div class="clearfix"></div>
 						<div class="border-bottom"></div>
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 						<strong>
 							{{ __('usersmanagement.labelStatus') }}
 						</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 						@if ($user->is_active == 1)
 							<span class="badge badge-success">
 							Activated
@@ -201,13 +201,13 @@
 						<div class="clearfix"></div>
 						<div class="border-bottom"></div>
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 						<strong>
 							{{ __('usersmanagement.labelAccessLevel')}} {{ $levelAmount }}:
 						</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 
 						@if($user->level() >= 5)
 							<span class="badge badge-primary margin-half margin-left-0">5</span>
@@ -234,13 +234,13 @@
 						<div class="clearfix"></div>
 						<div class="border-bottom"></div>
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 						<strong>
 							{{ __('usersmanagement.labelPermissions') }}
 						</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 						@if($user->canViewUsers())
 							<span class="badge badge-primary margin-half margin-left-0">
 							{{ __('permsandroles.permissionView') }}
@@ -271,13 +271,13 @@
 
 						@if ($user->created_at)
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 							<strong>
 							{{ __('usersmanagement.labelCreatedAt') }}
 							</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 							{{ $user->created_at }}
 						</div>
 
@@ -288,13 +288,13 @@
 
 						@if ($user->updated_at)
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 							<strong>
 							{{ __('usersmanagement.labelUpdatedAt') }}
 							</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 							{{ $user->updated_at }}
 						</div>
 
@@ -305,13 +305,13 @@
 
 						{{-- @if ($user->signup_ip_address)
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 							<strong>
 							{{ __('usersmanagement.labelIpEmail') }}
 							</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 							<code>
 							{{ $user->signup_ip_address }}
 							</code>
@@ -324,13 +324,13 @@
 
 						{{-- @if ($user->signup_confirmation_ip_address)
 
-						<div class="col-sm-5 col-6 text-larger">
+						<div class="col-sm-5 col-6 text-larger p-0">
 							<strong>
 							{{ __('usersmanagement.labelIpConfirm') }}
 							</strong>
 						</div>
 
-						<div class="col-sm-7">
+						<div class="col-sm-7 p-0">
 							<code>
 							{{ $user->signup_confirmation_ip_address }}
 							</code>

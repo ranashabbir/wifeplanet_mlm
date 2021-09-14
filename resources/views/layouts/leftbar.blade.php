@@ -9,7 +9,7 @@
                     <!-- User profile -->
                     <div class="user-profile text-center position-relative pt-4 mt-1">
                         <!-- User profile image -->
-                        <div class="profile-img m-auto"> <img src="@if(Auth::user()->profile && Auth::user()->profile->avatar) {{ Auth::user()->profile->avatar }} @else {{ asset('assets/images/users/5.jpg') }} @endif" alt="user" class="w-100 rounded-circle" /> </div>
+                        <!-- <div class="profile-img m-auto"> <img src="@if(Auth::user()->profile && Auth::user()->profile->avatar) {{ Auth::user()->profile->avatar }} @else {{ asset('assets/images/users/5.jpg') }} @endif" alt="user" class="w-100 rounded-circle" /> </div> -->
                         <!-- User profile text-->
                         <div class="profile-text py-1"> 
                             <a href="#" class="dropdown-toggle link u-dropdown" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ Auth::user()->name }} <span class="caret"></span>

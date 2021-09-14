@@ -13,7 +13,7 @@
                     <div class="alert alert-danger" style="display: none" id="groupValidationErrorsBox"></div>
                 </div>
                 <input type="hidden" name="id" value="" id="groupId">
-                <div class="row">
+                <div class="row center-img">
                     <div class="col-sm-6">
                         {!! Form::label('name', __('messages.group.name')) !!}<span class="red">*</span>
                         {!! Form::text('name', null, ['class' => 'form-control', 'required', 'id' => 'groupName']) !!}
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="row my-2">
-                    <div class="col-6">
+                    <div class="col-6 flex-col">
                         <div class="div-group-type d-flex">
                             <div class="col-sm-3 px-0">
                                 {!! Form::label('type', __('messages.group.type')).":" !!}<span class="red">*</span>
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 flex-col">
                         <div class="div-group-privacy d-flex">
                             <div class="col-sm-3 pl-0">
                                 {!! Form::label('privacy', __('messages.group.privacy')).":" !!}<span

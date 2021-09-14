@@ -7,7 +7,8 @@
             <a class="navbar-brand" href="{{ url('/home') }}" style="color: #009efb;">
 
                 <b class="logo-icon">
-                    {{ config('app.name', 'Laravel') }}
+                    <!-- {{ config('app.name', 'Laravel') }} -->
+                    <img class="logo-sidebar" src="{{ asset('assets/images/logo2.png') }}" alt="logo" />
                     <!--
                     <img src="{{-- asset('assets/images/logo-icon.png') --}}" alt="homepage" class="dark-logo" />
 
@@ -345,7 +346,7 @@
                     @else
                         <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                            <img src="@if(Auth::user()->profile && Auth::user()->profile->avatar) {{ Auth::user()->profile->avatar }} @else {{ asset('assets/images/users/5.jpg') }} @endif" alt="user" width="30" class="profile-pic rounded-circle" />
+                            <!-- <img src="@if(Auth::user()->profile && Auth::user()->profile->avatar) {{ Auth::user()->profile->avatar }} @else {{ asset('assets/images/users/5.jpg') }} @endif" alt="user" width="30" class="profile-pic rounded-circle" /> -->
                         </a>
                         <div class="dropdown-menu dropdown-menu-end user-dd animated flipInY">
                             <div class="d-flex no-block align-items-center p-3 bg-info text-white mb-2">
