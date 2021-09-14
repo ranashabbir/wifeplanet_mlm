@@ -17,6 +17,7 @@
     </div>
     <div id="userListForAddPeople">
         <ul class="list-group user-list-chat-select list-with-filter" id="userListForChat">
+            @if (\Auth::user()->isAdmin())
             @foreach($users as $key => $value)
             <li class="list-group-item user-list-chat-select__list-item align-items-center chat-user-{{ $value->id }} {{ getGender($value->gender) }}" data-status="{{ $value->is_online }}" data-gender="{{$value->gender}}">
                 <input type="hidden" class="add-chat-user-id" value="{{ $value->id }}">
@@ -32,6 +33,24 @@
                 </div>
             </li>
             @endforeach
+            @else
+            @php
+                $value = App\Models\User::find(1);
+            @endphp
+            <li class="list-group-item user-list-chat-select__list-item align-items-center chat-user-{{ $value->id }} {{ getGender($value->gender) }}" data-status="{{ $value->is_online }}" data-gender="{{$value->gender}}">
+                <input type="hidden" class="add-chat-user-id" value="{{ $value->id }}">
+                <div class="new-conversation-img-status position-relative mr-2 user-{{ $value->id }}" data-status="{{ $value->is_online }}">
+                    <div class="chat__person-box-status @if($value->is_online) chat__person-box-status--online @else chat__person-box-status--offline @endif"></div>
+                    <div class="new-conversation-img-status__inner">
+                        <img src="{{ $value->photo_url }}" alt="user-avatar-img" class="user-avatar-img add-user-img">
+                    </div>
+                </div>
+                <div>
+                    <span class="add-user-contact-name align-self-center">{{ $value->name }}</span>
+                    <div class="align-self-center">{{ $value->email }}</div>
+                </div>
+            </li>
+            @endif
         </ul>
         <div class="text-center no-user new-conversation__no-user @if(count($users) > 0) d-none @endif">
             <div class="chat__not-selected">

@@ -106,6 +106,29 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group has-feedback row {{ $errors->has('parent_id') ? ' has-error ' : '' }}">
+                    
+                                    {!! Form::label('parent_id', __('Parent'), array('class' => 'col-md-3 control-label')); !!}
+                    
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <select class="form-control" name="parent_id" id="parent_id">
+                                                <option value="">{{ __('Select Parent') }}</option>
+                                                @if ($parents)
+                                                    @foreach($parents as $parent)
+                                                        <option value="{{ $parent->id }}" >{{ $parent->name }} {{ $parent->lastname }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                        @if ($errors->has('parent_id'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('parent_id') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="form-group has-feedback row {{ $errors->has('is_active') ? ' has-error ' : '' }}">
                                     {!! Form::label('is_active', __('Is Active?'), array('class' => 'col-md-3 control-label')); !!}
                     
@@ -195,6 +218,7 @@
 <script>
     $(document).ready(function() {
         $('#role').select2();
+        $('#parent_id').select2();
         $('#is_active').select2();
         $('#email_verified_at').select2();
     });

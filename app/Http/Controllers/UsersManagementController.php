@@ -61,9 +61,11 @@ class UsersManagementController extends Controller
         }
 
         $roles = Role::all();
+        $parents = User::whereNull('deleted_at')->get();
 
         $data = [
-            'roles'     => $roles
+            'roles'     => $roles,
+            'parents'   => $parents
         ];
 
         return view('usersmanagement.create-user')->with($data);
@@ -86,9 +88,10 @@ class UsersManagementController extends Controller
                 'password'              => 'required|min:6|max:20|confirmed',
                 'password_confirmation' => 'required|same:password',
                 'role'                  => 'required',
+                'parent_id'             => 'required',
             ],
             [
-                'name.unique'         => trans('auth.userNameTaken'),
+                'email.unique'        => trans('auth.userNameTaken'),
                 'name.required'       => trans('auth.userNameRequired'),
                 'last_name.required'  => trans('auth.lNameRequired'),
                 'email.required'      => trans('auth.emailRequired'),
@@ -112,6 +115,7 @@ class UsersManagementController extends Controller
             'email'             => $request->input('email'),
             'password'          => bcrypt($request->input('password')),
             'is_active'         => $request->input('is_active'),
+            'parent_id'         => $request->input('parent_id'),
             'email_verified_at' => $request->input('email_verified_at') == '1' ? date("Y-m-d H:i:s", time()) : null,
         ]);
 
@@ -162,10 +166,12 @@ class UsersManagementController extends Controller
             return redirect()->action('UserController@index');
         }
         $roles = Role::all();
+        $parents = User::whereNull('deleted_at')->get();
 
         $data = [
             'user'        => $user,
-            'roles'       => $roles
+            'roles'       => $roles,
+            'parents'     => $parents
         ];
 
         return view('usersmanagement.edit-user')->with($data);
@@ -214,6 +220,7 @@ class UsersManagementController extends Controller
         }
 
         $user->is_active = $request->input('is_active');
+        $user->parent_id = $request->input('parent_id');
 
         if($request->input('email_verified_at') == '1') {
             $user->email_verified_at = date('Y-m-d H:i:s', time());

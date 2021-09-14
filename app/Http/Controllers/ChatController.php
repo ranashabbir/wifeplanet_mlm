@@ -9,6 +9,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Auth;
 
 /**
  * Class ChatController
@@ -37,12 +38,14 @@ class ChatController extends AppBaseController
         $blockUserRepository = app(BlockUserRepository::class);
         list($blockUserIds, $blockedByMeUserIds) = $blockUserRepository->blockedUserIds();
 
-        $data['users'] = User::toBase()
-            ->limit(50)
-            ->orderBy('name')
-            ->select(['name', 'id'])
-            ->pluck('name', 'id')
-            ->except(getLoggedInUserId());
+        if (Auth::user()->hasRole('admin')) {
+            $data['users'] = User::toBase()
+                ->limit(50)
+                ->orderBy('name')
+                ->select(['name', 'id'])
+                ->pluck('name', 'id')
+                ->except(getLoggedInUserId());
+        }
         $data['enableGroupSetting'] = isGroupChatEnabled();
         $data['membersCanAddGroup'] = canMemberAddGroup();
         $data['myContactIds'] = $myContactIds;
