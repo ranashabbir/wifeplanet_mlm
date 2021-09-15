@@ -29,7 +29,7 @@ class Country extends Model
         'name',
         'code',
         'short_code',
-        'time_zone'
+        // 'time_zone'
     ];
 
     /**
@@ -41,7 +41,7 @@ class Country extends Model
         'name' => 'string',
         'code' => 'string',
         'short_code' => 'string',
-        'time_zone' => 'string'
+        // 'time_zone' => 'string'
     ];
 
     /**
@@ -53,7 +53,7 @@ class Country extends Model
         'name' => 'required|max:120|unique:countries',
         'code' => 'max:60',
         'short_code' => 'max:30',
-        'time_zone' => 'max:30'
+        // 'time_zone' => 'max:30'
     ];
 
     /**
