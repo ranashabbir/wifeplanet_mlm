@@ -34,7 +34,7 @@ class CountryController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $countries = $this->countryRepository->all();
+        $countries = Country::paginate(10);
 
         return view('countries.index')
             ->with('countries', $countries);
@@ -161,7 +161,7 @@ class CountryController extends AppBaseController
 
     public function readcsv()
     {
-        // ini_set('max_execution_time', 30000);
+        ini_set('max_execution_time', 30000);
         $file_n = storage_path('app/worldcities.csv');
         $file = fopen($file_n, "r");
         $all_data = array();

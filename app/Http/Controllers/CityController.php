@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateCityRequest;
 use App\Repositories\CityRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\City;
 use Flash;
 use Response;
 
@@ -31,7 +32,7 @@ class CityController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $cities = $this->cityRepository->all();
+        $cities = City::paginate(10);
 
         return view('cities.index')
             ->with('cities', $cities);
