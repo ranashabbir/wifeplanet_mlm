@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateStateRequest;
 use App\Repositories\StateRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\State;
 use Flash;
 use Response;
 
@@ -31,7 +32,7 @@ class StateController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $states = $this->stateRepository->all();
+        $states = State::paginate(10);
 
         return view('states.index')
             ->with('states', $states);
