@@ -46,7 +46,7 @@
                         <div class="col-md-7 col-lg-12 col-xl-9">
                             <div>
                                 <span class="db">
-                                <img src="{{ asset('assets/images/logo2.png') }}" alt="logo" />
+                                <img src="{{ asset('assets/images/logo2.png') }}" alt="logo" style="width:100%;" />
                             </span>
                                 {{-- <span class="db"><img src="{{ asset('assets/images/logo-light-text.png') }}" alt="logo" /></span> --}}
                             </div>
