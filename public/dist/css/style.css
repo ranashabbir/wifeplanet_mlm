@@ -10638,8 +10638,9 @@ Notify
     border-left: 3px solid transparent; }
     .sidebar-nav ul .sidebar-item .sidebar-link .hide-menu {
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap; }
+      /* text-overflow: ellipsis;
+      white-space: nowrap;  */
+    }
     .sidebar-nav ul .sidebar-item .sidebar-link .feather {
       height: 18px;
       width: 18px;

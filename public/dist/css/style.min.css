@@ -14160,15 +14160,14 @@ div#file_export_info {
   }
   .entry:last-child:before {
     width: 10px;
-    height: 50%;
+    height: 52%;
    
   }
   .entry:last-child:after {
     height: 10px;
     border-top: none;
     border-bottom: 2px solid #eee9dc;
-    
-    margin-top: -9px;
+    margin-top: -7px;
   }
   .entry.sole:before {
     display: none;
