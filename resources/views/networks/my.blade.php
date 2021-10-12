@@ -37,7 +37,7 @@
             <div class="animated fadeIn">
                 <div id="wrapper">
                     <span class="label first">{{$user->name}}</span>
-                    <div class="branch lv1">
+                    {{-- <div class="branch lv1">
                         @foreach($user->children as $key => $first)
                             <div class="entry {{$countArray[$key]}}">
                                 <span class="label">{{$first->name}}</span>
@@ -68,8 +68,8 @@
                                 @endif
                             </div>
                         @endforeach
-                    </div>
-                    {{-- <div class="branch lv1">
+                    </div> --}}
+                    <div class="branch lv1">
                         <div class="entry one"><span class="label">Entry-1</span>
                             <div class="branch lv2">
                                 <div class="entry"><span class="label">Entry-1-1</span>
@@ -111,7 +111,7 @@
                         </div>
                         <div class="entry three"><span class="label">Entry-4</span></div>
                         <div class="entry three"><span class="label">Entry-5</span></div>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>

@@ -44,7 +44,7 @@
             <div class="auth-box p-4 bg-white rounded">
                 <div>
                     <div class="logo text-center">
-                        <span class="db"><img src="{{ asset('assets/images/logo-icon.png') }}" alt="logo" /></span>
+                        <span class="db"><img src="{{ asset('assets/images/logo2.png') }}" alt="logo" style="width:100%;" /></span>
                         <h5 class="font-weight-medium mb-3 mt-1">{{ __('Register') }} to {{ config('app.name', 'Laravel') }}</h5>
                     </div>
                     <!-- Form -->

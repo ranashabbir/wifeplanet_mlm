@@ -61,8 +61,8 @@
                                         @foreach($subscriptions as $subscription)
                                             <tr>
                                                 <td>{{ $subscription->id }}</td>
-                                                <td>{{ $subscription->user->name }}</td>
-                                                <td>{{ $subscription->plan->title }}</td>
+                                                <td>{{ $subscription->name }} {{ $subscription->lastname }}</td>
+                                                <td>{{ $subscription->title }}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">
                                                     {{ $subscription->price }}
                                                 </td>
@@ -72,7 +72,7 @@
                                                 <td class="hidden-sm hidden-xs hidden-md">{{$subscription->created_at}}</td>
                                                 <td class="hidden-sm hidden-xs hidden-md">{{$subscription->updated_at}}</td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-success" href="{{ URL::to('commissions/' . $subscription->user->id) }}" data-toggle="tooltip" title="{!! __('View Commissions') !!}">
+                                                    <a class="btn btn-sm btn-success" href="{{ URL::to('commissions/' . $subscription->user_id) }}" data-toggle="tooltip" title="{!! __('View Commissions') !!}">
                                                         {!! __('View Commissions') !!}
                                                     </a> 
                                                 </td>
