@@ -18,6 +18,7 @@ class SubscriptionController extends Controller
                             ->leftJoin('users', 'subscriptions.user_id', '=', 'users.id')
                             ->whereNull('subscriptions.deleted_at')
                             ->whereNull('plans.deleted_at')
+                            ->orderBy('subscriptions.id', 'desc')
                             ->paginate(10);
 
         return view('subscriptions.index')

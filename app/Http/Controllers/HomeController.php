@@ -56,7 +56,6 @@ class HomeController extends Controller
                             ->where('users.created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
                             ->whereNull('users.deleted_at')
                             ->distinct()->get(['users.id'])
-                            // ->get()
                             ->count()
             ;
 
@@ -65,7 +64,7 @@ class HomeController extends Controller
                             ->where('users.created_at', '>=', date('Y-m-d H:i:s', strtotime('-1 month')))
                             ->where('subscriptions.price', 0)
                             ->whereNull('users.deleted_at')
-                            ->get()
+                            ->distinct()->get(['users.id'])
                             ->count()
             ;
 
