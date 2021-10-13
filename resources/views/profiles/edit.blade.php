@@ -41,8 +41,13 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="collapseTwo card-collapse collapse @if($user->profile->avatar != '') show @endif">
-                                                                    <div class="card-body">
+                                                                    <div class="card-body" style="display: inline-block;">
+                                                                        <h4>{{ __('Profile Photo') }}</h4>
                                                                         <img id="user_selected_avatar" class="user-avatar" src="@if ($user->profile->avatar != NULL) {{ $user->profile->avatar }} @endif" alt="{{ $user->name }}">
+                                                                    </div>
+                                                                    <div class="card-body" style="display: inline-block;">
+                                                                        <h4>{{ __('Verification Photo') }}</h4>
+                                                                        <img id="user_selected_avatar" class="user-avatar" src="@if ($user->profile->verify_photo != NULL) {{ $user->profile->verify_photo }} @endif" alt="{{ $user->name }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -73,6 +78,18 @@
                                                                 @if ($errors->has('avatar'))
                                                                     <span class="help-block">
                                                                         <strong>{{ $errors->first('avatar') }}</strong>
+                                                                    </span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group has-feedback {{ $errors->has('verify_photo') ? ' has-error ' : '' }}">
+                                                            {!! Form::label('verify_photo', __('Avatar') , array('class' => 'col-12 control-label')); !!}
+                                                            <div class="col-12">
+                                                                {!! Form::file('verify_photo', array('id' => 'verify_photo', 'class' => 'form-control', 'placeholder' => __('Avatar'))) !!}
+                                                                <span class="glyphicon {{ $errors->has('verify_photo') ? ' glyphicon-asterisk ' : ' glyphicon-pencil ' }} form-control-feedback" aria-hidden="true"></span>
+                                                                @if ($errors->has('verify_photo'))
+                                                                    <span class="help-block">
+                                                                        <strong>{{ $errors->first('verify_photo') }}</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>

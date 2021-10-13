@@ -34,7 +34,8 @@ class MessagesController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $messages = Conversation::whereNull('reply_to')->where('to_id', \Auth::user()->id)->paginate(10);
+        $messages = Conversation::whereNull('reply_to')->where('to_id', \Auth::user()->id)
+                            ->orderBy('id', 'desc')->paginate(10);
 
         return view('messages.index')
             ->with('messages', $messages);
@@ -42,7 +43,8 @@ class MessagesController extends AppBaseController
 
     public function outbox(Request $request)
     {
-        $messages = Conversation::where('from_id', \Auth::user()->id)->paginate(10);
+        $messages = Conversation::where('from_id', \Auth::user()->id)
+                            ->orderBy('id', 'desc')->paginate(10);
 
         return view('messages.outbox')
             ->with('messages', $messages);
@@ -67,7 +69,16 @@ class MessagesController extends AppBaseController
      */
     public function compose()
     {
-        $users = DB::table('users')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
+        if (!\Auth::user()->hasRole('admin')) {
+            $users = DB::table('users')
+                ->leftJoin('role_user as ru', 'users.id', '=', 'ru.user_id')
+                ->leftJoin('roles as r', 'ru.role_id', '=', 'r.id')
+                ->whereNull('users.deleted_at')->where('r.slug', 'admin')
+                ->pluck('users.name', 'users.id')->toArray();
+        } else {
+            $users = DB::table('users')->whereNull('deleted_at')->pluck('name', 'id')->toArray();
+        }
+
         $users[0] = 'Select User';
         ksort($users);
 

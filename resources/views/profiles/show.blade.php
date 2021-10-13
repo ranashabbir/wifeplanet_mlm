@@ -31,14 +31,17 @@
 
 						<dl class="user-info">
 
-							@if (count($usertitle)>0)
-								<dt>
-									{{ __('Title') }}
-								</dt>
-								<dd>
+							<dt>
+								{{ __('Title') }}
+							</dt>
+							<dd>
+								@if (count($usertitle)>0)
 									{{ $usertitle[0]->title->name }}
-								</dd>
-							@endif
+								@else
+									{{ __('No Title') }}
+								@endif
+							</dd>
+							
 							<dt>
 								{{ __('Profile First Name') }}
 							</dt>
