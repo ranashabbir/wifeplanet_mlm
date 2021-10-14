@@ -38,9 +38,9 @@ class UsersManagementController extends Controller
 
         $pagintaionEnabled = config('usersmanagement.enablePagination');
         if ($pagintaionEnabled) {
-            $users = User::with('parent')->paginate(config('usersmanagement.paginateListSize'));
+            $users = User::with('parent')->orderBy('id', 'desc')->paginate(config('usersmanagement.paginateListSize'));
         } else {
-            $users = User::with('parent')->get();
+            $users = User::with('parent')->orderBy('id', 'desc')->get();
         }
         $roles = Role::all();
 

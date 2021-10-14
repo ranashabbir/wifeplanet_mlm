@@ -26,9 +26,11 @@
 
 					</div>
 					<div class="card-body">
-
+						<h4>Profile Photo</h4>
     					<img src="@if ($user->profile && $user->profile->avatar) {{ $user->profile->avatar }} @else {{ Gravatar::get($user->email) }} @endif" alt="{{ $user->name }}" class="user-avatar">
-
+						
+						<h4>Verification Photo</h4>
+						<img class="user-avatar" src="@if($user->profile->verify_photo != NULL){{ Storage::url($user->profile->verify_photo) }}@endif" alt="{{ $user->name }}">
 						<dl class="user-info">
 
 							<dt>

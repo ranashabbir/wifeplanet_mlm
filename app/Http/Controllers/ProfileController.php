@@ -14,6 +14,7 @@ use Image;
 use DB;
 use App\Models\Plan;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -159,6 +160,28 @@ class ProfileController extends Controller
 
             // Save the public image path
             $currentUser->profile->avatar = $public_path;
+            $currentUser->profile->save();
+        }
+
+        if ($request->hasFile('verify_photo')) {
+            $currentUser = $user;
+            $image = $request->file('verify_photo');
+            $file_name = explode('.',$image->getClientOriginalName());
+            $file_name = $file_name[0].'_'.time().rand(4,9999);
+            $file_type = $image->getClientOriginalExtension();
+            $file_title = $image->getClientOriginalName();
+
+            $img = Image::make($image->getRealPath());
+            $img->resize(300, 300, function ($constraint) {
+                $constraint->aspectRatio();                 
+            });
+
+            $img->stream(); // <-- Key point
+
+            $fileName = $file_name.'.'.$file_type;
+            Storage::disk('local')->put('public/verify_photos/' . $currentUser->id . '/'.  $fileName, $img, 'public');
+
+            $currentUser->profile->verify_photo = 'verify_photos/' . $currentUser->id . '/'.  $fileName;
             $currentUser->profile->save();
         }
 

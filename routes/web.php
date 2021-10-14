@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
 Route::get('/readcsv', 'CountryController@readcsv')->name('readcsv');
 
 Route::get('register/{code?}', 'Auth\RegisterController@showRegistrationForm');
@@ -136,7 +139,7 @@ Route::group(['middleware' => ['user.activated', 'auth']], function () {
     Route::get('/mynetworks', 'InviteController@mynetworks')->name('invite.mynetworks');
 
     Route::group(['namespace' => 'API'], function () {
-        Route::get('logout', 'Auth\LoginController@logout');
+        // Route::get('logout', 'Auth\LoginController@logout');
 
         //get all user list for chat
         Route::get('users-list', 'UserAPIController@getUsersList');

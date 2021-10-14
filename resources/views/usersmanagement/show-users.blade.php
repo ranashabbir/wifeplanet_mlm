@@ -51,6 +51,7 @@
                                             <th>{!! __('laravelusers::laravelusers.users-table.name') !!}</th>
                                             <th class="hidden-xs">{!! __('laravelusers::laravelusers.users-table.email') !!}</th>
                                             <th class="hidden-sm hidden-xs hidden-md">{!! __('Parent') !!}</th>
+                                            <th class="hidden-sm hidden-xs hidden-md">{!! __('Verify Photo') !!}</th>
                                             @if(config('laravelusers.rolesEnabled'))
                                                 <th class="hidden-sm hidden-xs">{!! __('laravelusers::laravelusers.users-table.role') !!}</th>
                                             @endif
@@ -72,6 +73,13 @@
                                                         {{$user->parent->name}}
                                                     @else
                                                         {{ __("No Parent") }}
+                                                    @endif
+                                                </td>
+                                                <td class="hidden-xs">
+                                                    @if($user->profile->verify_photo != NULL)
+                                                        <img style="width:50px;height:50px;" src="{{ Storage::url($user->profile->verify_photo) }}" alt="{{ $user->name }}">
+                                                    @else
+                                                        Not Added
                                                     @endif
                                                 </td>
                                                 @if(config('laravelusers.rolesEnabled'))

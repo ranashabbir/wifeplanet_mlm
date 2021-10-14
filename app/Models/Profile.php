@@ -51,6 +51,7 @@ class Profile extends Model
         'state_id',
         'country_id',
         'avatar',
+        'verify_photo',
     ];
 
     /**

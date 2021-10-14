@@ -63,11 +63,8 @@ Route::group(['middleware' => ['role:Admin', 'auth:api', 'user.activated']], fun
     Route::post('roles/{role}/update', 'RoleAPIController@update');
 });
 
-
 Route::resource('countries', App\Http\Controllers\API\CountryAPIController::class);
 
 Route::resource('states', App\Http\Controllers\API\StateAPIController::class);
-
-
 
 Route::resource('cities', App\Http\Controllers\API\CityAPIController::class);
