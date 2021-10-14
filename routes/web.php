@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/readcsv', 'CountryController@readcsv')->name('readcsv');
 
