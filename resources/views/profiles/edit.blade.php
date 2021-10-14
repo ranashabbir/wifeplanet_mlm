@@ -48,7 +48,11 @@
                                                                         </div>
                                                                         <div style="display:inline-block;vertical-align:top;">
                                                                             <h4>{{ __('Verification Photo') }}</h4>
-                                                                            <img id="user_selected_avatar" class="user-avatar" src="@if($user->profile->verify_photo != NULL){{ Storage::url($user->profile->verify_photo) }}@endif" alt="{{ $user->name }}">
+                                                                            @if($user->profile->verify_photo != NULL)
+                                                                            <img id="user_selected_avatar" class="user-avatar" src="{{ Storage::url($user->profile->verify_photo) }}" alt="{{ $user->name }}">
+                                                                            @else
+                                                                            Not added
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 </div>
