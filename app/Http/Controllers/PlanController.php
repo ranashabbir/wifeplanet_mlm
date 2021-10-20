@@ -364,25 +364,59 @@ class PlanController extends AppBaseController
         }
 
         $levelOneUser = $user->parent;
-        if ($levelOneUser && $plan->bonus) {
-            $bonus = $plan->bonus;
-            $this->addCommission($user->id, $levelOneUser->id, $bonus, 1);
+        $subscription = $levelOneUser->subscriptions()->latest()->first();
 
-            if ($levelOneUser->parent_id != 0) {
-                $levelTwoUser = DB::table('users')->where('id', $levelOneUser->parent_id)->first();
-                $this->addCommission($user->id, $levelTwoUser->id, $bonus, 2);
-                
-                if ($levelTwoUser->parent_id != 0) {
-                    $levelThreeUser = DB::table('users')->where('id', $levelTwoUser->parent_id)->first();
-                    $this->addCommission($user->id, $levelThreeUser->id, $bonus, 3);
+        if ($levelOneUser && $subscription) {
+            $subplan = $subscription->plan()->latest()->first();
+            $bonus = $subplan->with('bonus')->first()->bonus;
+            if ($subplan && $bonus) {
+                $this->addCommission($user->id, $levelOneUser->id, $bonus, 1);
 
-                    if ($levelThreeUser->parent_id != 0) {
-                        $levelFourUser = DB::table('users')->where('id', $levelThreeUser->parent_id)->first();
-                        $this->addCommission($user->id, $levelFourUser->id, $bonus, 4);
-    
-                        if ($levelFourUser->parent_id != 0) {
-                            $levelFiveUser = DB::table('users')->where('id', $levelFourUser->parent_id)->first();
-                            $this->addCommission($user->id, $levelFiveUser->id, $bonus, 5);
+                if ($levelOneUser->parent_id != 0) {
+                    $levelTwoUser = User::where('id', $levelOneUser->parent_id)->first();
+                    $subscription = $levelTwoUser->subscriptions()->latest()->first();
+                    
+                    if ($subscription) {
+                        $subplan = $subscription->plan()->latest()->first();
+                        $bonus = $subplan->with('bonus')->first()->bonus;
+                        if ($subplan && $bonus) {
+                            $this->addCommission($user->id, $levelTwoUser->id, $bonus, 2);
+                            
+                            if ($levelTwoUser->parent_id != 0) {
+                                $levelThreeUser = User::where('id', $levelTwoUser->parent_id)->first();
+                                $subscription = $levelThreeUser->subscriptions()->latest()->first();
+                                if ($subscription) {
+                                    $subplan = $subscription->plan()->latest()->first();
+                                    $bonus = $subplan->with('bonus')->first()->bonus;
+                                    if ($subplan && $bonus) {
+                                        $this->addCommission($user->id, $levelThreeUser->id, $bonus, 3);
+
+                                        if ($levelThreeUser->parent_id != 0) {
+                                            $levelFourUser = User::where('id', $levelThreeUser->parent_id)->first();
+                                            $subscription = $levelThreeUser->subscriptions()->latest()->first();
+                                            if ($subscription) {
+                                                $subplan = $subscription->plan()->latest()->first();
+                                                $bonus = $subplan->with('bonus')->first()->bonus;
+                                                if ($subplan && $bonus) {
+                                                    $this->addCommission($user->id, $levelFourUser->id, $bonus, 4);
+                                
+                                                    if ($levelFourUser->parent_id != 0) {
+                                                        $levelFiveUser = User::where('id', $levelFourUser->parent_id)->first();
+                                                        $subscription = $levelThreeUser->subscriptions()->latest()->first();
+                                                        if ($subscription) {
+                                                            $subplan = $subscription->plan()->latest()->first();
+                                                            $bonus = $subplan->with('bonus')->first()->bonus;
+                                                            if ($subplan && $bonus) {
+                                                                $this->addCommission($user->id, $levelFiveUser->id, $bonus, 5);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
