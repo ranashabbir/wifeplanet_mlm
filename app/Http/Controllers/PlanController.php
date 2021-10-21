@@ -364,13 +364,14 @@ class PlanController extends AppBaseController
         }
 
         $levelOneUser = $user->parent;
+        $bonus = $plan->bonus;
         $subscription = $levelOneUser->subscriptions()->latest()->first();
 
         if ($levelOneUser && $subscription) {
             $subplan = $subscription->plan()->latest()->first();
-            $bonus = $subplan->with('bonus')->first()->bonus;
-            if ($subplan && $bonus) {
-                $this->addCommission($user->id, $levelOneUser->id, $bonus, 1);
+            $subBonus = $subplan->with('bonus')->first()->bonus;
+            if ($subplan && $subBonus) {
+                $this->addCommission($user->id, $levelOneUser->id, $bonus, $subBonus, 1);
 
                 if ($levelOneUser->parent_id != 0) {
                     $levelTwoUser = User::where('id', $levelOneUser->parent_id)->first();
@@ -378,36 +379,36 @@ class PlanController extends AppBaseController
                     
                     if ($subscription) {
                         $subplan = $subscription->plan()->latest()->first();
-                        $bonus = $subplan->with('bonus')->first()->bonus;
-                        if ($subplan && $bonus) {
-                            $this->addCommission($user->id, $levelTwoUser->id, $bonus, 2);
+                        $subBonus = $subplan->with('bonus')->first()->bonus;
+                        if ($subplan && $subBonus) {
+                            $this->addCommission($user->id, $levelTwoUser->id, $bonus, $subBonus, 2);
                             
                             if ($levelTwoUser->parent_id != 0) {
                                 $levelThreeUser = User::where('id', $levelTwoUser->parent_id)->first();
                                 $subscription = $levelThreeUser->subscriptions()->latest()->first();
                                 if ($subscription) {
                                     $subplan = $subscription->plan()->latest()->first();
-                                    $bonus = $subplan->with('bonus')->first()->bonus;
-                                    if ($subplan && $bonus) {
-                                        $this->addCommission($user->id, $levelThreeUser->id, $bonus, 3);
+                                    $subBonus = $subplan->with('bonus')->first()->bonus;
+                                    if ($subplan && $subBonus) {
+                                        $this->addCommission($user->id, $levelThreeUser->id, $bonus, $subBonus, 3);
 
                                         if ($levelThreeUser->parent_id != 0) {
                                             $levelFourUser = User::where('id', $levelThreeUser->parent_id)->first();
                                             $subscription = $levelThreeUser->subscriptions()->latest()->first();
                                             if ($subscription) {
                                                 $subplan = $subscription->plan()->latest()->first();
-                                                $bonus = $subplan->with('bonus')->first()->bonus;
-                                                if ($subplan && $bonus) {
-                                                    $this->addCommission($user->id, $levelFourUser->id, $bonus, 4);
+                                                $subBonus = $subplan->with('bonus')->first()->bonus;
+                                                if ($subplan && $subBonus) {
+                                                    $this->addCommission($user->id, $levelFourUser->id, $bonus, $subBonus, 4);
                                 
                                                     if ($levelFourUser->parent_id != 0) {
                                                         $levelFiveUser = User::where('id', $levelFourUser->parent_id)->first();
                                                         $subscription = $levelThreeUser->subscriptions()->latest()->first();
                                                         if ($subscription) {
                                                             $subplan = $subscription->plan()->latest()->first();
-                                                            $bonus = $subplan->with('bonus')->first()->bonus;
-                                                            if ($subplan && $bonus) {
-                                                                $this->addCommission($user->id, $levelFiveUser->id, $bonus, 5);
+                                                            $subBonus = $subplan->with('bonus')->first()->bonus;
+                                                            if ($subplan && $subBonus) {
+                                                                $this->addCommission($user->id, $levelFiveUser->id, $bonus, $subBonus, 5);
                                                             }
                                                         }
                                                     }
@@ -441,20 +442,20 @@ class PlanController extends AppBaseController
         return redirect(route('mlm.packages'));
     }
 
-    private function addCommission($user_id, $receiver_id, $bonus, $level) {
+    private function addCommission($user_id, $receiver_id, $bonus, $subBonus, $level) {
         $percent = 0;
         if ($level == 1) {
-            $percent = $bonus->level_1;
+            $percent = $subBonus->level_1;
         } else if ($level == 2) {
-            $percent = $bonus->level_2;
+            $percent = $subBonus->level_2;
         } else if ($level == 3) {
-            $percent = $bonus->level_3;
+            $percent = $subBonus->level_3;
         } else if ($level == 4) {
-            $percent = $bonus->level_4;
+            $percent = $subBonus->level_4;
         } else if ($level == 5) {
-            $percent = $bonus->level_5;
+            $percent = $subBonus->level_5;
         }
-
+// echo $user_id . ' - ' . $receiver_id . ' - ' . $bonus->commission . ' - ' . $percent . ' - ' . $level;echo'<br />';
         if ($percent != 0) {
             $commission = new Commission();
             $commission->price = ( $bonus->commission * $percent ) / 100;
